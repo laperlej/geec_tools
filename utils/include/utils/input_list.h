@@ -1,0 +1,28 @@
+//
+//  file_list.h
+//  GeFF
+//
+//  Created by Jonathan Laperle on 2015-04-07.
+//  Copyright (c) 2015 Jonathan Laperle. All rights reserved.
+//
+
+#ifndef UTILS_INCLUDE_UTILS_INPUT_LIST_H_
+#define UTILS_INCLUDE_UTILS_INPUT_LIST_H_
+
+#include <utility>
+#include <string>
+#include <vector>
+
+class InputList {
+ public:
+  InputList();
+  explicit InputList(const std::string& file_path);
+  ~InputList() {}
+  std::pair<std::string, std::string> operator[](const int index);
+  size_t size();
+ private:
+  std::vector<std::string> files_;
+  std::vector<std::string> names_;
+};
+
+#endif  // UTILS_INCLUDE_UTILS_INPUT_LIST_H_
