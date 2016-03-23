@@ -15,12 +15,13 @@ workflow:
         make_matrix
         heatmap
 """
-
 import sys
-import ihec_json
 import os
 import config
 from multiprocessing import Pool
+import kent
+import utils
+from bigwig import BigWig
 
 
 #TODO fix parralel version
@@ -38,28 +39,37 @@ def repair_files_parallel(json):
         pool.close()
         pool.join()
 """
-def repair_files(json):
-    for dataset in json.datasets.itervalues():
+def repair_files(datasets):
+    for dataset in datasets:
         if dataset.has_large_index():
             dataset.bwbgbw()
 
-def write_input_list(json, path):
-    with open(path, 'w') as input_list:
-        for dataset in json.datasets.itervalues():
+def write_output_list(datasets, path):
+    with open(path, 'w') as output_list:
+        for dataset in datasets.itervalues():
             if dataset.isValid():
                 line = '{0}\t{1}\n'.format(dataset.path, dataset.md5sum)
-                input_list.write(line)
+                output_list.write(line)
+
+def load_datasets(input_list):
+    datasets = {}
+    with open(input_list, 'r') as input_file:
+        for line in input_file:
+            if line:
+                path, md5 = line.split()
+                datasets[md5] = path
+    return datasets
 
 def main():
-    json = ihec_json.IhecJson(INPUT_JSON)
+    datasets = load_datasets(INPUT_LIST)
     #repair large index files
-    repair_files(json)
+    repair_files(datasets)
     #prepare to_hdf5 input
-    write_input_list(json, OUTPUT_LIST)
+    write_output_list(datasets, OUTPUT_LIST)
 
 
 if __name__ == '__main__':
-    INPUT_JSON = sys.argv[1]
+    INPUT_LIST = sys.argv[1]
     OUTPUT_LIST = sys.argv[2]
     #NUM_THREADS = int(sys.argv[3])
     main()
