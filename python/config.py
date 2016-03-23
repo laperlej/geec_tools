@@ -2,7 +2,7 @@ import os.path
 
 #directories
 MODULE_DIR = os.path.dirname(os.path.realpath(__file__))
-TMP_DIR = '/tmp/geec'
+TMP_DIR = '/home/laperlej/mntHome/tmp/'
 IHEC_DIR = '/nfs3_ib/10.4.217.32'
 
 #executables
