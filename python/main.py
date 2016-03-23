@@ -57,7 +57,7 @@ def load_datasets(input_list):
         for line in input_file:
             if line:
                 path, md5 = line.split()
-                datasets[md5] = path
+                datasets[md5] = BigWig(path, md5)
     return datasets
 
 def main():
