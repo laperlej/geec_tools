@@ -20,6 +20,7 @@ def big_wig_info(path):
         std: 25.408247
     """
     try:
+        print([config.BWI, path])
         info = subprocess.check_output([config.BWI, path], stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError:
         info = None
