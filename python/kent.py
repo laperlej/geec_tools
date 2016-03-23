@@ -22,6 +22,7 @@ def big_wig_info(path):
     try:
         info = subprocess.check_output([config.BWI, path], stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError:
+        print("BWINFO error : {0}".format(path))
         info = None
     return info
 
@@ -46,6 +47,7 @@ def bw_to_bg(bw_path, bg_path):
                                         stderr=subprocess.STDOUT)
         return 0
     except subprocess.CalledProcessError:
+        print("BW2BG error : {0}".format(bw_path))
         return 1
 
 def bg_to_bw(bg_path, bw_path, chrom_size):
@@ -57,4 +59,5 @@ def bg_to_bw(bg_path, bw_path, chrom_size):
                                         stderr=subprocess.STDOUT)
         return 0
     except subprocess.CalledProcessError:
+        print("BG2BW error : {0}".format(bw_path))
         return 1
