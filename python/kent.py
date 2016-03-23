@@ -41,7 +41,6 @@ def bwbgbw(bw_path1, bg_path, bw_path2, chrom_size):
 
 def bw_to_bg(bw_path, bg_path):
     try:
-        print(' '.join([config.BW_TO_BG,bw_path,bg_path]))
         info = subprocess.check_output([config.BW_TO_BG,
                                         bw_path,
                                         bg_path],
