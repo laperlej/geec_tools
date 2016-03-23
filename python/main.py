@@ -1,6 +1,6 @@
 """
 workflow:
-    parse json -> path, md5, assembly
+    parse list -> path, md5, assembly
     validation:
         case 1: valid
         case 2: invalid
@@ -57,7 +57,7 @@ def load_datasets(input_list):
         for line in input_file:
             if line:
                 path, md5 = line.split()
-                datasets[md5] = BigWig(path, md5)
+                datasets[md5] = BigWig(path, md5, ASSEMBLY)
     return datasets
 
 def main():
@@ -70,6 +70,7 @@ def main():
 
 if __name__ == '__main__':
     INPUT_LIST = sys.argv[1]
-    OUTPUT_LIST = sys.argv[2]
+    ASSEMBLY = sys.argv[2]
+    OUTPUT_LIST = sys.argv[3]
     #NUM_THREADS = int(sys.argv[3])
     main()
