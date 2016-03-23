@@ -40,7 +40,7 @@ def repair_files_parallel(json):
         pool.join()
 """
 def repair_files(datasets):
-    for dataset in datasets:
+    for dataset in datasets.itervalues():
         if dataset.has_large_index():
             dataset.bwbgbw()
 
