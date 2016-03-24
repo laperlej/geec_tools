@@ -32,11 +32,11 @@ CHROM_SIZE = {
     'hg19': os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
                          'chrom_sizes',
-                         'hg19.chrom.sizes'),
+                         'hg19ext.chrom.sizes'),
     'mm10': os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
                          'chrom_sizes',
-                         'mm10.chrom.sizes')
+                         'mm10ext.chrom.sizes')
 }
 
 #regions
