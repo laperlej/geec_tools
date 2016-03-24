@@ -29,9 +29,11 @@ def big_wig_info(path):
 def bwbgbw(bw_path1, bg_path, bw_path2, chrom_size):
     if os.path.exists(bw_path2):
         return 0
-    return_code = bw_to_bg(bw_path1, bg_path)
-    if return_code:
-        return 1
+
+    if not os.path.exists(bg_path):
+        return_code = bw_to_bg(bw_path1, bg_path)
+        if return_code:
+            return 1
 
     return_code = bg_to_bw(bg_path, bw_path2, chrom_size)
     if return_code:
@@ -51,6 +53,7 @@ def bw_to_bg(bw_path, bg_path):
         return 1
 
 def bg_to_bw(bg_path, bw_path, chrom_size):
+    print ' '.join([config.BG_TO_BW, bg_path, chrom_size, bw_path])
     try:
         info = subprocess.check_output([config.BG_TO_BW,
                                         bg_path,
