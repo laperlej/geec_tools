@@ -37,6 +37,10 @@ CHROM_SIZE = {
                          'resource',
                          'chrom_sizes',
                          'mm10ext.chrom.sizes')
+    'hg38': os.path.join(os.path.dirname(MODULE_DIR),
+                         'resource',
+                         'chrom_sizes',
+                         'hg38ext.chrom.sizes')
 }
 
 #regions
@@ -48,6 +52,22 @@ REGION={'hg19': {'all': os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
                          'region',
                          'hg19.exclude.bed')}
+       {'mm10': {'all': os.path.join(os.path.dirname(MODULE_DIR),
+                         'resource',
+                         'region',
+                         'mm10.all.bed'),
+                 'blacklisted': os.path.join(os.path.dirname(MODULE_DIR),
+                         'resource',
+                         'region',
+                         'mm10.exclude.bed')}
+       {'hg38': {'all': os.path.join(os.path.dirname(MODULE_DIR),
+                         'resource',
+                         'region',
+                         'hg38.all.bed'),
+                 'blacklisted': os.path.join(os.path.dirname(MODULE_DIR),
+                         'resource',
+                         'region',
+                         'hg38.exclude.bed')}
 }
 
 #precalculated
