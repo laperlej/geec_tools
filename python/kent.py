@@ -53,7 +53,6 @@ def bw_to_bg(bw_path, bg_path):
         return 1
 
 def bg_to_bw(bg_path, bw_path, chrom_size):
-    print ' '.join([config.BG_TO_BW, bg_path, chrom_size, bw_path])
     try:
         info = subprocess.check_output([config.BG_TO_BW,
                                         bg_path,

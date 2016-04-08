@@ -26,7 +26,8 @@ class BigWig(object):
         #TODO do away with tempnam
         #new_path = os.tempnam(config.TMP_DIR)
         new_path = os.path.join(config.TMP_DIR, os.path.basename(self.path).replace(':','_'))
-        os.symlink(self.path, new_path)
+        if not os.path.exists(new_path):
+            os.symlink(self.path, new_path)
         return new_path
 
     def isValid(self):
