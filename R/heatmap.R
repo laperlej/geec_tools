@@ -6,8 +6,9 @@ args <- commandArgs(trailingOnly=T)
 matrixFile <- args[1]
 outputList <- args[2]
 outputRaster <- args[3]
+outputDendro <- args[4]
 #input data
-m <- as.matrix(read.csv(matrixFile, header=T, sep = '\t', row.names = 1, as.is=T))
+m <- as.matrix(read.csv(matrixFile, header=T, sep = '\t', row.names = 1, as.is=T, check.names=F))
 #reorder alphabetically
 m.sorted <- m[order(row.names(m)), order(row.names(m))]
 
@@ -34,4 +35,9 @@ breaks <- c(seq(-1, 0, length.out=n/2)-0.001, 0, seq(0, 1, length.out=n/2)+0.001
 png(outputRaster, width=2000, height=2000)
 plot(m.raster, col=cols, breaks=breaks, interpolate=FALSE, xlim=c(0,1), ylim=c(0,1), legend=FALSE, axes=FALSE, bty="n", box=FALSE)
 plot(m.raster, legend.only=TRUE, col=cols, breaks=breaks, axis.args=list(at=seq(-1, 1, 1), labels=seq(-1, 1, 1)))
+dev.off()
+
+#create dendro
+pdf(outputDendro, width=1000, height=40)
+plot(m.clust, hang = -1)
 dev.off()
