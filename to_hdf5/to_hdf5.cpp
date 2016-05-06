@@ -59,8 +59,11 @@ int main(int argc, const char * argv[]) {
 
   #pragma omp parallel for private(hdf5_dataset, genomic_file_reader, input_path, input_name, is_valid)
   for (int i = 0; i < input_list.size(); ++i) {
+    std::cout << "a"<< std::endl << std::flush;
     input_path = input_list[i].first;
+    std::cout << "b"<< std::endl << std::flush;
     input_name = input_list[i].second;
+    std::cout << "c"<< std::endl << std::flush;
     #pragma omp critical (write_hdf5)
     {
       std::cout << input_name<< std::endl << std::flush;
