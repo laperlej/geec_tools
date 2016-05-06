@@ -61,13 +61,11 @@ int main(int argc, const char * argv[]) {
   for (int i = 0; i < input_list.size(); ++i) {
     input_path = input_list[i].first;
     input_name = input_list[i].second;
-    std::cout << input_name<< std::endl << std::flush;
     #pragma omp critical (write_hdf5)
     {
       is_valid = hdf5_writer.IsValid("/" + input_name);
     }
     if (!is_valid) {
-      std::cout << input_name<< std::endl << std::flush;
       try {
         genomic_file_reader = GenomicFileReaderFactory::createGenomicFileReader(
           input_path, "bw", chrom_size);
