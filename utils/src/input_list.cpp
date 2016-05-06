@@ -17,18 +17,18 @@ InputList::InputList(const std::string& file_path) {
   int count = 0;
   bool exists = 0;
   while (flot>> path>> name) {
-    exists = index_map_.emplace(name, count) -> second; // ensures no duplicates
+    exists = this->index_map_.emplace(name, count) -> second; // ensures no duplicates
     if (!exists) {
-      files_.push_back(std::make_pair(path, name));
+      this->files_.push_back(std::make_pair(path, name));
       ++count;
     }
   }
 }
 
 std::pair<std::string, std::string> InputList::operator[](const int index) {
-  return files_[index];
+  return this->files_[index];
 }
 
 size_t InputList::size() {
-  return files_.size();
+  return this->files_.size();
 }

@@ -19,7 +19,7 @@ Params:
   bin_size: basepair resolution of the hdf5
 
 Output:
-  a file where every line is "name1vsname2 chrX,0.12313 chrY,0.12313"
+  a file where every line is "name1:name2 chrX,0.12313 chrY,0.12313"
 */
 
 #if defined(_OPENMP)
