@@ -55,13 +55,18 @@ int main(int argc, const char * argv[]) {
   GenomicFileReader* genomic_file_reader = NULL;
   Hdf5Dataset* hdf5_dataset = NULL;
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
+  bool is_valid;
 
-  //#pragma omp parallel for private(hdf5_dataset, genomic_file_reader, input_path, input_name)
+  #pragma omp parallel for private(hdf5_dataset, genomic_file_reader, input_path, input_name, is_valid)
   for (int i = 0; i < input_list.size(); ++i) {
     input_path = input_list[i].first;
     input_name = input_list[i].second;
     std::cout << input_name<< std::endl << std::flush;
-    if (!hdf5_writer.IsValid("/" + input_name)) {
+    #pragma omp critical (write_hdf5)
+    {
+      is_valid = hdf5_writer.IsValid("/" + input_name)
+    }
+    if (!is_valid) {
       std::cout << input_name<< std::endl << std::flush;
       try {
         genomic_file_reader = GenomicFileReaderFactory::createGenomicFileReader(
@@ -71,7 +76,7 @@ int main(int argc, const char * argv[]) {
             hdf5_dataset = Hdf5DatasetFactory::createHdf5Dataset(
               input_name, genomic_file_reader, chrom, chrom_size[chrom], bin);
             hdf5_dataset -> NormaliseContent();
-            //#pragma omp critical (write_hdf5)
+            #pragma omp critical (write_hdf5)
             {
               hdf5_writer.Append(*hdf5_dataset);
             }
@@ -81,7 +86,7 @@ int main(int argc, const char * argv[]) {
         delete genomic_file_reader;
         genomic_file_reader = NULL;
       } catch (std::exception& e) {
-        //#pragma omp critical (stdout) 
+        #pragma omp critical (stdout) 
         {
           printf("Error while reading: %s\n", input_path.c_str());
           delete hdf5_dataset;
