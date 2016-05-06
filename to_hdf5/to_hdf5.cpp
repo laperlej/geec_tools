@@ -37,7 +37,7 @@ Output:
 int main(int argc, const char * argv[]) {
   std::string output_path, chrom_path, list_path, input_path, input_name;
   int bin;
-  std::cout << "a"<< std::flush;
+  std::cout << "a"<< std::endl << std::flush;
   if (argc < 5) {
     printf("Usage: to_hdf5 {input_list.txt} "
                           "{chrom_sizes} "
@@ -45,10 +45,12 @@ int main(int argc, const char * argv[]) {
                           "{bin_size}\n");
     return 1;
   }
+  std::cout << "b"<< std::endl << std::flush;
   list_path = argv[1];
   chrom_path = argv[2];
   output_path = argv[3];
   bin = std::stoi(argv[4], NULL, 10);
+  std::cout << "c"<< std::endl << std::flush;
 
   InputList input_list(list_path);
   ChromSize chrom_size = ChromSize(chrom_path);
