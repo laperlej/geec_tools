@@ -37,7 +37,6 @@ Output:
 int main(int argc, const char * argv[]) {
   std::string output_path, chrom_path, list_path, input_path, input_name;
   int bin;
-  std::cout << "a"<< std::endl << std::flush;
   if (argc < 5) {
     printf("Usage: to_hdf5 {input_list.txt} "
                           "{chrom_sizes} "
@@ -45,12 +44,11 @@ int main(int argc, const char * argv[]) {
                           "{bin_size}\n");
     return 1;
   }
-  std::cout << "b"<< std::endl << std::flush;
   list_path = argv[1];
   chrom_path = argv[2];
   output_path = argv[3];
   bin = std::stoi(argv[4], NULL, 10);
-  std::cout << "c"<< std::endl << std::flush;
+  std::cout << "a"<< std::endl << std::flush;
 
   InputList input_list(list_path);
   ChromSize chrom_size = ChromSize(chrom_path);
@@ -58,7 +56,7 @@ int main(int argc, const char * argv[]) {
   GenomicFileReader* genomic_file_reader = NULL;
   Hdf5Dataset* hdf5_dataset = NULL;
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
-
+  std::cout << "b"<< std::endl << std::flush;
   #pragma omp parallel for private(hdf5_dataset, genomic_file_reader, input_path, input_name)
   for (int i = 0; i < input_list.size(); ++i) {
     input_path = input_list[i].first;
