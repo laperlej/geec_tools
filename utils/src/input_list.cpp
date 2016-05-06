@@ -15,7 +15,7 @@ InputList::InputList(const std::string& file_path) {
   std::ifstream flot(file_path);
   std::string path, name;
   int count = 0;
-  bool exists = 0;
+  bool success = 0;
   while (flot>> path>> name) {
     success = this->index_map_.emplace(name, count).second; // ensures no duplicates
     if (success) {
