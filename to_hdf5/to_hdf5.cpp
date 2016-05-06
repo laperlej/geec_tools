@@ -61,6 +61,8 @@ int main(int argc, const char * argv[]) {
   for (int i = 0; i < input_list.size(); ++i) {
     input_path = input_list[i].first;
     input_name = input_list[i].second;
+    std::cout << i<< std::endl << std::flush;
+    std::cout << input_list.size()<< std::endl << std::flush;
     #pragma omp critical (write_hdf5)
     {
       is_valid = hdf5_writer.IsValid("/" + input_name);
