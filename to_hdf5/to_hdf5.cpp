@@ -64,7 +64,7 @@ int main(int argc, const char * argv[]) {
     std::cout << input_name<< std::endl << std::flush;
     #pragma omp critical (write_hdf5)
     {
-      is_valid = hdf5_writer.IsValid("/" + input_name)
+      is_valid = hdf5_writer.IsValid("/" + input_name);
     }
     if (!is_valid) {
       std::cout << input_name<< std::endl << std::flush;
