@@ -18,7 +18,7 @@ InputList::InputList(const std::string& file_path) {
   bool exists = 0;
   while (flot>> path>> name) {
     exists = this->index_map_.emplace(name, count).second; // ensures no duplicates
-    if (!exists.second) {
+    if (!exists) {
       this->files_.push_back(std::make_pair(path, name));
       ++count;
     }

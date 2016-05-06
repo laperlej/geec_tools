@@ -25,6 +25,7 @@ Output:
 #if defined(_OPENMP)
   #include <omp.h>
 #endif
+#include <iostream>
 #include <vector>
 #include <string>
 #include "utils/genomic_file_reader_factory.h"
@@ -48,19 +49,20 @@ int main(int argc, const char * argv[]) {
   chrom_path = argv[2];
   output_path = argv[3];
   bin = std::stoi(argv[4], NULL, 10);
-
+  std::cout << "a";
   InputList input_list(list_path);
   ChromSize chrom_size = ChromSize(chrom_path);
   Hdf5Writer hdf5_writer(output_path);
   GenomicFileReader* genomic_file_reader = NULL;
   Hdf5Dataset* hdf5_dataset = NULL;
-
+  std::cout << "b";
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
 
   #pragma omp parallel for private(hdf5_dataset, genomic_file_reader, input_path, input_name)
   for (int i = 0; i < input_list.size(); ++i) {
     input_path = input_list[i].first;
     input_name = input_list[i].second;
+    std::cout << "c";
     if (!hdf5_writer.IsValid("/" + input_name)) {
       try {
         genomic_file_reader = GenomicFileReaderFactory::createGenomicFileReader(
