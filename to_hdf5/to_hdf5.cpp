@@ -62,6 +62,7 @@ int main(int argc, const char * argv[]) {
     input_path = input_list[i].first;
     input_name = input_list[i].second;
     if (!hdf5_writer.IsValid("/" + input_name)) {
+      std::cout << input_name<< std::endl << std::flush;
       try {
         genomic_file_reader = GenomicFileReaderFactory::createGenomicFileReader(
           input_path, "bw", chrom_size);
