@@ -1,4 +1,4 @@
-fast check for duplicates //
+//
 //  file_list.cpp
 //  GeFF
 //
@@ -17,7 +17,7 @@ InputList::InputList(const std::string& file_path) {
   int count = 0;
   bool exists = 0;
   while (flot>> path>> name) {
-    exists = this->index_map_.emplace(name, count) -> second; // ensures no duplicates
+    exists = this->index_map_.emplace(name, count).second; // ensures no duplicates
     if (!exists) {
       this->files_.push_back(std::make_pair(path, name));
       ++count;

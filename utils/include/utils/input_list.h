@@ -22,7 +22,7 @@ class InputList {
   std::pair<std::string, std::string> operator[](const int index);
   size_t size();
  private:
-  vector<std::pair<std::string, std::string>> files_;
+  std::vector<std::pair<std::string, std::string>> files_;
   std::map<std::string, int> index_map_;
 };
 
