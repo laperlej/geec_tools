@@ -68,6 +68,7 @@ int main(int argc, const char * argv[]) {
     {
       std::cout << input_name<< std::endl << std::flush;
       is_valid = hdf5_writer.IsValid("/" + input_name);
+      std::cout << input_name<< std::endl << std::flush;
     }
     if (!is_valid) {
       std::cout << input_name<< std::endl << std::flush;
