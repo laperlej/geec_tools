@@ -12,6 +12,7 @@
 #include "utils/chrom_size.h"
 
 ChromSize::ChromSize() {
+  //hg19 is default
   chrom_sizes_ = {
     {"chr1",   249250621},
     {"chr2",   243199373},
@@ -62,7 +63,7 @@ int ChromSize::operator[](const std::string& chromosome) {
   return chrom_sizes_[chromosome];
 }
 
-size_t ChromSize::Count(const std::string& k) const {
+size_t ChromSize::count(const std::string& k) const {
   return chrom_sizes_.count(k);
 }
 

@@ -22,13 +22,13 @@ Hdf5Writer::Hdf5Writer(const std::string& file_path){
   }
 }
 
-void Hdf5Writer::Append(const std::string& name,
+void Hdf5Writer::AddDataset(const std::string& name,
                         hsize_t size,
                         const std::vector<float>& data) {
   H5LTmake_dataset_float(file_id_, name.c_str(), 1, &size, &data[0]);
 }
 
-void Hdf5Writer::Append(Hdf5Dataset& hdf5_dataset) {
+void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
   std::string path;
   hsize_t size;
   std::vector<float> data;
@@ -52,6 +52,16 @@ void Hdf5Writer::Append(Hdf5Dataset& hdf5_dataset) {
     CreateGroup(file_name);
     Append("/" + path, size, data);
   }
+}
+
+void SetSumX(const std::string name, const int sumX) {
+  std::string attr_name = "sumX";
+  H5LTset_attribute_int(file_id_, ("/" + name).c_str(), attr_name.c_str(), &sumX, 1)
+}
+
+void SetSumXX(const std::string name, const int sumXX) {
+  std::string attr_name = "sumXX";
+  H5LTset_attribute_int(file_id_, ("/" + name).c_str(), attr_name.c_str(), &sumXX, 1)
 }
 
 hid_t Hdf5Writer::Open() {

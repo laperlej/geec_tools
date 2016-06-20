@@ -26,6 +26,7 @@ Output:
   #include <omp.h>
 #endif
 #include <iostream>
+#include <utility>
 #include <vector>
 #include <string>
 #include "utils/genomic_file_reader_factory.h"
@@ -34,6 +35,43 @@ Output:
 #include "utils/input_list.h"
 
 
+int main(int argc, const char * argv[]) {
+  std::string output_path, chrom_path, list_path, input_path, input_name;
+  int bin;
+  if (argc < 5) {
+    printf("Usage: to_hdf5 {dataset.bw} "
+                          "{chrom_sizes} "
+                          "{output.hdf5} "
+                          "{bin_size}\n");
+    return 1;
+  }
+  input_path = argv[1];
+  chrom_path = argv[2];
+  output_path = argv[3];
+  bin = std::stoi(argv[4], NULL, 10);
+
+  ChromSize chrom_size = ChromSize(chrom_path);
+  Hdf5Writer hdf5_writer(output_path);
+  GenomicFileReader* genomic_file_reader = GenomicFileReaderFactory::createGenomicFileReader(
+          input_path, "bw", chrom_size);;
+  Hdf5Dataset* hdf5_dataset = NULL;
+  std::vector<std::string> chroms = chrom_size.get_chrom_list();
+  bool is_valid;
+
+  for (std::string chrom : chroms) {
+    genomic_file_reader->SeekChr(chrom);
+    hdf5_dataset = Hdf5DatasetFactory::createHdf5Dataset(
+      input_name, genomic_file_reader, chrom, chrom_size[chrom], bin);
+    std::pair<int, int> stats = hdf5_dataset -> NormaliseContent();
+    hdf5_writer.AddDataset(*hdf5_dataset);
+    hdf5_writer.SetSumX(hdf5_dataset->name, stats.first());
+    hdf5_writer.SetSumXX(hdf5_dataset->name, stats.second());
+    delete hdf5_dataset;
+    hdf5_dataset = NULL;
+  }
+  return 0;
+}
+/*
 int main(int argc, const char * argv[]) {
   std::string output_path, chrom_path, list_path, input_path, input_name;
   int bin;
@@ -97,3 +135,4 @@ int main(int argc, const char * argv[]) {
   }
   return 0;
 }
+*/

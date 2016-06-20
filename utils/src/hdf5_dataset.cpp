@@ -8,6 +8,7 @@
 
 #include <string>
 #include <cmath>
+#include <utility>
 #include <numeric>
 #include <iostream>
 #include <vector>
@@ -49,11 +50,19 @@ void Hdf5Dataset::FeedDataLine(const GenomicDataLine& token) {
   }
 }
 
-void Hdf5Dataset::NormaliseContent() {
-  content_[content_.size()-1] /= (size_ % bin_);
-  for (int i = 0; i < content_.size()-1; ++i) {
+std::pair<int, int> Hdf5Dataset::NormaliseContent() {
+  int sumX;
+  int sumXX;
+  int last_index = content_.size()-1
+  for (int i = 0; i < last_index-1; ++i) {
     content_[i] /= bin_;
+    sumX += content_[i];
+    sumXX += content_[i] * content_[i];
   }
+  content_[last_index] /= (size_ % bin_);
+  sumX += content_[last_index];
+  sumXX += content_[last_index] * content_[last_index];
+  return std::make_pair(sumX, sumXX)
 }
 
 void Hdf5Dataset::ToZScore() {

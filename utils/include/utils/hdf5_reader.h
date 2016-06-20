@@ -18,6 +18,8 @@ class Hdf5Reader {
   explicit Hdf5Reader(const std::string& file_path);
   ~Hdf5Reader() {Close();}
   Hdf5Dataset* GetDataset(const std::string& name, int bin);
+  int Hdf5Reader::GetSumX(const std::string& name);
+  int Hdf5Reader::GetSumXX(const std::string& name);
   bool IsValid(const std::string& path);
  private:
   hid_t Open();
