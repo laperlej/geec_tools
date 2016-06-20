@@ -63,8 +63,8 @@ int main(int argc, const char * argv[]) {
       input_name, genomic_file_reader, chrom, chrom_size[chrom], bin);
     std::pair<int, int> stats = hdf5_dataset -> NormaliseContent();
     hdf5_writer.AddDataset(*hdf5_dataset);
-    hdf5_writer.SetSumX(hdf5_dataset->name, *stats.first);
-    hdf5_writer.SetSumXX(hdf5_dataset->name, *stats.second);
+    hdf5_writer.SetSumX(hdf5_dataset->name, stats.first*);
+    hdf5_writer.SetSumXX(hdf5_dataset->name, stats.second*);
     delete hdf5_dataset;
     hdf5_dataset = NULL;
   }
