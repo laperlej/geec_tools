@@ -54,12 +54,12 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
   }
 }
 
-void Hdf5Writer::SetSumX(const std::string name, int sumX) {
+void Hdf5Writer::SetSumX(const std::string name, const int sumX) {
   std::string attr_name = "sumX";
   H5LTset_attribute_int(file_id_, ("/" + name).c_str(), attr_name.c_str(), &sumX, 1);
 }
 
-void Hdf5Writer::SetSumXX(const std::string name, int sumXX) {
+void Hdf5Writer::SetSumXX(const std::string name, const int sumXX) {
   std::string attr_name = "sumXX";
   H5LTset_attribute_int(file_id_, ("/" + name).c_str(), attr_name.c_str(), &sumXX, 1);
 }
