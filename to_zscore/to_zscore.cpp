@@ -107,7 +107,7 @@ int main(int argc, const char * argv[]) {
         exclude_chrom = &exclude.at(chrom);
         hdf5_dataset -> filter(*include_chrom, *exclude_chrom);
         hdf5_dataset -> ToZScore();
-        hdf5_writer.Append(*hdf5_dataset);
+        hdf5_writer.AddDataset(*hdf5_dataset);
         delete hdf5_dataset;
       }
     }
