@@ -21,10 +21,11 @@ Params:
 Output:
   a file where every line is "name1:name2 chrX,0.12313 chrY,0.12313"
 */
-
+/*
 #if defined(_OPENMP)
   #include <omp.h>
 #endif
+*/
 #include <iostream>
 #include <utility>
 #include <vector>
