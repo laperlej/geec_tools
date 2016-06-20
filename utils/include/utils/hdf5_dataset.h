@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include <utility>
 #include "utils/genomic_data_line.h"
 
 class Hdf5Dataset {
@@ -23,7 +24,7 @@ class Hdf5Dataset {
   void FeedDataLine(const GenomicDataLine& token);
   std::string name() {return name_;}
   int size() {return size_;}
-  void NormaliseContent();
+  std::pair<int, int> NormaliseContent();
   void ToZScore();
   void filter(Hdf5Dataset& include, Hdf5Dataset& exclude);
   std::vector<float>& GetContent();
