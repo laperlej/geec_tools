@@ -21,8 +21,8 @@ class Hdf5Writer {
               hsize_t size,
               const std::vector<float>& data);
   void AddDataset(Hdf5Dataset& hdf5_dataset);
-  void SetSumX(const std::string name, const int sumX);
-  void SetSumXX(const std::string name, const int sumXX);
+  void SetSumX(const std::string name, int sumX);
+  void SetSumXX(const std::string name, int sumXX);
   htri_t IsValid(const std::string& path);
  private:
   hid_t Open();
