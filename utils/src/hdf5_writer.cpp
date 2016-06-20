@@ -46,11 +46,11 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
     if (IsValid(path)) {
       std::cout << "WARNING: "<< path<< " already exists"<< std::endl;
     } else {
-      Append("/" + path, size, data);
+      AddDataset("/" + path, size, data);
     }
   } else {
     CreateGroup(file_name);
-    Append("/" + path, size, data);
+    AddDataset("/" + path, size, data);
   }
 }
 
