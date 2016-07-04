@@ -13,7 +13,7 @@
 #include "chrom_size.h"
 #include "genomic_file_reader.h"
 
-void feed_data_line(vector<bool>& filter, const GenomicDataLine& token, int bin) {
+void feed_data_line(std::vector<bool>& filter, const GenomicDataLine& token, int bin) {
   int start_bin, end_bin;
   start_bin = token.start_position() / bin_;
   end_bin = token.end_position() / bin_;
