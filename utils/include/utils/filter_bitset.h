@@ -10,7 +10,6 @@
 #define UTILS_INCLUDE_UTILS_FILTER_BITSET_H_
 
 #include <math.h>
-#include <utility>
 #include "chrom_size.h"
 #include "genomic_file_reader.h"
 

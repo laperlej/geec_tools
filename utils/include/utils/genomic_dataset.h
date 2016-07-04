@@ -10,6 +10,7 @@
 #define UTILS_INCLUDE_UTILS_GENOMIC_DATASET_H_
 
 #include <map>
+#include <utility>
 #include <string>
 #include <vector>
 #include "utils/hdf5_dataset.h"
@@ -28,7 +29,7 @@ class GenomicDataset {
         const std::vector<std::string>& chromosomes) const;
     std::string get_name();
     void filter(FilterBitset& filter) {
-      for (pair<const std::string, Hdf5Dataset> chrom : chromosomes_) {
+      for (std::pair<const std::string, Hdf5Dataset> chrom : chromosomes_) {
         Hdf5Dataset.filter(filter[chrom.first]);
       }
     }
