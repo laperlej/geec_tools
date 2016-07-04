@@ -120,15 +120,20 @@ std::vector<float>& zscore(std::vector<float> &v) {
 }
 
 float Hdf5Dataset::GetPearson(const Hdf5Dataset& hdf5_dataset) const {
-  return pearson(content_, hdf5_dataset.content_);
-}
-
-float pearson(const std::vector<float>& v1, const std::vector<float>& v2) {
-  float total = 0;
-  for (int i = 0; i < v1.size(); ++i) {
-    total += v1[i] * v2[i];
+  assert(size_ == hdf5_dataset.size());
+  float r;
+  float sumXY = 0;
+  vector<float>& v1 = content_;
+  vector<float>& v2 = hdf5_dataset.GetContent();
+  for (int i = 0; i < size_; ++i) {
+    sumXY += v1[i] * v2[i];
   }
-  return total / v1.size();
+  float sumY = hdf5_dataset.sumX();
+  float sumYY = hdf5_dataset.sumXX();
+  float num = sumXY - sumX_ * sumY;
+  float denum = pow(sumXX_ - pow(sumX_, 2), 0.5) * pow(sumYY - pow(sumY, 2), 0.5);
+  r = num / denum;
+  return r;
 }
 
 void Hdf5Dataset::print() const {

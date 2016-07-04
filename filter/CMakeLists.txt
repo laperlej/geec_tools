@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
 
-SET( PROJ_NAME      "to_zscore" )
+SET( PROJ_NAME      "filter" )
 SET( PROJ_INCLUDES  "../utils/include" )
 SET( PROJ_LIBRARIES "utils" )
 

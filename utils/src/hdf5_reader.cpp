@@ -32,16 +32,16 @@ Hdf5Dataset* Hdf5Reader::GetDataset(const std::string& name, int bin) {
 }
 
 int Hdf5Reader::GetSumX(const std::string& name) {
-  int sumX;
+  float sumX;
   std::string attr_name = "sumX";
-  H5LTget_attribute_int(file_id_, name.c_str(), attr_name.c_str(), &sumX);
+  H5LTget_attribute_float(file_id_, name.c_str(), attr_name.c_str(), &sumX);
   return sumX;
 }
 
 int Hdf5Reader::GetSumXX(const std::string& name) {
-  int sumXX;
+  float sumXX;
   std::string attr_name = "sumXX";
-  H5LTget_attribute_int(file_id_, name.c_str(), attr_name.c_str(), &sumXX);
+  H5LTget_attribute_float(file_id_, name.c_str(), attr_name.c_str(), &sumXX);
   return sumXX;
 }
 

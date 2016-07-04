@@ -25,6 +25,11 @@ class GenomicDataset {
         const GenomicDataset& genomic_dataset,
         const std::vector<std::string>& chromosomes) const;
     std::string get_name();
+    void filter(FilterBitset& filter) {
+      for (pair<const std::string, Hdf5Dataset> chrom : chromosomes_) {
+        Hdf5Dataset.filter(filter[chrom.first]);
+      }
+    }
  private:
      std::map<std::string, Hdf5Dataset> chromosomes_;
      std::string file_name_;
