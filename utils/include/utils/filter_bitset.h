@@ -11,6 +11,7 @@
 
 #include <math.h>
 #include "chrom_size.h"
+#include "genomic_file_reader.h"
 
 class FilterBitset {
  public:
@@ -19,7 +20,7 @@ class FilterBitset {
 
         for (std::string& chrom : chrom_list) {
             int size = ceil(chrom_size[chrom] / bin);
-            vector<bool> filter(size);
+            std::vector<bool> filter(size);
 
             GenomicDataLine token;
             genomic_file_reader->SeekChr(chrom);
