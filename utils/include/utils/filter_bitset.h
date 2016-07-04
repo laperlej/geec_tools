@@ -23,8 +23,8 @@ class FilterBitset {
             std::vector<bool> filter(size);
 
             GenomicDataLine token;
-            genomic_file_reader->SeekChr(chrom);
-            while (!genomic_file_reader->NextToken(token)) {
+            genomic_file_reader.SeekChr(chrom);
+            while (!genomic_file_reader.NextToken(token)) {
               feed_data_line(filter, token);
             }
 
