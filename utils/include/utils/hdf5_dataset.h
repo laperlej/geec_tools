@@ -32,7 +32,7 @@ class Hdf5Dataset {
   void NormaliseContent();
   void ToZScore();
   void filter(const std::vector<bool>& filter) {
-    assert(filter.size == size_)
+    assert(filter.size() == size_)
     vector<float> new_content;
     float new_sumX, new_sumXX;
     for (int i = 0; i < size_; ++i) {
