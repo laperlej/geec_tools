@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
 #include "utils/hdf5_writer.h"
 #include "hdf5_hl.h"
@@ -59,7 +60,7 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
 }
 
 void Hdf5Writer::AddGenomicDataset(GenomicDataset& genomic_dataset) {
-  for (pair<const std::string, std::hdf5_dataset> : genomic_dataset) {
+  for (std::pair<const std::string, std::hdf5_dataset> : genomic_dataset) {
     AddDataset(pair.second)
   }
 }
