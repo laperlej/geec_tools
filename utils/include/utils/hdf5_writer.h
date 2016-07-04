@@ -12,6 +12,7 @@
 #include <vector>
 #include "hdf5.h"
 #include "utils/hdf5_dataset.h"
+#include "utils/genomic_dataset.h"
 
 class Hdf5Writer {
  public:
