@@ -40,7 +40,7 @@ class FilterBitset {
       start_bin = token.start_position() / bin_;
       end_bin = token.end_position() / bin_;
       for (int i = start_bin; i <= end_bin; ++i) {
-        content_[chrom].second[i] = 1;
+        content_[chrom][i] = 1;
       }
     }
  private:
