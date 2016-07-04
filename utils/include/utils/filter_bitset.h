@@ -13,15 +13,6 @@
 #include "chrom_size.h"
 #include "genomic_file_reader.h"
 
-void feed_data_line(std::vector<bool>& filter, const GenomicDataLine& token, int bin) {
-  int start_bin, end_bin;
-  start_bin = token.start_position() / bin_;
-  end_bin = token.end_position() / bin_;
-  for (int i = start_bin; i <= end_bin; ++i) {
-    content_[i] = 1;
-  }
-}
-
 class FilterBitset {
  public:
     FilterBitset(ChromSize& chrom_size, int bin, GenomicFileReader& genomic_file_reader) {
@@ -43,6 +34,14 @@ class FilterBitset {
     ~FilterBitset() {};
     std::vector<bool>& operator[](const std::string& chrom){
       return content_[chrom];
+    }
+    void feed_data_line(std::vector<bool>& filter, const GenomicDataLine& token) {
+      int start_bin, end_bin;
+      start_bin = token.start_position() / bin_;
+      end_bin = token.end_position() / bin_;
+      for (int i = start_bin; i <= end_bin; ++i) {
+        content_[i] = 1;
+      }
     }
  private:
     std::map<std::string, std::vector<bool>> content_;
