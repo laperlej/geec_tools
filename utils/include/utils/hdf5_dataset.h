@@ -14,7 +14,6 @@
 #include <string>
 #include <utility>
 #include "utils/genomic_data_line.h"
-#include "utils/genomic_dataset.h"
 
 class Hdf5Dataset {
  public:
