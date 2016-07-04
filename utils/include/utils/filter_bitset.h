@@ -32,7 +32,7 @@ class FilterBitset {
         }
     };
     ~FilterBitset() {};
-    vector<bool>& operator[](const std::string& chrom){
+    std::vector<bool>& operator[](const std::string& chrom){
       return content_[chrom];
     }
  private:
