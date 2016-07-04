@@ -60,8 +60,8 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
 }
 
 void Hdf5Writer::AddGenomicDataset(GenomicDataset& genomic_dataset) {
-  for (std::pair<const std::string, Hdf5Dataset> : genomic_dataset) {
-    AddDataset(pair.second)
+  for (std::pair<const std::string, Hdf5Dataset> chrom: genomic_dataset) {
+    AddDataset(chrom.second)
   }
 }
 
