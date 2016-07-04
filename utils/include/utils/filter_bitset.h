@@ -10,6 +10,7 @@
 #define UTILS_INCLUDE_UTILS_FILTER_BITSET_H_
 
 #include <math.h>
+#include "chrom_size.h"
 
 class FilterBitset {
  public:
