@@ -33,12 +33,12 @@ class Hdf5Dataset {
   void NormaliseContent();
   void ToZScore();
   void filter(const std::vector<bool>& filter) {
-    assert(filter.size() == size_)
-    vector<float> new_content;
+    assert(filter.size() == size_);
+    std::vector<float> new_content;
     float new_sumX, new_sumXX;
     for (int i = 0; i < size_; ++i) {
       if (filter[i]){
-        new_content.push_back(content_[i])
+        new_content.push_back(content_[i]);
         new_sumX += content_[i];
         new_sumXX += content_[i] * content_[i];
       }
