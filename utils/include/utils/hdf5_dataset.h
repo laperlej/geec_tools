@@ -51,7 +51,7 @@ class Hdf5Dataset {
   void print() const;
  private:
   std::string name_;
-  int size_;
+  unsigned int size_;
   int bin_;
   std::vector<float> content_;
   float sumX_;
