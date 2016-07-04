@@ -21,6 +21,7 @@ class GenomicDataset {
     ~GenomicDataset() {}
     void add_chromosome(const std::string& name,
                         const Hdf5Dataset& hdf5_dataset);
+    std::map<std::string, Hdf5Dataset> chromosomes() {return chromosomes_;}
     std::map<std::string, float> Correlate(
         const GenomicDataset& genomic_dataset,
         const std::vector<std::string>& chromosomes) const;

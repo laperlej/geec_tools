@@ -67,7 +67,6 @@ int main(int argc, const char * argv[]) {
   output_path = argv[4];
   bin = std::stoi(argv[5], NULL, 10);
 
-  Hdf5Reader hdf5_reader(hdf5_path);
   InputList input_list(list_path);
   ChromSize chrom_size = ChromSize(chrom_path);
 
@@ -78,6 +77,7 @@ int main(int argc, const char * argv[]) {
   // read hdf5
   std::map<std::string, GenomicDataset> data;
   for (uint64_t i = 0; i < input_list.size(); ++i) {
+    hdf5_reader = Hdf5Reader(input_list[i].first)
     data.emplace(input_list[i].second, GenomicDataset(input_list[i].second));
     for (const std::string& chrom : chroms) {
       std::string name = input_list[i].second + "/" + chrom;

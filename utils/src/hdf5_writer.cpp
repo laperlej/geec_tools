@@ -54,6 +54,12 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
   }
 }
 
+void Hdf5Writer::AddGenomicDataset(GenomicDataset& genomic_dataset) {
+  for (pair<const std::string, std::hdf5_dataset> : genomic_dataset) {
+    AddDataset(pair.second)
+  }
+}
+
 void Hdf5Writer::SetSumX(const std::string name, const float sumX) {
   std::string attr_name = "sumX";
   H5LTset_attribute_float(file_id_, ("/" + name).c_str(), attr_name.c_str(), &sumX, 1);

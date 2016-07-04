@@ -38,7 +38,45 @@ they are not nessessarily actual files
 #include "utils/bed_reader.h"
 #include "utils/genomic_dataset.h"
 
+int main(int argc, const char * argv[]) {
+  std::string list_path, chrom_path, hdf5_path,
+              output_path, include_path, exclude_path;
+  int bin;
 
+  if (argc < 8) {
+    printf("Usage: to_zscore {input.hdf5} "
+                         "{output.hdf5} "
+                         "{chrom_sizes} "
+                         "{bin_size} "
+                         "{include.bed} "
+                         "{exclude.bed}\n");
+    return 1;
+  }
+
+  input_path = argv[1];
+  output_path = argv[2];
+  chrom_path = argv[3];
+  bin = std::stoi(argv[4], NULL, 10);
+  include_path = argv[5];
+  exclude_path = argv[6];
+
+  Hdf5Reader hdf5_reader(input_path);
+  Hdf5Writer hdf5_writer(output_path);
+  ChromSize chrom_size = ChromSize(chrom_path);
+
+  std::vector<std::string> chroms = chrom_size.get_chrom_list();
+  GenomicFileReader* include_reader = genomic_file_reader_factory::createGenomicFileReader(include_path, "bd", chrom_size)
+  GenomicFileReader* exclude_reader = genomic_file_reader_factory::createGenomicFileReader(exclude_path, "bd", chrom_size)
+  FilterBitset include_filter = filter_bitset::FilterBitset(chrom_size, bin, include_reader&)
+  FilterBitset exclude_filter = filter_bitset::FilterBitset(chrom_size, bin, exclude_reader&)
+  FilterBitset filter = include_filter & !exclude_filter
+  
+  GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(, chrom_size ,bin)
+  genomic_dataset.filter(filter);
+  hdf5_writer.AddGenomicDataset(genomic_dataset);
+}
+
+/*
 std::map<std::string, Hdf5Dataset> get_genomic_dataset(
     const std::string& file_path, ChromSize& chrom_size,
     std::vector<std::string>& chroms, int bin) {
@@ -115,3 +153,4 @@ int main(int argc, const char * argv[]) {
 
   return 0;
 }
+*/

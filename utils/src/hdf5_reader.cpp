@@ -31,6 +31,15 @@ Hdf5Dataset* Hdf5Reader::GetDataset(const std::string& name, int bin) {
   return hdf5_dataset;
 }
 
+GenomicDataset* Hdf5Reader::GetGenomicDataset(const std::string& name, vector<std::string> chroms, int bin) {
+  GenomicDataset* data(name);
+  for (std::string chrom : chroms) {
+    Hdf5Dataset* dataset = GetDataset(name + "/" + chrom, bin);
+    data.add_chromosome(chrom, dataset);
+  }
+  return data;
+}
+
 int Hdf5Reader::GetSumX(const std::string& name) {
   float sumX;
   std::string attr_name = "sumX";
