@@ -33,6 +33,19 @@ Hdf5Dataset::Hdf5Dataset(const std::string& name,
   bin_ = bin;
 }
 
+Hdf5Dataset::Hdf5Dataset(const std::string& name,
+                         const std::vector<float>& content,
+                         int bin,
+                         float sumX,
+                         float sumXX) {
+  name_ = name;
+  content_ = content;
+  size_ = content.size();
+  bin_ = bin;
+  sumX_ = sumX;
+  sumXX_ = sumXX;
+}
+
 void Hdf5Dataset::FeedDataLine(const GenomicDataLine& token) {
   int start_bin, end_bin;
   start_bin = token.start_position() / bin_;
@@ -50,9 +63,9 @@ void Hdf5Dataset::FeedDataLine(const GenomicDataLine& token) {
   }
 }
 
-std::pair<int, int> Hdf5Dataset::NormaliseContent() {
-  int sumX;
-  int sumXX;
+void Hdf5Dataset::NormaliseContent() {
+  sumX_ = 0;
+  sumXX_ = 0;
   int last_index = content_.size()-1;
   for (int i = 0; i < last_index-1; ++i) {
     content_[i] /= bin_;
@@ -60,9 +73,8 @@ std::pair<int, int> Hdf5Dataset::NormaliseContent() {
     sumXX += content_[i] * content_[i];
   }
   content_[last_index] /= (size_ % bin_);
-  sumX += content_[last_index];
-  sumXX += content_[last_index] * content_[last_index];
-  return std::make_pair(sumX, sumXX);
+  sumX_ += content_[last_index];
+  sumXX_ += content_[last_index] * content_[last_index];
 }
 
 void Hdf5Dataset::ToZScore() {

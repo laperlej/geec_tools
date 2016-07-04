@@ -27,7 +27,7 @@ Hdf5Dataset* Hdf5Reader::GetDataset(const std::string& name, int bin) {
   std::vector<float> data;
   data.resize(dims);
   H5LTread_dataset_float(file_id_, name.c_str(), &data[0]);
-  Hdf5Dataset* hdf5_dataset = new Hdf5Dataset(name, data, bin);
+  Hdf5Dataset* hdf5_dataset = new Hdf5Dataset(name, data, bin, GetSumX(name), GetSumXX(name));
   return hdf5_dataset;
 }
 
@@ -36,18 +36,19 @@ GenomicDataset* Hdf5Reader::GetGenomicDataset(const std::string& name, vector<st
   for (std::string chrom : chroms) {
     Hdf5Dataset* dataset = GetDataset(name + "/" + chrom, bin);
     data.add_chromosome(chrom, dataset);
+
   }
   return data;
 }
 
-int Hdf5Reader::GetSumX(const std::string& name) {
+float Hdf5Reader::GetSumX(const std::string& name) {
   float sumX;
   std::string attr_name = "sumX";
   H5LTget_attribute_float(file_id_, name.c_str(), attr_name.c_str(), &sumX);
   return sumX;
 }
 
-int Hdf5Reader::GetSumXX(const std::string& name) {
+float Hdf5Reader::GetSumXX(const std::string& name) {
   float sumXX;
   std::string attr_name = "sumXX";
   H5LTget_attribute_float(file_id_, name.c_str(), attr_name.c_str(), &sumXX);

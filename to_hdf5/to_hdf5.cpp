@@ -62,12 +62,8 @@ int main(int argc, const char * argv[]) {
     genomic_file_reader->SeekChr(chrom);
     hdf5_dataset = Hdf5DatasetFactory::createHdf5Dataset(
       input_name, genomic_file_reader, chrom, chrom_size[chrom], bin);
-    std::pair<int, int> stats = hdf5_dataset -> NormaliseContent();
+    hdf5_dataset -> NormaliseContent();
     hdf5_writer.AddDataset(*hdf5_dataset);
-    int sumX = stats.first;
-    int sumXX = stats.second;
-    hdf5_writer.SetSumX(hdf5_dataset->name(), sumX);
-    hdf5_writer.SetSumXX(hdf5_dataset->name(), sumXX);
     delete hdf5_dataset;
     hdf5_dataset = NULL;
   }

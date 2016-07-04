@@ -20,13 +20,16 @@ class Hdf5Dataset {
   Hdf5Dataset(const std::string& name,
               const std::vector<float>& content,
               int bin);
+  Hdf5Dataset(const std::string& name,
+              const std::vector<float>& content,
+              int bin, float sumX, float sumXX);
   ~Hdf5Dataset() {}
   void FeedDataLine(const GenomicDataLine& token);
   std::string name() {return name_;}
   int size() {return size_;}
   float sumX() {return sumX_;}
   float sumXX() {return sumXX_;}
-  std::pair<int, int> NormaliseContent();
+  void NormaliseContent();
   void ToZScore();
   void filter(const vector<bool>& filter) {
     assert(filter.size == size_)
