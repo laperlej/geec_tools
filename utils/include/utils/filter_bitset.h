@@ -25,7 +25,7 @@ class FilterBitset {
             GenomicDataLine token;
             genomic_file_reader.SeekChr(chrom);
             while (!genomic_file_reader.NextToken(token)) {
-              feed_data_line(filter, token);
+              feed_data_line(filter, token, chrom);
             }
 
             content_.emplace(chrom, filter);
@@ -35,12 +35,12 @@ class FilterBitset {
     std::vector<bool>& operator[](const std::string& chrom){
       return content_[chrom];
     }
-    void feed_data_line(std::vector<bool>& filter, const GenomicDataLine& token) {
+    void feed_data_line(std::vector<bool>& filter, const GenomicDataLine& token, const std::string& chrom) {
       int start_bin, end_bin;
       start_bin = token.start_position() / bin_;
       end_bin = token.end_position() / bin_;
       for (int i = start_bin; i <= end_bin; ++i) {
-        content_[i] = 1;
+        content_[chrom].second[i] = 1;
       }
     }
  private:
