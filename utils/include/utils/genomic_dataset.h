@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include "utils/hdf5_dataset.h"
+#include "utils/filter_bitset.h"
 
 class GenomicDataset {
  public:
