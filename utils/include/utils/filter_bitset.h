@@ -16,7 +16,7 @@
 class FilterBitset {
  public:
     FilterBitset(ChromSize& chrom_size, int bin, GenomicFileReader& genomic_file_reader) {
-        std::vector<std::string> chrom_list = chrom_size.getChromList();
+        std::vector<std::string> chrom_list = chrom_size.GetChromList();
 
         for (std::string& chrom : chrom_list) {
             int size = ceil(chrom_size[chrom] / bin);
