@@ -25,7 +25,7 @@ class FilterBitset {
             GenomicDataLine token;
             genomic_file_reader.SeekChr(chrom);
             while (!genomic_file_reader.NextToken(token)) {
-              feed_data_line(filter, token, bin);
+              feed_data_line(filter, token);
             }
 
             content_.emplace(chrom, filter);
