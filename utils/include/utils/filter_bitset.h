@@ -36,7 +36,7 @@ class FilterBitset {
       return content_[chrom];
     }
  private:
-    std::map<std::string, vector<bool>> content_;
+    std::map<std::string, std::vector<bool>> content_;
 };
 
 void feed_data_line(vector<bool>& filter, const GenomicDataLine& token, int bin) {
