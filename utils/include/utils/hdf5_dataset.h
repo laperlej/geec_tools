@@ -36,7 +36,7 @@ class Hdf5Dataset {
     assert(filter.size() == size_);
     std::vector<float> new_content;
     float new_sumX, new_sumXX;
-    for (int i = 0; i < size_; ++i) {
+    for (unsigned int i = 0; i < size_; ++i) {
       if (filter[i]){
         new_content.push_back(content_[i]);
         new_sumX += content_[i];
