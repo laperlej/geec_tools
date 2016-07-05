@@ -10,6 +10,7 @@
 #define UTILS_INCLUDE_UTILS_FILTER_BITSET_H_
 
 #include <math.h>
+#include <utility>
 #include <boost/dynamic_bitset.hpp>
 #include "chrom_size.h"
 #include "genomic_file_reader.h"
@@ -45,13 +46,13 @@ class FilterBitset {
     }
     FilterBitset operator~() const {
       FilterBitset filter();
-      for(pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
+      for(std::pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
         filter.content_.emplace(chrom.first, ~chrom.second)
       }
     }
     FilterBitset operator&(const FilterBitset &b) const {
       FilterBitset filter();
-      for(pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
+      for(std::pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
         filter.content_.emplace(chrom.first, chrom.second & b.content_[chrom.first])
       }
     }
