@@ -10,17 +10,19 @@
 #define UTILS_INCLUDE_UTILS_FILTER_BITSET_H_
 
 #include <math.h>
+#include <boost/compute/container/dynamic_bitset.hpp>
 #include "chrom_size.h"
 #include "genomic_file_reader.h"
 
 class FilterBitset {
  public:
+    FilterBitset();
     FilterBitset(ChromSize& chrom_size, int bin, GenomicFileReader& genomic_file_reader) {
         bin_ = bin;
         std::vector<std::string> chrom_list = chrom_size.get_chrom_list();
         for (std::string& chrom : chrom_list) {
             int size = ceil(chrom_size[chrom] / bin);
-            std::vector<bool> filter(size);
+            dynamic_bitset filter(size);
 
             GenomicDataLine token;
             genomic_file_reader.SeekChr(chrom);
@@ -32,10 +34,8 @@ class FilterBitset {
         }
     };
     ~FilterBitset() {};
-    std::vector<bool>& operator[](const std::string& chrom){
-      return content_[chrom];
-    }
-    void feed_data_line(std::vector<bool>& filter, const GenomicDataLine& token, const std::string& chrom) {
+    dynamic_bitset& operator[](const std::string& chrom){return content_[chrom];}
+    void feed_data_line(dynamic_bitset& filter, const GenomicDataLine& token, const std::string& chrom) {
       int start_bin, end_bin;
       start_bin = token.start_position() / bin_;
       end_bin = token.end_position() / bin_;
@@ -43,8 +43,21 @@ class FilterBitset {
         content_[chrom][i] = 1;
       }
     }
+    FilterBitset operator~() const {
+      FilterBitset filter();
+      for(pair<const std::string, dynamic_bitset> chrom: content_) {
+        filter.content_.emplace(chrom.first, ~chrom.second)
+      }
+    }
+    FilterBitset operator&(const FilterBitset &b) const {
+      FilterBitset filter();
+      for(pair<const std::string, dynamic_bitset> chrom: content_) {
+        filter.content_.emplace(chrom.first, chrom.second & b.content_[chrom.first])
+      }
+    }
+    unsigned int size() {return content_.size();}
  private:
-    std::map<std::string, std::vector<bool>> content_;
+    std::map<std::string, dynamic_bitset> content_;
     int bin_;
 };
 

@@ -45,6 +45,7 @@ int main(int argc, const char * argv[]) {
 
   if (argc < 8) {
     printf("Usage: to_zscore {input.hdf5} "
+                         "{input_name} "
                          "{output.hdf5} "
                          "{chrom_sizes} "
                          "{bin_size} "
@@ -54,24 +55,25 @@ int main(int argc, const char * argv[]) {
   }
 
   input_path = argv[1];
-  output_path = argv[2];
-  chrom_path = argv[3];
-  bin = std::stoi(argv[4], NULL, 10);
-  include_path = argv[5];
-  exclude_path = argv[6];
+  input_name = argv[2];
+  output_path = argv[3];
+  chrom_path = argv[4];
+  bin = std::stoi(argv[5], NULL, 10);
+  include_path = argv[6];
+  exclude_path = argv[7];
 
   Hdf5Reader hdf5_reader(input_path);
   Hdf5Writer hdf5_writer(output_path);
   ChromSize chrom_size = ChromSize(chrom_path);
 
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
-  GenomicFileReader* include_reader = GenomicFileReaderFactory::createGenomicFileReader(include_path, "bd", chrom_size)
-  GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, "bd", chrom_size)
-  FilterBitset include_filter = filter_bitset::FilterBitset(chrom_size, bin, include_reader&)
-  FilterBitset exclude_filter = filter_bitset::FilterBitset(chrom_size, bin, exclude_reader&)
-  FilterBitset filter = include_filter & !exclude_filter
+  GenomicFileReader* include_reader = GenomicFileReaderFactory::createGenomicFileReader(include_path, "bd", chrom_size);
+  GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, "bd", chrom_size);
+  FilterBitset include_filter = filter_bitset::FilterBitset(chrom_size, bin, include_reader&);
+  FilterBitset exclude_filter = filter_bitset::FilterBitset(chrom_size, bin, exclude_reader&);
+  FilterBitset filter = include_filter & !exclude_filter;
   
-  GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(, chrom_size ,bin)
+  GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(input_name, chrom_size ,bin);
   genomic_dataset.filter(filter);
   hdf5_writer.AddGenomicDataset(genomic_dataset);
 }

@@ -13,6 +13,7 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <boost/compute/container/dynamic_bitset.hpp>
 #include "utils/genomic_data_line.h"
 #include "utils/genomic_data_line.h"
 
@@ -33,7 +34,7 @@ class Hdf5Dataset {
   float sumXX() {return sumXX_;}
   void NormaliseContent();
   void ToZScore();
-  void filter(const std::vector<bool>& filter) {
+  void filter(const dynamic_bitset& filter) {
     assert(filter.size() == size_);
     std::vector<float> new_content;
     float new_sumX, new_sumXX;
