@@ -39,7 +39,7 @@ they are not nessessarily actual files
 #include "utils/genomic_dataset.h"
 
 int main(int argc, const char * argv[]) {
-  std::string input_path, chrom_path, hdf5_path,
+  std::string input_path, input_name, chrom_path, hdf5_path,
               output_path, include_path, exclude_path;
   int bin;
 
