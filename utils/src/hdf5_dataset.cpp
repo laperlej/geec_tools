@@ -118,7 +118,7 @@ std::vector<float>& zscore(std::vector<float> &v) {
     return v;
 }
 
-float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) const {
+float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   assert(size_ == hdf5_dataset.size());
   float r;
   float sumXY = 0;

@@ -48,7 +48,7 @@ class Hdf5Dataset {
     sumXX_ = new_sumXX;
   }
   std::vector<float>& GetContent();
-  float GetPearson(Hdf5Dataset& hdf5_dataset) const;
+  float GetPearson(Hdf5Dataset& hdf5_dataset);
   void print() const;
  private:
   std::string name_;
