@@ -32,7 +32,7 @@ Hdf5Dataset* Hdf5Reader::GetDataset(const std::string& name, int bin) {
   return hdf5_dataset;
 }
 
-GenomicDataset* Hdf5Reader::GetGenomicDataset(const std::string& name, vector<std::string> chroms, int bin) {
+GenomicDataset* Hdf5Reader::GetGenomicDataset(const std::string& name, std::vector<std::string> chroms, int bin) {
   GenomicDataset* data(name);
   for (std::string chrom : chroms) {
     Hdf5Dataset* dataset = GetDataset(name + "/" + chrom, bin);
