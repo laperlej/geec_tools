@@ -26,8 +26,8 @@ std::string GenomicDataset::get_name() {
 }
 
 std::map<std::string, float>  GenomicDataset::Correlate(
-    const GenomicDataset& genomic_dataset,
-    const std::vector<std::string>& chromosomes) const {
+    GenomicDataset& genomic_dataset,
+    std::vector<std::string>& chromosomes) {
   std::map<std::string, float> results;
   for (const std::string& chr : chromosomes) {
     if (chromosomes_.find(chr) != chromosomes_.end() &&

@@ -25,8 +25,8 @@ class GenomicDataset {
                         const Hdf5Dataset& hdf5_dataset);
     std::map<std::string, Hdf5Dataset> chromosomes() {return chromosomes_;}
     std::map<std::string, float> Correlate(
-        const GenomicDataset& genomic_dataset,
-        const std::vector<std::string>& chromosomes) const;
+        GenomicDataset& genomic_dataset,
+        std::vector<std::string>& chromosomes);
     std::string get_name();
     void filter(FilterBitset& filter) {
       for (std::pair<const std::string, Hdf5Dataset> chrom : chromosomes_) {
