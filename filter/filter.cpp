@@ -70,8 +70,8 @@ int main(int argc, const char * argv[]) {
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
   GenomicFileReader* include_reader = GenomicFileReaderFactory::createGenomicFileReader(include_path, "bd", chrom_size);
   GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, "bd", chrom_size);
-  FilterBitset include_filter = filter_bitset::FilterBitset(chrom_size, bin, include_reader&);
-  FilterBitset exclude_filter = filter_bitset::FilterBitset(chrom_size, bin, exclude_reader&);
+  FilterBitset include_filter = FilterBitset(chrom_size, bin, include_reader&);
+  FilterBitset exclude_filter = FilterBitset(chrom_size, bin, exclude_reader&);
   FilterBitset filter = include_filter & ~exclude_filter;
   
   GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(input_name, chrom_size ,bin);
