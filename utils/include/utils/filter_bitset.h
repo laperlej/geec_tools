@@ -36,7 +36,7 @@ class FilterBitset {
     };
     ~FilterBitset() {};
     boost::dynamic_bitset<>& operator[](const std::string& chrom){return content_[chrom];}
-    boost::dynamic_bitset<>& at(const std::string& chrom) const {return content_.at(chrom);}
+    const boost::dynamic_bitset<>& at(const std::string& chrom) const {return content_.at(chrom);}
     void feed_data_line(boost::dynamic_bitset<>& filter, const GenomicDataLine& token, const std::string& chrom) {
       int start_bin, end_bin;
       start_bin = token.start_position() / bin_;
