@@ -72,7 +72,7 @@ int main(int argc, const char * argv[]) {
   GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, "bd", chrom_size);
   FilterBitset include_filter = FilterBitset(chrom_size, bin, include_reader&);
   FilterBitset exclude_filter = FilterBitset(chrom_size, bin, exclude_reader&);
-  FilterBitset filter = include_filter & ~exclude_filter;
+  FilterBitset filter = include_filter & (~exclude_filter);
   
   GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(input_name, chroms, bin);
   genomic_dataset.filter(filter);
