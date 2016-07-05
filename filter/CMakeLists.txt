@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
 
 SET( PROJ_NAME      "filter" )
 SET( PROJ_INCLUDES  "../utils/include" )
-SET( PROJ_LIBRARIES "utils" )
+SET( PROJ_LIBRARIES "utils" "boost_container")
 
 SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -O3 -Wall -std=c++11 -g" )
 
