@@ -34,7 +34,7 @@ class Hdf5Dataset {
   float sumXX() {return sumXX_;}
   void NormaliseContent();
   void ToZScore();
-  void filter(const dynamic_bitset& filter) {
+  void filter(const boost::dynamic_bitset& filter) {
     assert(filter.size() == size_);
     std::vector<float> new_content;
     float new_sumX, new_sumXX;
