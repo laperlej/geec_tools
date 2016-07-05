@@ -124,7 +124,7 @@ float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   float sumXY = 0;
   std::vector<float>& v1 = content_;
   std::vector<float>& v2 = hdf5_dataset.GetContent();
-  for (int i = 0; i < size_; ++i) {
+  for (unsigned int i = 0; i < size_; ++i) {
     sumXY += v1[i] * v2[i];
   }
   float sumY = hdf5_dataset.sumX();
