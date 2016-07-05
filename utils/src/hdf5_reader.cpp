@@ -37,7 +37,7 @@ GenomicDataset Hdf5Reader::GetGenomicDataset(std::string& name, std::vector<std:
   for (std::string chrom : chroms) {
     std::string path = name + "/" + chrom;
     Hdf5Dataset* dataset = GetDataset(path, bin);
-    data.add_chromosome(chrom, dataset*);
+    data.add_chromosome(chrom, *dataset);
 
   }
   return data;
