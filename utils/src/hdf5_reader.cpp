@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include "utils/hdf5_reader.h"
+#include "utils/genomic_dataset.h"
 #include "hdf5_hl.h"
 
 Hdf5Reader::Hdf5Reader(const std::string& file_path) {
