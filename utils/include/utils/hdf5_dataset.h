@@ -26,6 +26,7 @@ class Hdf5Dataset {
               int bin, float sumX, float sumXX);
   ~Hdf5Dataset() {}
   void FeedDataLine(const GenomicDataLine& token);
+  GenomicDataset* Hdf5Reader::GetGenomicDataset(const std::string& name, std::vector<std::string> chroms, int bin);
   std::string name() {return name_;}
   unsigned int size() {return size_;}
   float sumX() {return sumX_;}
