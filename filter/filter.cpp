@@ -74,7 +74,7 @@ int main(int argc, const char * argv[]) {
   FilterBitset exclude_filter = FilterBitset(chrom_size, bin, exclude_reader&);
   FilterBitset filter = include_filter & ~exclude_filter;
   
-  GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(input_name, chrom_size ,bin);
+  GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(input_name, chroms, bin);
   genomic_dataset.filter(filter);
   hdf5_writer.AddGenomicDataset(genomic_dataset);
 }
