@@ -13,12 +13,12 @@
 #include "utils/genomic_dataset.h"
 #include "hdf5_hl.h"
 
-Hdf5Reader::Hdf5Reader(const std::string& file_path) {
+Hdf5Reader::Hdf5Reader(std::string& file_path) {
   file_path_ = file_path;
   file_id_ = Open();
 }
 
-Hdf5Dataset* Hdf5Reader::GetDataset(const std::string& name, int bin) {
+Hdf5Dataset* Hdf5Reader::GetDataset(std::string& name, int bin) {
   // get dimensions
   hsize_t dims;
   H5T_class_t class_id;
@@ -32,7 +32,7 @@ Hdf5Dataset* Hdf5Reader::GetDataset(const std::string& name, int bin) {
   return hdf5_dataset;
 }
 
-GenomicDataset* Hdf5Reader::GetGenomicDataset(const std::string& name, std::vector<std::string> chroms, int bin) {
+GenomicDataset* Hdf5Reader::GetGenomicDataset(std::string& name, std::vector<std::string> chroms, int bin) {
   GenomicDataset* data(name);
   for (std::string chrom : chroms) {
     Hdf5Dataset* dataset = GetDataset(name + "/" + chrom, bin);
