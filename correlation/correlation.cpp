@@ -77,7 +77,7 @@ int main(int argc, const char * argv[]) {
   // read hdf5
   std::map<std::string, GenomicDataset> data;
   for (uint64_t i = 0; i < input_list.size(); ++i) {
-    hdf5_reader = Hdf5Reader(input_list[i].first)
+    Hdf5Reader hdf5_reader = Hdf5Reader(input_list[i].first)
     data.emplace(input_list[i].second, GenomicDataset(input_list[i].second));
     for (const std::string& chrom : chroms) {
       std::string name = input_list[i].second + "/" + chrom;
