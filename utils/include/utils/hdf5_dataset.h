@@ -27,7 +27,7 @@ class Hdf5Dataset {
   ~Hdf5Dataset() {}
   void FeedDataLine(const GenomicDataLine& token);
   std::string name() {return name_;}
-  int size() {return size_;}
+  unsigned int size() {return size_;}
   float sumX() {return sumX_;}
   float sumXX() {return sumXX_;}
   void NormaliseContent();
