@@ -100,18 +100,18 @@ std::vector<float>& zscore(std::vector<float> &v) {
     size_t n = v.size();
     mean = std::accumulate(v.begin(), v.end(), mean);
     mean = mean / n;
-    for (int i = 0; i < n ; ++i) {
+    for (unsigned int i = 0; i < n ; ++i) {
         v[i] -= mean;
         stdev += pow(v[i], 2.0);
     }
     stdev /= n;
     stdev = pow(stdev, 0.5);
     if (stdev == 0) {
-      for (int i = 0; i < n ; ++i) {
+      for (unsigned int i = 0; i < n ; ++i) {
         v[i] = 0;
       }
     } else {
-      for (int i = 0; i < n ; ++i) {
+      for (unsigned int i = 0; i < n ; ++i) {
         v[i] /= stdev;
       }
     }
