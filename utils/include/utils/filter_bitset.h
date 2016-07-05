@@ -22,7 +22,7 @@ class FilterBitset {
         std::vector<std::string> chrom_list = chrom_size.get_chrom_list();
         for (std::string& chrom : chrom_list) {
             int size = ceil(chrom_size[chrom] / bin);
-            dynamic_bitset filter(size);
+            boost::dynamic_bitset<> filter(size);
 
             GenomicDataLine token;
             genomic_file_reader.SeekChr(chrom);
@@ -34,8 +34,8 @@ class FilterBitset {
         }
     };
     ~FilterBitset() {};
-    dynamic_bitset& operator[](const std::string& chrom){return content_[chrom];}
-    void feed_data_line(dynamic_bitset& filter, const GenomicDataLine& token, const std::string& chrom) {
+    boost::dynamic_bitset<>& operator[](const std::string& chrom){return content_[chrom];}
+    void feed_data_line(boost::dynamic_bitset<>& filter, const GenomicDataLine& token, const std::string& chrom) {
       int start_bin, end_bin;
       start_bin = token.start_position() / bin_;
       end_bin = token.end_position() / bin_;
@@ -45,19 +45,19 @@ class FilterBitset {
     }
     FilterBitset operator~() const {
       FilterBitset filter();
-      for(pair<const std::string, dynamic_bitset> chrom: content_) {
+      for(pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
         filter.content_.emplace(chrom.first, ~chrom.second)
       }
     }
     FilterBitset operator&(const FilterBitset &b) const {
       FilterBitset filter();
-      for(pair<const std::string, dynamic_bitset> chrom: content_) {
+      for(pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
         filter.content_.emplace(chrom.first, chrom.second & b.content_[chrom.first])
       }
     }
     unsigned int size() {return content_.size();}
  private:
-    std::map<std::string, dynamic_bitset> content_;
+    std::map<std::string, boost::dynamic_bitset<>> content_;
     int bin_;
 };
 
