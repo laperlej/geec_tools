@@ -49,12 +49,14 @@ class FilterBitset {
       for(std::pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
         filter.content().emplace(chrom.first, ~chrom.second);
       }
+      return filter;
     }
     FilterBitset operator&(const FilterBitset &b) const {
       FilterBitset filter;
       for(std::pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
         filter.content().emplace(chrom.first, chrom.second & b.content_[chrom.first]);
       }
+      return filter;
     }
     unsigned int size() {return content_.size();}
     std::map<std::string, boost::dynamic_bitset<>>& content(){return content_&;}
