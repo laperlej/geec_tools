@@ -81,19 +81,6 @@ void Hdf5Dataset::ToZScore() {
   content_ = zscore(content_);
 }
 
-void Hdf5Dataset::filter(Hdf5Dataset& include, Hdf5Dataset& exclude) {
-  std::vector<float> filtered_array;
-  std::vector<float>& include_array = include.GetContent();
-  std::vector<float>& exclude_array = exclude.GetContent();
-  for (int i = 0; i < content_.size(); ++i) {
-    if (include_array[i] && !exclude_array[i]) {
-      filtered_array.push_back(content_[i]);
-    }
-  }
-  content_ = filtered_array;
-  size_ = filtered_array.size();
-}
-
 std::vector<float>& Hdf5Dataset::GetContent() {
   return content_;
 }
