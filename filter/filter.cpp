@@ -37,6 +37,7 @@ they are not nessessarily actual files
 #include "utils/input_list.h"
 #include "utils/bed_reader.h"
 #include "utils/genomic_dataset.h"
+#include "utils/filter_bitset.h"
 
 int main(int argc, const char * argv[]) {
   std::string input_path, input_name, chrom_path, hdf5_path,
