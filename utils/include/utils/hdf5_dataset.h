@@ -13,7 +13,7 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include <boost/compute/container/dynamic_bitset.hpp>
+#include <boost/dynamic_bitset.hpp>
 #include "utils/genomic_data_line.h"
 #include "utils/genomic_data_line.h"
 

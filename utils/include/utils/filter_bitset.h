@@ -10,7 +10,7 @@
 #define UTILS_INCLUDE_UTILS_FILTER_BITSET_H_
 
 #include <math.h>
-#include <boost/compute/container/dynamic_bitset.hpp>
+#include <boost/dynamic_bitset.hpp>
 #include "chrom_size.h"
 #include "genomic_file_reader.h"
 
