@@ -43,6 +43,9 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
   std::string file_name = split_path.first;
   std::string chr_name = split_path.second;
 
+  std::cout << file_name << std::endl;
+  std::cout << path << std::endl;
+
   if (IsValid(file_name)) {
     if (IsValid(path)) {
       std::cout << "WARNING: "<< path<< " already exists"<< std::endl;
@@ -67,12 +70,12 @@ void Hdf5Writer::AddGenomicDataset(GenomicDataset& genomic_dataset) {
 
 void Hdf5Writer::SetSumX(const std::string name, const float sumX) {
   std::string attr_name = "sumX";
-  H5LTset_attribute_float(file_id_, ("/" + name).c_str(), attr_name.c_str(), &sumX, 1);
+  H5LTset_attribute_float(file_id_, name.c_str(), attr_name.c_str(), &sumX, 1);
 }
 
 void Hdf5Writer::SetSumXX(const std::string name, const float sumXX) {
   std::string attr_name = "sumXX";
-  H5LTset_attribute_float(file_id_, ("/" + name).c_str(), attr_name.c_str(), &sumXX, 1);
+  H5LTset_attribute_float(file_id_, name.c_str(), attr_name.c_str(), &sumXX, 1);
 }
 
 hid_t Hdf5Writer::Open() {
