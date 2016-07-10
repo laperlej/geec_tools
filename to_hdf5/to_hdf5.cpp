@@ -48,7 +48,7 @@ int main(int argc, const char * argv[]) {
     return 1;
   }
   input_path = argv[1];
-  input_name = argv[2]
+  input_name = argv[2];
   chrom_path = argv[3];
   output_path = argv[4];
   bin = std::stoi(argv[5], NULL, 10);
