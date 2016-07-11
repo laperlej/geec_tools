@@ -66,14 +66,14 @@ int main(int argc, const char * argv[]) {
   Hdf5Reader hdf5_reader(input_path);
   Hdf5Writer hdf5_writer(output_path);
   ChromSize chrom_size = ChromSize(chrom_path);
-
+  std::cout << "b" << std::endl;
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
   GenomicFileReader* include_reader = GenomicFileReaderFactory::createGenomicFileReader(include_path, "bd", chrom_size);
   GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, "bd", chrom_size);
   FilterBitset include_filter = FilterBitset(chrom_size, bin, *include_reader);
   FilterBitset exclude_filter = FilterBitset(chrom_size, bin, *exclude_reader);
   FilterBitset filter = include_filter & (~exclude_filter);
-  
+  std::cout << "c" << std::endl;
   GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(input_name, chroms, bin);
   genomic_dataset.filter(filter);
   hdf5_writer.AddGenomicDataset(genomic_dataset);
