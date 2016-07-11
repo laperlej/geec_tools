@@ -62,7 +62,7 @@ int main(int argc, const char * argv[]) {
   bin = std::stoi(argv[5], NULL, 10);
   include_path = argv[6];
   exclude_path = argv[7];
-
+  std::cout << "a" << std::endl;
   Hdf5Reader hdf5_reader(input_path);
   Hdf5Writer hdf5_writer(output_path);
   ChromSize chrom_size = ChromSize(chrom_path);
