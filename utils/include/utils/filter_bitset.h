@@ -33,7 +33,7 @@ class FilterBitset {
             while (!genomic_file_reader.NextToken(token)) {
               feed_data_line(filter, token, chrom);
             }
-
+            std::cout << "c" << std::endl;
             content_.emplace(chrom, filter);
         }
     };
