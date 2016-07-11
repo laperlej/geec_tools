@@ -9,6 +9,7 @@
 #ifndef UTILS_INCLUDE_UTILS_FILTER_BITSET_H_
 #define UTILS_INCLUDE_UTILS_FILTER_BITSET_H_
 
+#include <iostream>
 #include <math.h>
 #include <utility>
 #include <boost/dynamic_bitset.hpp>
@@ -21,12 +22,14 @@ class FilterBitset {
     FilterBitset(ChromSize& chrom_size, int bin, GenomicFileReader& genomic_file_reader) {
         bin_ = bin;
         std::vector<std::string> chrom_list = chrom_size.get_chrom_list();
+        std::cout << "a" << std::endl;
         for (std::string& chrom : chrom_list) {
             int size = ceil(chrom_size[chrom] / bin);
             boost::dynamic_bitset<> filter(size);
 
             GenomicDataLine token;
             genomic_file_reader.SeekChr(chrom);
+            std::cout << "b" << std::endl;
             while (!genomic_file_reader.NextToken(token)) {
               feed_data_line(filter, token, chrom);
             }
