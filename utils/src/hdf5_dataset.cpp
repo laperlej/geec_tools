@@ -140,8 +140,8 @@ float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
     sumXY += v1[i] * v2[i];
     sumXX += v1[i] * v1[i];
     sumYY += v2[i] * v2[i];
-    sumX += v1[i]
-    sumY += v2[i]
+    sumX += v1[i];
+    sumY += v2[i];
   }
 
   float num = sumXY - (sumX * sumY / size_);
