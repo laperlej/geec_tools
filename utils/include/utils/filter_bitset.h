@@ -26,6 +26,7 @@ class FilterBitset {
         for (std::string& chrom : chrom_list) {
             int size = ceil(chrom_size[chrom] / bin);
             boost::dynamic_bitset<> filter(size);
+            filter.resize(size);
 
             GenomicDataLine token;
             genomic_file_reader.SeekChr(chrom);
