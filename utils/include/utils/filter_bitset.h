@@ -23,7 +23,7 @@ class FilterBitset {
         bin_ = bin;
         std::vector<std::string> chrom_list = chrom_size.get_chrom_list();
         for (std::string& chrom : chrom_list) {
-            int size = ceil(chrom_size[chrom] / bin);
+            int size = ceil(chrom_size[chrom] / bin)+1;
             boost::dynamic_bitset<> filter(size);
 
             GenomicDataLine token;
