@@ -144,6 +144,7 @@ float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   std::cout << r << std::endl;
 
   r = num / pow(denum, 0.5);
+  std::cout << r << std::endl;
   return r;
 }
 
