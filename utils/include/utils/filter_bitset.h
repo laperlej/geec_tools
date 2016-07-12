@@ -54,7 +54,7 @@ class FilterBitset {
     unsigned int size() {return content_.size();}
     std::map<std::string, boost::dynamic_bitset<>>& content() {return content_;}
  private:
-    std::map<std::string, boost::dynamic_bitset<>> content_;
+    std::map<std::string, boost::dynamic_bitset<>&> content_;
     int bin_;
 };
 
