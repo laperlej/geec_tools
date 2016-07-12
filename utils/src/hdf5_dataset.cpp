@@ -120,27 +120,27 @@ std::vector<float>& zscore(std::vector<float> &v) {
 
 float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   assert(size_ == hdf5_dataset.size());
-  float r;
-  float sumXY = 0;
   std::vector<float>& v1 = content_;
   std::vector<float>& v2 = hdf5_dataset.GetContent();
 
-  float sumY = hdf5_dataset.sumX();
-  //float sumYY = hdf5_dataset.sumXX();
+  float sumXY = 0;
+
+  float sumX = sumX_
   float sumXX = 0;
+
+  float sumY = hdf5_dataset.sumX();
   float sumYY = 0;
+
+  float r;
+
   for (unsigned int i = 0; i < size_; ++i) {
     sumXY += v1[i] * v2[i];
     sumXX += v1[i] * v1[i];
     sumYY += v2[i] * v2[i];
   }
-  std::cout << "#######" << std::endl;
-  std::cout << sumXY << std::endl;
-  std::cout << sumXX << std::endl;
-  std::cout << sumYY << std::endl;
 
-  float num = sumXY - (sumX_ * sumY / size_);
-  float denum = (sumXX_ - pow(sumX_, 2) / size_) * (sumYY - pow(sumY, 2) / size_);
+  float num = sumXY - (sumX * sumY / size_);
+  float denum = (sumXX - pow(sumX, 2) / size_) * (sumYY - pow(sumY, 2) / size);
   r = num / pow(denum, 0.5);
   return r;
 }
