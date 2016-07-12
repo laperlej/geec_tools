@@ -31,13 +31,12 @@ std::map<std::string, float>  GenomicDataset::Correlate(
     std::vector<std::string>& chromosomes) {
   std::map<std::string, float> results;
   for (const std::string& chr : chromosomes) {
-    if (chromosomes_.find(chr) != chromosomes_.end()) {std::cout << "a" << std::endl;}
-    if (genomic_dataset.chromosomes_.find(chr) != genomic_dataset.chromosomes_.end()) {std::cout << "b" << std::endl;}
     if (chromosomes_.find(chr) != chromosomes_.end() &&
         genomic_dataset.chromosomes_.find(chr) !=
         genomic_dataset.chromosomes_.end()) {
       float r = chromosomes_.at(chr).GetPearson(
         genomic_dataset.chromosomes().at(chr));
+      std::cout<< r<< std::endl;
       results.emplace(chr, r);
     } else {
       results.emplace(chr, std::numeric_limits<float>::quiet_NaN());
