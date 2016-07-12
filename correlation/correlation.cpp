@@ -102,7 +102,7 @@ int main(int argc, const char * argv[]) {
   std::string first, second;
   std::map<std::string, float> result;
 
-  #pragma omp parallel for private(first, second, result)
+  //#pragma omp parallel for private(first, second, result)
   for (uint64_t i = 0; i < pairs.size(); ++i) {
     first = pairs[i].first;
     second = pairs[i].second;
