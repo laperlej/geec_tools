@@ -129,14 +129,19 @@ float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   }
   float sumY = hdf5_dataset.sumX();
   float sumYY = hdf5_dataset.sumXX();
-  std::cout << sumX_ << std::endl;
-  std::cout << sumXX_ << std::endl;
-  std::cout << sumY << std::endl;
-  std::cout << sumYY << std::endl;
-  std::cout << sumXY << std::endl;
+  //std::cout << sumX_ << std::endl;
+  //std::cout << sumXX_ << std::endl;
+  //std::cout << sumY << std::endl;
+  //std::cout << sumYY << std::endl;
+  //std::cout << sumXY << std::endl;
   float num = sumXY - sumX_ * sumY;
   float denum = pow(sumXX_ - pow(sumX_, 2), 0.5) * pow(sumYY - pow(sumY, 2), 0.5);
-  std::cout << num << std::endl;
+  //std::cout << num << std::endl;
+  std::cout << pow(sumX_, 2) << std::endl;
+  std::cout << pow(sumY, 2) << std::endl;
+  std::cout << denum << std::endl;
+  std::cout << denum << std::endl;
+  std::cout << denum << std::endl;
   std::cout << denum << std::endl;
   r = num / denum;
   return r;

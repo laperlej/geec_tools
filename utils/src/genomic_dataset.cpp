@@ -36,7 +36,6 @@ std::map<std::string, float>  GenomicDataset::Correlate(
         genomic_dataset.chromosomes_.end()) {
       float r = chromosomes_.at(chr).GetPearson(
         genomic_dataset.chromosomes().at(chr));
-      std::cout<< r<< std::endl;
       results.emplace(chr, r);
     } else {
       results.emplace(chr, std::numeric_limits<float>::quiet_NaN());
