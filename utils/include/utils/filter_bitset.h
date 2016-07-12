@@ -46,7 +46,7 @@ class FilterBitset {
       end_bin = token.end_position() / bin_;
       for (int i = start_bin; i <= end_bin; ++i) {
         std::cout << chrom << " : " << i << std::endl;
-        content_[chrom][i] = 1;
+        content_[chrom].set(i);
       }
     }
     FilterBitset operator~();
@@ -54,7 +54,7 @@ class FilterBitset {
     unsigned int size() {return content_.size();}
     std::map<std::string, boost::dynamic_bitset<>>& content() {return content_;}
  private:
-    std::map<std::string, boost::dynamic_bitset<>&> content_;
+    std::map<std::string, boost::dynamic_bitset<>> content_;
     int bin_;
 };
 
