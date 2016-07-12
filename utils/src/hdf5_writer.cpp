@@ -43,9 +43,6 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
   std::string file_name = split_path.first;
   std::string chr_name = split_path.second;
 
-  std::cout << file_name << std::endl;
-  std::cout << path << std::endl;
-
   if (IsValid(file_name)) {
     if (IsValid(path)) {
       std::cout << "WARNING: "<< path<< " already exists"<< std::endl;

@@ -42,7 +42,6 @@ class FilterBitset {
       start_bin = token.start_position() / bin_;
       end_bin = token.end_position() / bin_;
       for (int i = start_bin; i <= end_bin; ++i) {
-        std::cout<<i<<std::endl;
         filter.set(i);
       }
     }
