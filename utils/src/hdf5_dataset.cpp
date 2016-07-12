@@ -137,8 +137,8 @@ float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   //float num = sumXY - sumX_ * sumY;
   //float denum = pow(sumXX_ - pow(sumX_, 2), 0.5) * pow(sumYY - pow(sumY, 2), 0.5);
   //std::cout << num << std::endl;
-  float num = sumXY - (sumX * sumY / size_)
-  float denum = (sumXX_ - pow(sumX_, 2) / size_) * (sumYY - pow(sumY, 2) / size_)
+  float num = sumXY - (sumX * sumY / size_);
+  float denum = (sumXX_ - pow(sumX_, 2) / size_) * (sumYY - pow(sumY, 2) / size_);
   std::cout << num << std::endl;
   std::cout << denum << std::endl;
 
