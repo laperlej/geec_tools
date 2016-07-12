@@ -124,27 +124,24 @@ float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   float sumXY = 0;
   std::vector<float>& v1 = content_;
   std::vector<float>& v2 = hdf5_dataset.GetContent();
+
+  float sumY = hdf5_dataset.sumX();
+  //float sumYY = hdf5_dataset.sumXX();
+  float sumXX = 0;
+  float sumYY = 0;
   for (unsigned int i = 0; i < size_; ++i) {
     sumXY += v1[i] * v2[i];
+    sumXX += v1[i] * v1[i];
+    sumYY += v2[i] * v2[i];
   }
-  float sumY = hdf5_dataset.sumX();
-  float sumYY = hdf5_dataset.sumXX();
-  std::cout << sumX_ << std::endl;
-  std::cout << sumXX_ << std::endl;
-  std::cout << sumY << std::endl;
-  std::cout << sumYY << std::endl;
-  std::cout << sumXY << std::endl;
-  std::cout << size_ << std::endl;
-  //float num = sumXY - sumX_ * sumY;
-  //float denum = pow(sumXX_ - pow(sumX_, 2), 0.5) * pow(sumYY - pow(sumY, 2), 0.5);
-  //std::cout << num << std::endl;
+  std::cout << "#######" << endl;
+  std::cout << sumXY << endl;
+  std::cout << sumXX << endl;
+  std::cout << sumYY << endl;
+
   float num = sumXY - (sumX_ * sumY / size_);
   float denum = (sumXX_ - pow(sumX_, 2) / size_) * (sumYY - pow(sumY, 2) / size_);
-  std::cout << num << std::endl;
-  std::cout << denum << std::endl;
-
   r = num / pow(denum, 0.5);
-  std::cout << r << std::endl;
   return r;
 }
 
