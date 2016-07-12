@@ -52,7 +52,7 @@ int main(int argc, const char * argv[]) {
   // TODO(jl): remove requirement for bin_size
   int bin;
 
-  if (argc < 6) {
+  if (argc < 5) {
     printf("Usage: correlation {input_list} "
                          "{chrom_sizes} "
                          "{output.results} "
