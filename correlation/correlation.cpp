@@ -48,14 +48,13 @@ void write_entry(std::ofstream& output_file,
 }
 
 int main(int argc, const char * argv[]) {
-  std::string hdf5_path, chrom_path, output_path, list_path;
+  std::string chrom_path, output_path, list_path;
   // TODO(jl): remove requirement for bin_size
   int bin;
 
   if (argc < 6) {
     printf("Usage: correlation {input_list} "
                          "{chrom_sizes} "
-                         "{input.hdf5} "
                          "{output.results} "
                          "{bin_size}\n");
     return 1;
@@ -63,9 +62,8 @@ int main(int argc, const char * argv[]) {
 
   list_path = argv[1];
   chrom_path = argv[2];
-  hdf5_path = argv[3];
-  output_path = argv[4];
-  bin = std::stoi(argv[5], NULL, 10);
+  output_path = argv[3];
+  bin = std::stoi(argv[4], NULL, 10);
 
   InputList input_list(list_path);
   ChromSize chrom_size = ChromSize(chrom_path);
