@@ -31,8 +31,8 @@ std::map<std::string, float>  GenomicDataset::Correlate(
     std::vector<std::string>& chromosomes) {
   std::map<std::string, float> results;
   for (const std::string& chr : chromosomes) {
-    std::cout << chromosomes_.find(chr) != chromosomes_.end() << std::endl;
-    std::cout << genomic_dataset.chromosomes_.find(chr) != genomic_dataset.chromosomes_.end() << std::endl;
+    if (chromosomes_.find(chr) != chromosomes_.end()) {std::cout << "a" << std::endl;}
+    if (genomic_dataset.chromosomes_.find(chr) != genomic_dataset.chromosomes_.end()) {std::cout << "b" << std::endl;}
     if (chromosomes_.find(chr) != chromosomes_.end() &&
         genomic_dataset.chromosomes_.find(chr) !=
         genomic_dataset.chromosomes_.end()) {
