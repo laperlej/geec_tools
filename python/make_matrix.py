@@ -40,7 +40,7 @@ class InputFile(object):
         with open(file_path) as list_file:
             for line in list_file:
                 path, name = line.split()
-                if name not in nameset:
+                if name not in self.nameset:
                     self.nameset.add(name)
                     self.files.append(path)
                     self.names.append(name)

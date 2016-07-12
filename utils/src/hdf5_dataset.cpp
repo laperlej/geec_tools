@@ -119,6 +119,7 @@ std::vector<float>& zscore(std::vector<float> &v) {
 }
 
 float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
+  //TODO: find out why the sumXX and sumYY in the hdf5 are sometimes wrong
   assert(size_ == hdf5_dataset.size());
   std::vector<float>& v1 = content_;
   std::vector<float>& v2 = hdf5_dataset.GetContent();
