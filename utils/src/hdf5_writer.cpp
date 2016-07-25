@@ -37,6 +37,8 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
   path = hdf5_dataset.name();
   size = hdf5_dataset.size();
   data = hdf5_dataset.GetContent();
+  
+  std::cout<< size<< std::endl;
 
   std::pair<std::string, std::string> split_path;
   split_path = SplitPath(path);

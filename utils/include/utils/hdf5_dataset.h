@@ -16,7 +16,6 @@
 #include <utility>
 #include <boost/dynamic_bitset.hpp>
 #include "utils/genomic_data_line.h"
-#include "utils/genomic_data_line.h"
 
 class Hdf5Dataset {
  public:
