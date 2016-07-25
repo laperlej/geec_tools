@@ -67,7 +67,7 @@ void Hdf5Dataset::NormaliseContent() {
   sumX_ = 0;
   sumXX_ = 0;
   int last_index = content_.size()-1;
-  for (int i = 0; i < last_index-1; ++i) {
+  for (int i = 0; i < last_index; ++i) {
     content_[i] /= bin_;
     sumX_ += content_[i];
     sumXX_ += content_[i] * content_[i];
