@@ -9,6 +9,7 @@
 #ifndef UTILS_INCLUDE_UTILS_HDF5_DATASET_H_
 #define UTILS_INCLUDE_UTILS_HDF5_DATASET_H_
 
+#include <iosteam>
 #include <assert.h>
 #include <vector>
 #include <string>
