@@ -48,7 +48,6 @@ class Hdf5Dataset {
     }
     content_ = new_content;
     size_ = content_.size();
-    std::cout << size_<< std::endl;
     sumX_ = new_sumX;
     sumXX_ = new_sumXX;
   }
