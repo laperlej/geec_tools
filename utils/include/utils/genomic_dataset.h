@@ -9,6 +9,7 @@
 #ifndef UTILS_INCLUDE_UTILS_GENOMIC_DATASET_H_
 #define UTILS_INCLUDE_UTILS_GENOMIC_DATASET_H_
 
+#include <iostream>
 #include <map>
 #include <utility>
 #include <string>
@@ -31,6 +32,7 @@ class GenomicDataset {
     void filter(FilterBitset& filter) {
       for (std::pair<const std::string, Hdf5Dataset> chrom : chromosomes_) {
         chrom.second.filter(filter[chrom.first]);
+        std::cout<< chrom.second.size()<< std::endl;
       }
     }
  private:
