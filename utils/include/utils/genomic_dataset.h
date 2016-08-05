@@ -32,7 +32,6 @@ class GenomicDataset {
     void filter(FilterBitset& filter) {
       for (std::pair<const std::string, Hdf5Dataset>& chrom : chromosomes_) {
         chrom.second.filter(filter[chrom.first]);
-        std::cout<< chrom.second.size()<< std::endl;
       }
     }
  private:
