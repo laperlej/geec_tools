@@ -37,8 +37,6 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
   path = hdf5_dataset.name();
   size = hdf5_dataset.size();
   data = hdf5_dataset.GetContent();
-  
-  std::cout<< size<< std::endl;
 
   std::pair<std::string, std::string> split_path;
   split_path = SplitPath(path);
@@ -63,6 +61,7 @@ void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
 
 void Hdf5Writer::AddGenomicDataset(GenomicDataset& genomic_dataset) {
   for (std::pair<const std::string, Hdf5Dataset> chrom: genomic_dataset.chromosomes()) {
+    std::cout<< chrom.second.size()<< std::endl;
     AddDataset(chrom.second);
   }
 }
