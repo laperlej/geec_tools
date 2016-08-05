@@ -74,6 +74,7 @@ int main(int argc, const char * argv[]) {
   FilterBitset exclude_filter = FilterBitset(chrom_size, bin, *exclude_reader);
   FilterBitset filter = include_filter & (~exclude_filter);
   GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(input_name, chroms, bin);
+  std::cout<< genomic_dataset.chromosomes().at("chr1").size()<< std::endl;
   genomic_dataset.filter(filter);
   std::cout<< genomic_dataset.chromosomes().at("chr1").size()<< std::endl;
   hdf5_writer.AddGenomicDataset(genomic_dataset);
