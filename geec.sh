@@ -1,13 +1,13 @@
-to_hdf5="../geec_tools/bin/to_hdf5"
-filter="../geec_tools/bin/filter"
-correlation="../geec_tools/bin/correlation"
-make_matrix="../geec_tools/python/make_matrix.py"
+to_hdf5="/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/bin/to_hdf5"
+filter="/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/bin/filter"
+correlation="/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/bin/correlation"
+make_matrix="/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/python/make_matrix.py"
 
 
 bin=10000
-include="../geec_tools/resource/region/hg19.all.bed"
-exclude="../geec_tools/resource/region/hg19.exclude.bed"
-chrom_sizes="../geec_tools/resource/chrom_sizes/hg19noY.chrom.sizes"
+include="/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.all.bed"
+exclude="/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.exclude.bed"
+chrom_sizes="/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/chrom_sizes/hg19noY.chrom.sizes"
 
 file_list=$1
 results_file=$2
