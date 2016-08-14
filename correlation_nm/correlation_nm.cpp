@@ -112,6 +112,15 @@ int main(int argc, const char * argv[]) {
                                      input_list[j].second));
     }
   }
+
+  //mxm
+  for (uint64_t i = 0; i < input_list2.size(); ++i) {
+    for (uint64_t j = 0; j <= i; ++j) {
+      pairs.push_back(std::make_pair(input_list2[i].second,
+                                     input_list2[j].second));
+    }
+  }
+
   // nxm
   for (uint64_t i = 0; i < input_list.size(); ++i) {
     for (uint64_t j = 0; j < input_list2.size(); ++j) {
