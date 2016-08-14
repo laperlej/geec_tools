@@ -57,8 +57,6 @@ int main(int argc, const char * argv[]) {
     printf("Usage: correlation {input_list1} "
                               "{input_list2} "
                               "{chrom_sizes} "
-                              "{input1.hdf5} "
-                              "{input2.hdf5}"
                               "{output.results} "
                               "{bin_size}\n");
     return 1;
@@ -67,13 +65,9 @@ int main(int argc, const char * argv[]) {
   list_path = argv[1];
   list_path2 = argv[2];
   chrom_path = argv[3];
-  hdf5_path = argv[4];
-  hdf5_path2 = argv[5];
-  output_path = argv[6];
-  bin = std::stoi(argv[7], NULL, 10);
+  output_path = argv[4];
+  bin = std::stoi(argv[5], NULL, 10);
 
-  Hdf5Reader hdf5_reader(hdf5_path);
-  Hdf5Reader hdf5_reader2(hdf5_path2);
   InputList input_list(list_path);
   InputList input_list2(list_path2);
   ChromSize chrom_size = ChromSize(chrom_path);
@@ -85,6 +79,7 @@ int main(int argc, const char * argv[]) {
   // read hdf5
   std::map<std::string, GenomicDataset> data;
   for (uint64_t i = 0; i < input_list.size(); ++i) {
+    Hdf5Reader hdf5_reader = Hdf5Reader(input_list[i].first);
     data.emplace(input_list[i].second, GenomicDataset(input_list[i].second));
     for (const std::string& chrom : chroms) {
       std::string name = input_list[i].second + "/" + chrom;
@@ -97,6 +92,7 @@ int main(int argc, const char * argv[]) {
 
   // read hdf5 2
   for (uint64_t i = 0; i < input_list2.size(); ++i) {
+    Hdf5Reader hdf5_reader2 = Hdf5Reader(input_list2[i].first);
     data.emplace(input_list2[i].second, GenomicDataset(input_list2[i].second));
     for (const std::string& chrom : chroms) {
       std::string name = input_list2[i].second + "/" + chrom;
@@ -135,8 +131,7 @@ int main(int argc, const char * argv[]) {
   for (uint64_t i = 0; i < pairs.size(); ++i) {
     first = pairs[i].first;
     second = pairs[i].second;
-    result = data[first].Correlate(data[second],
-                                                                  chroms);
+    result = data[first].Correlate(data[second], chroms);
     std::string name = first + ":" + second;
     write_entry(output_file, name, result);
   }
