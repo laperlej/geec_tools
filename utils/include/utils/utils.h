@@ -1,5 +1,6 @@
 #include <openssl/md5.h>
 #include <string>
+#include <basic_string>
 #include <iostream>
 
 std::string md5sum(std::string file_path) {
