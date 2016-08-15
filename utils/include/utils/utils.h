@@ -3,7 +3,6 @@
 #include <iostream>
 
 std::string md5sum(std::string file_path) {
-  std::cout << md5sum(chrom_path)<< std::endl;
   std::ifstream file(file_path);
   std::basic_string<unsigned char> digest;
   digest.reserve(16);
