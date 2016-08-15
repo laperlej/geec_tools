@@ -68,8 +68,8 @@ int main(int argc, const char * argv[]) {
     hdf5_dataset -> NormaliseContent();
     hdf5_writer.AddDataset(*hdf5_dataset);
     hdf5_writer.SetHash("/", input_name);
-    hdf5_writer.SetChromSizesHash("/" + input_name, md5sum(chrom_path));
-    hdf5_writer.SetBin("/" + input_name, bin);
+    hdf5_writer.SetChromSizesHash("/", md5sum(chrom_path));
+    hdf5_writer.SetBin("/", bin);
     delete hdf5_dataset;
     hdf5_dataset = NULL;
   }
