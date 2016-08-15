@@ -20,9 +20,9 @@ while IFS=$'\n' read -r line; do
 done < "$file_list"
 
 filter_file_list=$(mktemp)
-cut -f4,2 > filter_file_list
+awk "BEGIN{FS=OFS='\t'}{print $4,$2}" $file_list > $filter_file_list
 
 $correlation $filter_file_list $chrom_sizes $results_file $bin
 python $make_matrix $filter_file_list $chrom_sizes $results_file $matrix_file
 
-rm filter_file_list
+rm $filter_file_list
