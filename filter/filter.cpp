@@ -27,7 +27,6 @@ they are not nessessarily actual files
 */
 
 #include <iostream>
-#include <openssl/md5.h>
 #include <stdio.h>
 #include <vector>
 #include <map>
@@ -39,16 +38,7 @@ they are not nessessarily actual files
 #include "utils/bed_reader.h"
 #include "utils/genomic_dataset.h"
 #include "utils/filter_bitset.h"
-
-std::string md5sum(std::string file_path) {
-  std::ifstream file(file_path);
-  std::string md5;
-  md5.reserve(16);
-  std::string content((std::istreambuf_iterator<char>(file)),
-                 std::istreambuf_iterator<char>());
-  md5 = MD5((reinterpret_cast<const unsigned char*>(content.c_str()), content.size(), &md5[0])
-  return md5
-}
+#include "utils/utils.h"
 
 int main(int argc, const char * argv[]) {
   std::string input_path, input_name, chrom_path, hdf5_path,
