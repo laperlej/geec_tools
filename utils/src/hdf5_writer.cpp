@@ -77,7 +77,7 @@ void Hdf5Writer::SetSumXX(const std::string name, const float sumXX) {
 
 void Hdf5Writer::SetHash(const std::string name, const std::string hash) {
   std::string attr_name = "hash";
-  H5LTset_attribute_char(file_id_, name.c_str(), attr_name.c_str(), hash.c_str(), hash.size());
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), hash.c_str());
 }
 
 void Hdf5Writer::SetChromSizesHash(const std::string name, const std::string chrom_sizes_hash) {
