@@ -27,7 +27,6 @@ Output:
 #endif
 */
 #include <iostream>
-#include <openssl/md5.h>
 #include <utility>
 #include <vector>
 #include <string>
@@ -35,17 +34,7 @@ Output:
 #include "utils/hdf5_dataset_factory.h"
 #include "utils/hdf5_writer.h"
 #include "utils/input_list.h"
-
-
-std::string md5sum(std::string file_path) {
-  std::ifstream file(file_path);
-  std::string md5;
-  md5.reserve(16);
-  std::string content((std::istreambuf_iterator<char>(file)),
-                 std::istreambuf_iterator<char>());
-  md5 = MD5(reinterpret_cast<const unsigned char*>(content.c_str()), content.size(), &md5[0])
-  return md5
-}
+#include "utils/utils.h"
 
 
 int main(int argc, const char * argv[]) {
