@@ -82,7 +82,7 @@ void Hdf5Writer::SetHash(const std::string name, const std::string hash) {
 
 void Hdf5Writer::SetChromSizesHash(const std::string name, const std::string chrom_sizes_hash) {
   std::string attr_name = "chrom_sizes_hash";
-  H5LTset_attribute_char(file_id_, name.c_str(), attr_name.c_str(), chrom_sizes_hash.c_str(), chrom_sizes_hash.size());
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), chrom_sizes_hash.c_str());
 }
 
 void Hdf5Writer::SetBin(const std::string name, const int bin) {
@@ -92,12 +92,12 @@ void Hdf5Writer::SetBin(const std::string name, const int bin) {
 
 void Hdf5Writer::SetIncludeHash(const std::string name, const std::string include_hash) {
   std::string attr_name = "include_hash";
-  H5LTset_attribute_char(file_id_, name.c_str(), attr_name.c_str(), include_hash.c_str(), include_hash.size());
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), include_hash.c_str());
 }
 
 void Hdf5Writer::SetExcludeHash(const std::string name, const std::string exclude_hash) {
   std::string attr_name = "exclude_hash";
-  H5LTset_attribute_char(file_id_, name.c_str(), attr_name.c_str(), exclude_hash.c_str(), exclude_hash.size());
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), exclude_hash.c_str());
 }
 
 hid_t Hdf5Writer::Open() {
