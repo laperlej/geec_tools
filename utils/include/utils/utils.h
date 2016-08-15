@@ -4,7 +4,7 @@
 
 std::string md5sum(std::string file_path) {
   std::ifstream file(file_path);
-  std::string md5;
+  std::basic_string<unsigned char> md5;
   md5.reserve(16);
   std::basic_string<unsigned char> content((std::istreambuf_iterator<char>(file)),
                  std::istreambuf_iterator<char>());
