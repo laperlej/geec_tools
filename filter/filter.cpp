@@ -81,7 +81,7 @@ int main(int argc, const char * argv[]) {
   hdf5_writer.SetHash("/", input_name);
   hdf5_writer.SetChromSizesHash("/" + input_name, md5sum(chrom_path));
   hdf5_writer.SetBin("/" + input_name, bin);
-  hdf5_writer.SetIncludeHash("/" + input_name, md5sum(include_path);
+  hdf5_writer.SetIncludeHash("/" + input_name, md5sum(include_path));
   hdf5_writer.SetExcludeHash("/" + input_name, md5sum(exclude_path));
 }
 
