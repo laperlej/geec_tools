@@ -2,7 +2,7 @@
 
 FilterBitset FilterBitset::operator~() {
   FilterBitset filter;
-  for(std::pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
+  for(std::pair<const std::string, boost::dynamic_bitset<>>& chrom: content_) {
     filter.content().emplace(chrom.first, ~chrom.second);
   }
   return filter;
@@ -10,7 +10,7 @@ FilterBitset FilterBitset::operator~() {
 
 FilterBitset FilterBitset::operator&(const FilterBitset &b) {
   FilterBitset filter;
-  for(std::pair<const std::string, boost::dynamic_bitset<>> chrom: content_) {
+  for(std::pair<const std::string, boost::dynamic_bitset<>>& chrom: content_) {
     filter.content().emplace(chrom.first, chrom.second & b.at(chrom.first));
   }
   return filter;

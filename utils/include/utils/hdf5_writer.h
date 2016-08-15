@@ -25,6 +25,11 @@ class Hdf5Writer {
   void AddGenomicDataset(GenomicDataset& genomic_dataset);
   void SetSumX(const std::string name, float sumX);
   void SetSumXX(const std::string name, float sumXX);
+  void SetHash(const std::string name, const std::string hash);
+  void SetChromSizesHash(const std::string name, const std::string chrom_sizes_hash);
+  void SetBin(const std::string name, const int bin);
+  void SetIncludeHash(const std::string name, const std::string include_hash);
+  void SetExcludeHash(const std::string name, const std::string exclude_hash);
   htri_t IsValid(const std::string& path);
  private:
   hid_t Open();

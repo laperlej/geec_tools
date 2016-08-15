@@ -75,6 +75,31 @@ void Hdf5Writer::SetSumXX(const std::string name, const float sumXX) {
   H5LTset_attribute_float(file_id_, name.c_str(), attr_name.c_str(), &sumXX, 1);
 }
 
+void Hdf5Writer::SetHash(const std::string name, const std::string hash) {
+  std::string attr_name = "hash";
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), hash.c_str());
+}
+
+void Hdf5Writer::SetChromSizesHash(const std::string name, const std::string chrom_sizes_hash) {
+  std::string attr_name = "chrom_sizes_hash";
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), chrom_sizes_hash.c_str());
+}
+
+void Hdf5Writer::SetBin(const std::string name, const int bin) {
+  std::string attr_name = "bin";
+  H5LTset_attribute_int(file_id_, name.c_str(), attr_name.c_str(), &bin, 1);
+}
+
+void Hdf5Writer::SetIncludeHash(const std::string name, const std::string include_hash) {
+  std::string attr_name = "include_hash";
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), include_hash.c_str());
+}
+
+void Hdf5Writer::SetExcludeHash(const std::string name, const std::string exclude_hash) {
+  std::string attr_name = "exclude_hash";
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), exclude_hash.c_str());
+}
+
 hid_t Hdf5Writer::Open() {
   hid_t file_id;
   file_id = H5Fopen(file_path_.c_str(), H5F_ACC_RDWR, H5P_DEFAULT);

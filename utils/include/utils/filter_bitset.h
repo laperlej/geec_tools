@@ -16,6 +16,8 @@
 #include "chrom_size.h"
 #include "genomic_file_reader.h"
 
+#define BOOST_DYNAMIC_BITSET_DONT_USE_FRIENDS
+
 class FilterBitset {
  public:
     FilterBitset() {};

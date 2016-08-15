@@ -27,6 +27,7 @@ Output:
 #endif
 */
 #include <iostream>
+#include <openssl/md5.h>
 #include <utility>
 #include <vector>
 #include <string>
@@ -34,6 +35,17 @@ Output:
 #include "utils/hdf5_dataset_factory.h"
 #include "utils/hdf5_writer.h"
 #include "utils/input_list.h"
+
+
+std::string md5sum(std::string file_path) {
+  std::ifstream file(file_path);
+  std::string md5;
+  md5.reserve(16);
+  std::string content((std::istreambuf_iterator<char>(file)),
+                 std::istreambuf_iterator<char>());
+  std::string md5 = MD5(content.c_str(), content.size(), &md5[0])
+  return md5
+}
 
 
 int main(int argc, const char * argv[]) {
@@ -66,6 +78,9 @@ int main(int argc, const char * argv[]) {
       input_name, genomic_file_reader, chrom, chrom_size[chrom], bin);
     hdf5_dataset -> NormaliseContent();
     hdf5_writer.AddDataset(*hdf5_dataset);
+    hdf5_writer.SetHash("/", input_name);
+    hdf5_writer.SetChromSizesHash("/" + input_name, md5sum(chrom_path));
+    hdf5_writer.SetBin("/" + input_name, bin);
     delete hdf5_dataset;
     hdf5_dataset = NULL;
   }
