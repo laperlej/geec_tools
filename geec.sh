@@ -14,15 +14,15 @@ results_file=$2
 matrix_file=$3
 
 while IFS=$'\n' read -r line; do
-	IFS=$'\t' read -r bw_file name hdf5_file filtered_file <<< "$line"
+	IFS=$'\t' read -r bw_file name hdf5_file filter_file <<< "$line"
 	$to_hdf5 $bw_file $name $chrom_sizes $hdf5_file $bin
-	$filter $bw_file $name $filtred_file $chrom_sizes $bin $include $exclude
+	$filter $hdf5_file $name $filter_file $chrom_sizes $bin $include $exclude
 done < "$file_list"
 
-filtered_file_list=$(mktemp)
-cut -f4,2 > filtered_file_list
+filter_file_list=$(mktemp)
+cut -f4,2 > filter_file_list
 
 $correlation $filter_file_list $chrom_sizes $results_file $bin
 python $make_matrix $filter_file_list $chrom_sizes $results_file $matrix_file
 
-rm filtered_file_list
+rm filter_file_list

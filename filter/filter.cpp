@@ -47,7 +47,7 @@ int main(int argc, const char * argv[]) {
   int bin;
 
   if (argc < 8) {
-    printf("Usage: to_zscore {input.hdf5} "
+    printf("Usage: filter {input.hdf5} "
                          "{input_name} "
                          "{output.hdf5} "
                          "{chrom_sizes} "
