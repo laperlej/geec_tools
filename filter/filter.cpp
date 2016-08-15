@@ -46,7 +46,7 @@ std::string md5sum(std::string file_path) {
   md5.reserve(16);
   std::string content((std::istreambuf_iterator<char>(file)),
                  std::istreambuf_iterator<char>());
-  md5 = MD5(content.c_str(), content.size(), &md5[0])
+  md5 = MD5(reinterpret_cast<const unsigned char*>content.c_str(), content.size(), &md5[0])
   return md5
 }
 
