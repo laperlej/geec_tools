@@ -73,9 +73,9 @@ REGION={'hg19': {'all': os.path.join(os.path.dirname(MODULE_DIR),
 #precalculated
 HDF5 = {'hg19': {'10000': {'all' :{'blacklisted' : os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
-                         'filtered',
+                         'public',
                          'hg19_10kb_all_blklst.list'),
                                    'none': os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
-                         'filtered',
+                         'public',
                          'hg19_10kb_all_none.list'}}}}
