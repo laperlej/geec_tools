@@ -9,14 +9,14 @@ IHEC_DIR = '/nfs3_ib/10.4.217.32'
 TO_HDF5 = os.path.join(os.path.dirname(MODULE_DIR),
                    'bin',
                    'to_hdf5')
-TO_ZSCORE = os.path.join(os.path.dirname(MODULE_DIR),
+FILTER = os.path.join(os.path.dirname(MODULE_DIR),
                    'bin',
-                   'to_zscore')
+                   'filter')
 CORRELATION = os.path.join(os.path.dirname(MODULE_DIR),
                    'bin',
-                   'correlation_nm')
-COMPLETE_MATRIX = os.path.join(MODULE_DIR,
-                   'complete_matrix.py')
+                   'correlation')
+MAKE_MATRIX = os.path.join(MODULE_DIR,
+                   'make_matrix.py')
 BWI = os.path.join(os.path.dirname(MODULE_DIR),
                    'bin',
                    'bigWigInfo')
@@ -71,11 +71,11 @@ REGION={'hg19': {'all': os.path.join(os.path.dirname(MODULE_DIR),
 }
 
 #precalculated
-ZSCORE = {'hg19': {'10000': {'all' :{'blacklisted' : os.path.join(os.path.dirname(MODULE_DIR),
+HDF5 = {'hg19': {'10000': {'all' :{'blacklisted' : os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
-                         'zscore',
-                         'hg19.zscore')}}}}
-MATRIX = {'hg19': {'10000': {'all' :{'blacklisted' : os.path.join(os.path.dirname(MODULE_DIR),
+                         'filtered',
+                         'hg19_10kb_all_blklst.list'),
+                                   'none': os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
-                         'mat',
-                         'hg19.mat')}}}}
+                         'filtered',
+                         'hg19_10kb_all_none.list'}}}}
