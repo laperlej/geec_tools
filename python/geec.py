@@ -38,7 +38,7 @@ def filter_hdf5(name, assembly, user_hdf5, user_zscore, resolution, include, exc
                      exclude
                     ])
 
-def process_unit(ags):
+def process_unit(args):
 	raw_file, name, assembly, user_hdf5, user_zscore, resolution, include, exclude = args
 	to_hdf5(raw_file, name, assembly, user_hdf5, resolution)
 	filter_hdf5(name, assembly, user_hdf5, user_zscore, resolution, include, exclude)
