@@ -63,6 +63,10 @@ bool Hdf5Reader::IsValid(const std::string& path) {
 
 hid_t Hdf5Reader::Open() {
   hid_t file_id;
+  if (!H5File::isHdf5(file_path_.c_str())) {   
+       // Invalid HDF5 file
+       throw;
+  }
   file_id = H5Fopen(file_path_.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
   return file_id;
 }
