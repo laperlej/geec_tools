@@ -12,6 +12,7 @@
 #include "utils/hdf5_reader.h"
 #include "utils/genomic_dataset.h"
 #include "hdf5_hl.h"
+#include "hdf5.h"
 
 Hdf5Reader::Hdf5Reader(const std::string& file_path) {
   file_path_ = file_path;
