@@ -104,7 +104,7 @@ def main():
     with open(list_path, 'r') as list_file:
         for line in list_file:
             line = line.split()
-            input_list.append(line[3], line[1])
+            input_list.append((line[3], line[1]))
 
     input_path = create_input_list(input_list)
 
