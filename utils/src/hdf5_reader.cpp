@@ -12,7 +12,6 @@
 #include "utils/hdf5_reader.h"
 #include "utils/genomic_dataset.h"
 #include "hdf5_hl.h"
-#include <H5File.h>
 
 Hdf5Reader::Hdf5Reader(const std::string& file_path) {
   file_path_ = file_path;
@@ -64,7 +63,7 @@ bool Hdf5Reader::IsValid(const std::string& path) {
 
 hid_t Hdf5Reader::Open() {
   hid_t file_id;
-  if (!H5::H5File::isHdf5(file_path_.c_str())) {   
+  if (!H5Fis_hdf5(file_path_.c_str())) {   
        // Invalid HDF5 file
        throw;
   }
