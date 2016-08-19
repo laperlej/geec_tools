@@ -10,8 +10,6 @@ exclude="/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_too
 chrom_sizes="/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/chrom_sizes/hg19noY.chrom.sizes"
 
 file_list=$1
-results_file=$2
-matrix_file=$3
 
 hdf5_commands=$(mktemp)
 filtered_commands=$(mktemp)
@@ -24,11 +22,3 @@ done < "$file_list"
 
 cat $hdf5_commands | xargs -I CMD -P 24 bash -c CMD
 cat $filtered_commands | xargs -I CMD -P 24 bash -c CMD
-
-filter_file_list=$(mktemp)
-awk 'BEGIN{FS=OFS="\t"}{print $4,$2}' $file_list > $filter_file_list
-
-$correlation $filter_file_list $chrom_sizes $results_file $bin
-python $make_matrix $filter_file_list $chrom_sizes $results_file $matrix_file
-
-rm $filter_file_list
