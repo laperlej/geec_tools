@@ -90,20 +90,20 @@ def tmp_name():
     return temp_path
 
 def main():
-	resolution = "10000"
-	assembly = "hg19"
-	include = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.all.bed"
-	exclude = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.exclude.bed"
-	chrom_sizes = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/chrom_sizes/hg19noY.chrom.sizes"
+    resolution = "10000"
+    assembly = "hg19"
+    include = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.all.bed"
+    exclude = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.exclude.bed"
+    chrom_sizes = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/chrom_sizes/hg19noY.chrom.sizes"
 
-	list_path = sys.argv[1]
+    list_path = sys.argv[1]
     corr_path = sys.argv[2]
     mat_path = sys.argv[3]
 
     input_list = []
-	with open(list_path, 'r') as list_file:
-		for line in list_file:
-			line = line.split()
+    with open(list_path, 'r') as list_file:
+        for line in list_file:
+            line = line.split()
             input_list.append(line[3], line[1])
 
     input_path = create_input_list(input_list)
