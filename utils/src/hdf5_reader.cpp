@@ -65,7 +65,7 @@ hid_t Hdf5Reader::Open() {
   hid_t file_id;
   if (!H5Fis_hdf5(file_path_.c_str())) {   
        // Invalid HDF5 file
-       throw;
+       throw std::runtime_error("Failed to open file "+ file_path_);
   }
   file_id = H5Fopen(file_path_.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT);
   return file_id;
