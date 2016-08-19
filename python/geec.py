@@ -20,7 +20,7 @@ def to_hdf5(raw_file, name, assembly, user_hdf5, resolution):
                      user_hdf5,
                      resolution])
 
-def filter_hdf5(name, assembly, user_hdf5, user_zscore, resolution, include, exclude):
+def filter_hdf5(name, assembly, user_hdf5, filtered_hdf5, resolution, include, exclude):
     """Usage: filter    {input.hdf5}
                         {name}
                         {output.hdf5}
@@ -39,9 +39,9 @@ def filter_hdf5(name, assembly, user_hdf5, user_zscore, resolution, include, exc
                     ])
 
 def process_unit(args):
-	raw_file, name, assembly, user_hdf5, user_zscore, resolution, include, exclude = args
+	raw_file, name, assembly, user_hdf5, filtered_hdf5, resolution, include, exclude = args
 	to_hdf5(raw_file, name, assembly, user_hdf5, resolution)
-	filter_hdf5(name, assembly, user_hdf5, user_zscore, resolution, include, exclude)
+	filter_hdf5(name, assembly, user_hdf5, filtered_hdf5, resolution, include, exclude)
 
 def correlate(input_list, assembly, correlation_file, resolution):
     """Usage: correlation {input_list}
@@ -103,8 +103,8 @@ def main():
 			raw_file = line[0]
 			name = line[1]
 			user_hdf5 = line[2]
-			user_zscore = line[3]
-			args = (raw_file, name, assembly, user_hdf5, user_zscore, resolution, include, exclude)
+			filtered_hdf5 = line[3]
+			args = (raw_file, name, assembly, user_hdf5, filtered_hdf5, resolution, include, exclude)
 			args_list.append(args)
 	pool = multiprocessing.Pool(multiprocessing.cpu_count())
 	pool.map(process_unit, args_list)
