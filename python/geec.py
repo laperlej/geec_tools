@@ -7,7 +7,7 @@ import os
 import config
 import multiprocessing
 
-def to_hdf5(raw_file, name, assembly, user_hdf5, resolution):
+def to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution):
     """Usage: to_hdf5 {dataset.bw}
                       {name}
                       {chrom_sizes}
@@ -16,11 +16,11 @@ def to_hdf5(raw_file, name, assembly, user_hdf5, resolution):
     subprocess.call([config.TO_HDF5,
                      raw_file,
                      name,
-                     config.CHROM_SIZE[assembly],
+                     chrom_sizes,
                      user_hdf5,
                      resolution])
 
-def filter_hdf5(name, assembly, user_hdf5, filtered_hdf5, resolution, include, exclude):
+def filter_hdf5(name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude):
     """Usage: filter    {input.hdf5}
                         {name}
                         {output.hdf5}
@@ -32,37 +32,37 @@ def filter_hdf5(name, assembly, user_hdf5, filtered_hdf5, resolution, include, e
                      user_hdf5,
                      name,
                      filtered_hdf5,
-                     config.CHROM_SIZE[assembly],
+                     chrom_sizes,
                      resolution,
                      include,
                      exclude
                     ])
 
 def process_unit(args):
-	raw_file, name, assembly, user_hdf5, filtered_hdf5, resolution, include, exclude = args
-	to_hdf5(raw_file, name, assembly, user_hdf5, resolution)
-	filter_hdf5(name, assembly, user_hdf5, filtered_hdf5, resolution, include, exclude)
+	raw_file, name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude = args
+	to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution)
+	filter_hdf5(name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude)
 
-def correlate(input_list, assembly, correlation_file, resolution):
+def correlate(input_list, chrom_sizes, correlation_file, resolution):
     """Usage: correlation {input_list}
                           {chrom_sizes}
                           {output.results}
                           {bin_size}\n");"""
     subprocess.call([config.CORRELATION,
                      input_list,
-                     config.CHROM_SIZE[assembly],
+                     chrom_sizes,
                      correlation_file,
                      resolution
                      ])
 
-def make_matrix(input_list, assembly, correlation_file, output_matrix):
+def make_matrix(input_list, chrom_sizes, correlation_file, output_matrix):
     """
     python make_matrix.py {list_path} {chrom_size} {corr_path} {output_path}
     """
     subprocess.call(['python', 
                      config.MAKE_MATRIX,
                      input_list,
-                     config.CHROM_SIZE[assembly],
+                     chrom_sizes,
                      correlation_file,
                      output_matrix
                      ])
@@ -94,6 +94,7 @@ def main():
 	assembly = "hg19"
 	include = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.all.bed"
 	exclude = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.exclude.bed"
+	chrom_sizes = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/chrom_sizes/hg19noY.chrom.sizes"
 
 	list_path = sys.argv[1]
 	args_list=[]
@@ -104,7 +105,7 @@ def main():
 			name = line[1]
 			user_hdf5 = line[2]
 			filtered_hdf5 = line[3]
-			args = (raw_file, name, assembly, user_hdf5, filtered_hdf5, resolution, include, exclude)
+			args = (raw_file, name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude)
 			args_list.append(args)
 	pool = multiprocessing.Pool(multiprocessing.cpu_count())
 	pool.map(process_unit, args_list)
