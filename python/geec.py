@@ -90,7 +90,7 @@ def tmp_name():
     return temp_path
 
 def main():
-	resolution = 10000
+	resolution = "10000"
 	assembly = "hg19"
 	include = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.all.bed"
 	exclude = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.exclude.bed"
