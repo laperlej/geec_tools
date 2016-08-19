@@ -69,7 +69,7 @@ int main(int argc, const char * argv[]) {
   Hdf5Writer hdf5_writer(output_path);
   ChromSize chrom_size = ChromSize(chrom_path);
 
-  if (hdf5_reader.isValid("/")) {
+  if (hdf5_reader.IsValid("/")) {
     std::vector<std::string> chroms = chrom_size.get_chrom_list();
     GenomicFileReader* include_reader = GenomicFileReaderFactory::createGenomicFileReader(include_path, "bd", chrom_size);
     GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, "bd", chrom_size);
