@@ -122,7 +122,7 @@ float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   //TODO: find out why the sumXX and sumYY in the hdf5 are sometimes wrong
   //assert(size_ == hdf5_dataset.size());
   if (!(size_ == hdf5_dataset.size())) {
-    throw td::runtime_error("Attemping to correlate vectors of different lenghts");
+    throw std::runtime_error("Attemping to correlate vectors of different lenghts");
   }
   std::vector<float>& v1 = content_;
   std::vector<float>& v2 = hdf5_dataset.GetContent();
