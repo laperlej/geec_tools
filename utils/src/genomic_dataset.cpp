@@ -36,10 +36,10 @@ std::map<std::string, float>  GenomicDataset::Correlate(
         genomic_dataset.chromosomes_.end()) {
       float r;
       try{
-        float r = chromosomes_.at(chr).GetPearson(
+        r = chromosomes_.at(chr).GetPearson(
         genomic_dataset.chromosomes().at(chr));
       } catch (...) {
-        float r = 0;
+        r = 0;
       }
       results.emplace(chr, r);
     } else {
