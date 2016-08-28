@@ -108,7 +108,11 @@ def main():
 			args = (raw_file, name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude)
 			args_list.append(args)
 	pool = multiprocessing.Pool(multiprocessing.cpu_count())
-	pool.map(process_unit, args_list)
+    try:
+	   pool.map(process_unit, args_list)
+    except KeyboardInterrupt:
+        pool.terminate()
+        exit(1)
 
 
 if __name__ == '__main__':
