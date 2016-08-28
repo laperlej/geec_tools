@@ -30,6 +30,7 @@ Output:
 #include <utility>
 #include <vector>
 #include <string>
+#include <boost/filesystem.hpp>
 #include "utils/genomic_file_reader_factory.h"
 #include "utils/hdf5_dataset_factory.h"
 #include "utils/hdf5_writer.h"
@@ -57,7 +58,7 @@ int main(int argc, const char * argv[]) {
   ChromSize chrom_size = ChromSize(chrom_path);
   Hdf5Writer hdf5_writer(output_path);
   GenomicFileReader* genomic_file_reader = GenomicFileReaderFactory::createGenomicFileReader(
-          input_path, "bw", chrom_size);;
+          input_path, boost::filesystem::extension(input_path), chrom_size);
   Hdf5Dataset* hdf5_dataset = NULL;
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
 
