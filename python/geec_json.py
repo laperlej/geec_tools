@@ -1,15 +1,24 @@
+"""
+"""
+
 import sys
 import json
 import os
 
 class GeecJson(object):
+    """
+    """
     def __init__(self, geec_json_file):
         self.datasets = self.load(geec_json_file)
 
     def load(self, geec_json_file):
+        """
+        """
         return json.load(geec_json_file)['datasets']
 
     def input_file(self):
+        """
+        """
         root = "/mnt/parallel_scratch_mp2_wipe_on_august_2016"\
                "/jacques/laperlej/test/"
         hdf5_dsc = "10kb_all_none"
@@ -37,10 +46,11 @@ class GeecJson(object):
 
 
 def main():
+    """
+    """
     geec_json_path = sys.argv[1]
     geec_json = GeecJson(open(geec_json_path))
     geec_json.input_file()
 
 if __name__ == "__main__":
     main()
-    
