@@ -16,14 +16,13 @@ BedGraphReader::BedGraphReader(const std::string& file_path,
 };
 
 void BedGraphReader::SeekChr(const std::string& chromosome) {
-  std::streampos cursor;
   chr_ = chromosome;
   GenomicDataLine genomic_data_line;
   do {
-    cursor = genomic_file_stream_.tellg();
+    cursor_ = genomic_file_stream_.tellg();
     NextToken(genomic_data_line);
   } while (genomic_data_line.chromosome() != chromosome);
-  genomic_file_stream_.seekg(cursor);
+  genomic_file_stream_.seekg(cursor_);
 }
 
 bool BedGraphReader::NextToken(GenomicDataLine& genomic_data_line) {
