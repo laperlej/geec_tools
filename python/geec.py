@@ -47,6 +47,7 @@ def main():
     args_list = make_args(open(list_path), resolution)
     pool = multiprocessing.Pool(multiprocessing.cpu_count())
     try:
+        print args_list[1]
         pool.map(process_unit, args_list)
     except KeyboardInterrupt:
         pool.terminate()
