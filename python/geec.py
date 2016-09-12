@@ -21,9 +21,9 @@ def process_unit(args):
 
 def make_args(list_file, resolution):
     assembly = "hg19"
-    include = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.all.bed"
-    exclude = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.exclude.bed"
-    chrom_sizes = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/chrom_sizes/hg19noY.chrom.sizes"
+    include = "/mnt/parallel_scratch_mp2_wipe_on_august_2017/jacques/laperlej/geec_tools/resource/region/hg19.all.bed"
+    exclude = "/mnt/parallel_scratch_mp2_wipe_on_august_2017/jacques/laperlej/geec_tools/resource/region/hg19.exclude.bed"
+    chrom_sizes = "/mnt/parallel_scratch_mp2_wipe_on_august_2017/jacques/laperlej/geec_tools/resource/chrom_sizes/hg19noY.chrom.sizes"
 
     args_list=[]
     for line in list_file:
