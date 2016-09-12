@@ -14,7 +14,6 @@ import multiprocessing
 def process_unit(args):
     """
     """
-    print args
     raw_file, name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude = args
     to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution)
     filter_hdf5(name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude)
