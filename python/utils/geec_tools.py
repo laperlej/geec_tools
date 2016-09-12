@@ -1,4 +1,5 @@
 import subprocess
+import config
 
 
 def to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution):
