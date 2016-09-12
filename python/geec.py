@@ -19,8 +19,7 @@ def process_unit(args):
     filter_hdf5(name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude)
 
 
-def make_args(list_file):
-    resolution = "10000"
+def make_args(list_file, resolution):
     assembly = "hg19"
     include = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.all.bed"
     exclude = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.exclude.bed"
@@ -43,8 +42,9 @@ def main():
     """
     """
     list_path = sys.argv[1]
+    resolution = sys.argv[2]
 
-    args_list = make_args(open(list_path))
+    args_list = make_args(open(list_path), resolution)
     pool = multiprocessing.Pool(multiprocessing.cpu_count())
     try:
         pool.map(process_unit, args_list)
