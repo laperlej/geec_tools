@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Jonathan Laperle. All rights reserved.
 //
 
+#include <iostream>
 #include <string>
 #include "utils/bedgraph_reader.h"
 
@@ -32,6 +33,7 @@ bool BedGraphReader::NextToken(GenomicDataLine& genomic_data_line) {
   float score;
   genomic_file_stream_>> chr>> start>> end>> score;
   genomic_data_line = GenomicDataLine(chr, start, end, score);
+  std::cout<< genomic_data_line.display()<< std::endl;
   return genomic_file_stream_.fail() || chr != chr_;
 }
 
