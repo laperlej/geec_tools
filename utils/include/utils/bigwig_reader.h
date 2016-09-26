@@ -20,7 +20,6 @@ class BigWigReader: public GenomicFileReader {
   void SeekChr(const std::string& chromosome);
   bool NextToken(GenomicDataLine&);
  private:
-  std::streampos cursor_;
   BBFileReader* bigwig_;
   BigWigIterator bigwig_it_;
   void OpenStream();
