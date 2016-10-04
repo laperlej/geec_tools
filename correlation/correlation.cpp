@@ -78,7 +78,7 @@ int main(int argc, const char * argv[]) {
     Hdf5Reader hdf5_reader = Hdf5Reader(input_list[i].first);
     data.emplace(input_list[i].second, GenomicDataset(input_list[i].second));
     for (const std::string& chrom : chroms) {
-      std::string name = input_list[i].second + "/" + chrom;
+      std::string name = hdf5_reader.GetHash() + "/" + chrom;
       if (hdf5_reader.IsValid(name)) {
         hdf5_dataset = hdf5_reader.GetDataset(name, bin);
         data[input_list[i].second].add_chromosome(chrom, *hdf5_dataset);

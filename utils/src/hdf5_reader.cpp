@@ -57,6 +57,13 @@ float Hdf5Reader::GetSumXX(const std::string& name) {
   return sumXX;
 }
 
+std::string Hdf5Reader::GetHash() {
+  std::string hash;
+  hash.resize(32);
+  std::string attr_name = "hash";
+  H5LTget_attribute_string(file_id_, name.c_str(), attr_name.c_str(), &hash[0];
+}
+
 bool Hdf5Reader::IsValid(const std::string& path) {
   return H5LTpath_valid(file_id_, path.c_str(), false);
 }
