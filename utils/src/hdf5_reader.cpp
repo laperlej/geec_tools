@@ -59,9 +59,9 @@ float Hdf5Reader::GetSumXX(const std::string& name) {
 
 std::string Hdf5Reader::GetHash() {
   std::string hash;
-  hash.resize(33);
+  hash.resize(50);
   std::string attr_name = "hash";
-  H5LTget_attribute_string(file_id_, "/", attr_name.c_str(), &hash[0]);
+  H5LTget_attribute_string(file_id_, "/", attr_name.c_str(), hash.c_str());
   std::cout << hash << std::endl;
   return hash;
 }
