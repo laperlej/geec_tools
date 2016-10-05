@@ -5,6 +5,7 @@
 import itertools
 import sys
 import numpy as np
+import json
 
 class ChromSizes(object):
     def  __init__(self, path):
@@ -68,6 +69,13 @@ class Matrix():
         y = self.index.get(y_label)
         self.matrix[x, y] = value
 
+    def convert_labels(self, meta):
+        for i in xrange(self.size):
+            token = meta.get("datasets", {}).get(self.labels[i], {})
+            if token:
+                self.labels[i] = token.get("file_name", self.labels[i])
+
+
     def __str__(self):
         s = ""
         s += '\t' + '\t'.join(self.labels) + '\n'
@@ -102,6 +110,7 @@ def main():
     input_file = InputFile(LIST_PATH)
     chrom_sizes = ChromSizes(CHROM_SIZES)
     matrix = corr_file_parser(CORR_PATH).make_matrix(input_file.names, chrom_sizes.weights)
+    matrix.convert_labels(META)
     with open(OUTPUT_PATH, 'w') as output_file:
         output_file.write(str(matrix))
 
@@ -109,8 +118,18 @@ if __name__ == '__main__':
     if len(sys.argv) < 5:
         print("usage: python make_matrix.py {list_path} {chrom_size} {corr_path} {output_path}")
         exit()
-    LIST_PATH = sys.argv[1]
-    CHROM_SIZES = sys.argv[2]
-    CORR_PATH = sys.argv[3]
-    OUTPUT_PATH = sys.argv[4]
+
+    elif len(sys.argv) == 5:
+        LIST_PATH = sys.argv[1]
+        CHROM_SIZES = sys.argv[2]
+        CORR_PATH = sys.argv[3]
+        OUTPUT_PATH = sys.argv[4]
+        META = {}
+
+    elif len(sys.argv) > 5:
+        LIST_PATH = sys.argv[1]
+        CHROM_SIZES = sys.argv[2]
+        CORR_PATH = sys.argv[3]
+        OUTPUT_PATH = sys.argv[4]
+        META = json.load(open(sys.argv[5]))
     main()
