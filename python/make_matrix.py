@@ -127,6 +127,7 @@ if __name__ == '__main__':
         META = {}
 
     elif len(sys.argv) > 5:
+        print sys.argv
         LIST_PATH = sys.argv[1]
         CHROM_SIZES = sys.argv[2]
         CORR_PATH = sys.argv[3]
