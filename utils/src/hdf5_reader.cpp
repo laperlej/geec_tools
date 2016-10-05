@@ -61,7 +61,7 @@ std::string Hdf5Reader::GetHash() {
   std::string hash;
   hash.resize(32);
   std::string attr_name = "hash";
-  H5LTget_attribute_string(file_id_, name.c_str(), attr_name.c_str(), &hash[0];
+  H5LTget_attribute_string(file_id_, "/", attr_name.c_str(), &hash[0];
   return hash;
 }
 
