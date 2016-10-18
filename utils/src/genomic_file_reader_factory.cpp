@@ -20,10 +20,10 @@ enum FileTypeId {
 };
 
 FileTypeId file_type_to_id(std::string file_type) {
-    if (file_type == ".bw" || file_type == ".bigWig" || file_type == ".bigwig") return bw;
+    if (file_type == ".bw" || file_type == ".bigWig" || file_type == ".bigwig" || file_type == ".dat") return bw;
     if (file_type == ".bg" || file_type == ".bedGraph" || file_type == ".bedgraph") return bg;
     if (file_type == ".bd" || file_type == ".bed") return bd;
-    return bw;
+    return none;
 }
 
 GenomicFileReader* GenomicFileReaderFactory::createGenomicFileReader(
