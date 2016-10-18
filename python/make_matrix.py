@@ -70,10 +70,10 @@ class Matrix():
         self.matrix[x, y] = value
 
     def convert_labels(self, meta):
-        for i in xrange(self.size):
+        for i in xrange(len(self.labels)):
             token = meta.get("datasets", {}).get(self.labels[i], {})
             if token:
-                self.labels[i] = "{1}_{2}".format(token.get("file_name", ""), self.labels[i])
+                self.labels[i] = "{0}_{1}".format(token.get("file_name", ""), self.labels[i])
 
 
     def __str__(self):
