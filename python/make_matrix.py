@@ -96,13 +96,16 @@ class corr_file_parser():
 
     def make_matrix(self, labels, weights):
         matrix = Matrix(labels)
-        with open(self.path) as corr_file:
-            for line in corr_file:
-                line = line.split()
-                file1, file2 = line[0].split(':')
-                average = weighted_average(line[1:], weights)
-                matrix[file1, file2] = average
-                matrix[file2, file1] = average
+        try:
+            with open(self.path) as corr_file:
+                for line in corr_file:
+                    line = line.split()
+                    file1, file2 = line[0].split(':')
+                    average = weighted_average(line[1:], weights)
+                    matrix[file1, file2] = average
+                    matrix[file2, file1] = average
+        except IOError:
+            pass
         return matrix
 
 def weighted_average(line, weights):
