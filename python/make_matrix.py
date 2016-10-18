@@ -11,11 +11,14 @@ class ChromSizes(object):
     def  __init__(self, path):
         self.weights = {}
         self.chroms = {}
-        with open(path) as chrom_sizes:
-            for line in chrom_sizes:
-                if line:
-                    chrom, chrom_size = line.split()
-                    self.chroms[chrom] = int(chrom_size)
+        try:
+            with open(path) as chrom_sizes:
+                for line in chrom_sizes:
+                    if line:
+                        chrom, chrom_size = line.split()
+                        self.chroms[chrom] = int(chrom_size)
+        except IOError:
+            pass
         self.genome_size = 0
         self._size()
         self.weights = {}
@@ -38,13 +41,16 @@ class InputFile(object):
         self.parse_file(file_path)
 
     def parse_file(self, file_path):
-        with open(file_path) as list_file:
-            for line in list_file:
-                path, name = line.split()
-                if name not in self.nameset:
-                    self.nameset.add(name)
-                    self.files.append(path)
-                    self.names.append(name)
+        try:
+            with open(file_path) as list_file:
+                for line in list_file:
+                    path, name = line.split()
+                    if name not in self.nameset:
+                        self.nameset.add(name)
+                        self.files.append(path)
+                        self.names.append(name)
+        except IOError:
+            pass
 
     def __getitem__(self, index):
         return self.files[index], self.names[index]
