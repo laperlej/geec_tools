@@ -74,9 +74,9 @@ int main(int argc, const char * argv[]) {
 
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
   std::cout<<"e"<<std::endl;
-  GenomicFileReader* include_reader = GenomicFileReaderFactory::createGenomicFileReader(include_path, "bd", chrom_size);
+  GenomicFileReader* include_reader = GenomicFileReaderFactory::createGenomicFileReader(include_path, ".bd", chrom_size);
   std::cout<<"f"<<std::endl;
-  GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, "bd", chrom_size);
+  GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, ".bd", chrom_size);
   std::cout<<"g"<<std::endl;
   FilterBitset include_filter = FilterBitset(chrom_size, bin, *include_reader);
   std::cout<<"h"<<std::endl;
