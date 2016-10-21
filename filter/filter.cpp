@@ -73,14 +73,19 @@ int main(int argc, const char * argv[]) {
   std::cout<<"d"<<std::endl;
 
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
-  GenomicFileReader* include_reader = GenomicFileReaderFactory::createGenomicFileReader(include_path, "bd", chrom_size);
-  GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, "bd", chrom_size);
-  FilterBitset include_filter = FilterBitset(chrom_size, bin, *include_reader);
-  FilterBitset exclude_filter = FilterBitset(chrom_size, bin, *exclude_reader);
-  FilterBitset filter = include_filter & (~exclude_filter);
   std::cout<<"e"<<std::endl;
-  GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(input_name, chroms, bin);
+  GenomicFileReader* include_reader = GenomicFileReaderFactory::createGenomicFileReader(include_path, "bd", chrom_size);
   std::cout<<"f"<<std::endl;
+  GenomicFileReader* exclude_reader = GenomicFileReaderFactory::createGenomicFileReader(exclude_path, "bd", chrom_size);
+  std::cout<<"g"<<std::endl;
+  FilterBitset include_filter = FilterBitset(chrom_size, bin, *include_reader);
+  std::cout<<"h"<<std::endl;
+  FilterBitset exclude_filter = FilterBitset(chrom_size, bin, *exclude_reader);
+  std::cout<<"i"<<std::endl;
+  FilterBitset filter = include_filter & (~exclude_filter);
+  std::cout<<"j"<<std::endl;
+  GenomicDataset genomic_dataset = hdf5_reader.GetGenomicDataset(input_name, chroms, bin);
+  std::cout<<"k"<<std::endl;
   genomic_dataset.filter(filter);
   hdf5_writer.AddGenomicDataset(genomic_dataset);
   hdf5_writer.SetHash("/", input_name);
