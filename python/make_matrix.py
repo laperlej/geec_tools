@@ -123,8 +123,14 @@ def main():
     with open(OUTPUT_PATH, 'w') as output_file:
         output_file.write(str(matrix))
 
+def listjson2dictjson(json):
+    new_json = {"datasets":{}}
+    for token in old_json["datasets"]:
+        new_json["datasets"][token["md5sum"]] = token
+    return new_json
+
 if __name__ == '__main__':
-    if len(sys.argv) < 5:
+    if len(sys.argv) < 5 or len(sys.argv) > 6:
         print("usage: python make_matrix.py {list_path} {chrom_size} {corr_path} {output_path}")
         exit()
 
@@ -135,10 +141,11 @@ if __name__ == '__main__':
         OUTPUT_PATH = sys.argv[4]
         META = {}
 
-    elif len(sys.argv) > 5:
+    elif len(sys.argv) == 6:
         LIST_PATH = sys.argv[1]
         CHROM_SIZES = sys.argv[2]
         CORR_PATH = sys.argv[3]
         OUTPUT_PATH = sys.argv[4]
-        META = json.load(open(sys.argv[5]))
+        META = listjson2dictjson(json.load(open(sys.argv[5])))
+
     main()

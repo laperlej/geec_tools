@@ -20,13 +20,13 @@ class IhecJson(object):
 
         parsed_datasets = []
 
-        ihec_root = "/nfs3_ib/10.4.217.32/home/genomicdata/ihec_datasets/"\
-                    "2016-04/"
+        #ihec_root = "/nfs3_ib/10.4.217.32/home/genomicdata/ihec_datasets/"\
+        #            "2016-04/"
 
         publishing_group = hub_description["publishing_group"]
         releasing_group = hub_description["releasing_group"]
         assembly = hub_description["assembly"]
-
+        count = 0
         for data in datasets.itervalues():
             ihecdata = data["ihec_data_portal"]
             assay = ihecdata["assay"]
@@ -35,9 +35,10 @@ class IhecJson(object):
             cell_type_category = ihecdata["cell_type_category"]
             file_name = ihecdata["local_files"]["signal"]["file_name"]
             md5sum = ihecdata["local_files"]["signal"]["md5sum"]
-            file_path = '/'.join([ihec_root, 
-                                  releasing_group.lower(),
-                                  file_name])
+            unique_id = count
+            #file_path = '/'.join([ihec_root, 
+            #                      releasing_group.lower(),
+            #                      file_name])
             parsed_dataset = {
                 "assembly": assembly,
                 "publishing_group": publishing_group,
@@ -48,7 +49,8 @@ class IhecJson(object):
                 "cell_type_category": cell_type_category,
                 "file_name": file_name,
                 "md5sum": md5sum,
-                "file_path": file_path
+                "id": unique_id,
+             #   "file_path": file_path
             }
             parsed_datasets.append(parsed_dataset)
         return parsed_datasets
