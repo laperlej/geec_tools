@@ -123,7 +123,7 @@ def main():
     with open(OUTPUT_PATH, 'w') as output_file:
         output_file.write(str(matrix))
 
-def listjson2dictjson(json):
+def listjson2dictjson(old_json):
     new_json = {"datasets":{}}
     for token in old_json["datasets"]:
         new_json["datasets"][token["md5sum"]] = token
