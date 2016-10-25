@@ -41,6 +41,10 @@ CHROM_SIZE = {
                          'resource',
                          'chrom_sizes',
                          'hg38noY.chrom.sizes')
+    'sacCer3': os.path.join(os.path.dirname(MODULE_DIR),
+                         'resource',
+                         'chrom_sizes',
+                         'sacCer3.chrom.sizes')
 }
 
 #regions
@@ -80,6 +84,14 @@ REGION={'hg19': {'all': os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
                          'region',
                          'none.bed')},
+        'sacCer3': {'all': os.path.join(os.path.dirname(MODULE_DIR),
+                         'resource',
+                         'region',
+                         'sacCer3.all.bed'),
+                 'none': os.path.join(os.path.dirname(MODULE_DIR),
+                         'resource',
+                         'region',
+                         'none.bed')},
 }
 
 #precalculated
@@ -90,4 +102,9 @@ HDF5 = {'hg19': {'10000': {'all' :{'blacklisted' : os.path.join(os.path.dirname(
                                    'none': os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
                          'public',
-                         'hg19_10kb_all_none.list')}}}}
+                         'hg19_10kb_all_none.list')}}},
+        {'sacCer3': {'1000': {'all' :{'none': os.path.join(os.path.dirname(MODULE_DIR),
+                         'resource',
+                         'public',
+                         'sacCer3_1kb_all_none.list')}}},
+}
