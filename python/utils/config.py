@@ -103,7 +103,7 @@ HDF5 = {'hg19': {'10000': {'all' :{'blacklisted' : os.path.join(os.path.dirname(
                          'resource',
                          'public',
                          'hg19_10kb_all_none.list')}}},
-        {'sacCer3': {'1000': {'all' :{'none': os.path.join(os.path.dirname(MODULE_DIR),
+         'sacCer3': {'1000': {'all' :{'none': os.path.join(os.path.dirname(MODULE_DIR),
                          'resource',
                          'public',
                          'sacCer3_1kb_all_none.list')}}},
