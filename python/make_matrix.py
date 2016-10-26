@@ -5,16 +5,20 @@
 import itertools
 import sys
 import numpy as np
+import json
 
 class ChromSizes(object):
     def  __init__(self, path):
         self.weights = {}
         self.chroms = {}
-        with open(path) as chrom_sizes:
-            for line in chrom_sizes:
-                if line:
-                    chrom, chrom_size = line.split()
-                    self.chroms[chrom] = int(chrom_size)
+        try:
+            with open(path) as chrom_sizes:
+                for line in chrom_sizes:
+                    if line:
+                        chrom, chrom_size = line.split()
+                        self.chroms[chrom] = int(chrom_size)
+        except IOError:
+            pass
         self.genome_size = 0
         self._size()
         self.weights = {}
@@ -37,13 +41,16 @@ class InputFile(object):
         self.parse_file(file_path)
 
     def parse_file(self, file_path):
-        with open(file_path) as list_file:
-            for line in list_file:
-                path, name = line.split()
-                if name not in nameset:
-                    self.nameset.add(name)
-                    self.files.append(path)
-                    self.names.append(name)
+        try:
+            with open(file_path) as list_file:
+                for line in list_file:
+                    path, name = line.split()
+                    if name not in self.nameset:
+                        self.nameset.add(name)
+                        self.files.append(path)
+                        self.names.append(name)
+        except IOError:
+            pass
 
     def __getitem__(self, index):
         return self.files[index], self.names[index]
@@ -68,11 +75,18 @@ class Matrix():
         y = self.index.get(y_label)
         self.matrix[x, y] = value
 
+    def convert_labels(self, meta):
+        for i in xrange(len(self.labels)):
+            token = meta.get("datasets", {}).get(self.labels[i], {})
+            if token:
+                self.labels[i] = "{0}_{1}".format(token.get("file_name", ""), self.labels[i])
+
+
     def __str__(self):
         s = ""
         s += '\t' + '\t'.join(self.labels) + '\n'
         for i in xrange(self.size):
-            s += self.labels[i] + '\t' + '\t'.join([str(v) for v in self.matrix[i]]) + '\n'
+            s += self.labels[i] + '\t' + '\t'.join(["{0:.4f}".format(v) for v in self.matrix[i]]) + '\n'
         return s
 
 
@@ -82,13 +96,16 @@ class corr_file_parser():
 
     def make_matrix(self, labels, weights):
         matrix = Matrix(labels)
-        with open(self.path) as corr_file:
-            for line in corr_file:
-                line = line.split()
-                file1, file2 = line[0].split(':')
-                average = weighted_average(line[1:], weights)
-                matrix[file1, file2] = average
-                matrix[file2, file1] = average
+        try:
+            with open(self.path) as corr_file:
+                for line in corr_file:
+                    line = line.split()
+                    file1, file2 = line[0].split(':')
+                    average = weighted_average(line[1:], weights)
+                    matrix[file1, file2] = average
+                    matrix[file2, file1] = average
+        except IOError:
+            pass
         return matrix
 
 def weighted_average(line, weights):
@@ -102,15 +119,33 @@ def main():
     input_file = InputFile(LIST_PATH)
     chrom_sizes = ChromSizes(CHROM_SIZES)
     matrix = corr_file_parser(CORR_PATH).make_matrix(input_file.names, chrom_sizes.weights)
+    matrix.convert_labels(META)
     with open(OUTPUT_PATH, 'w') as output_file:
         output_file.write(str(matrix))
 
+def listjson2dictjson(old_json):
+    new_json = {"datasets":{}}
+    for token in old_json["datasets"]:
+        new_json["datasets"][token["md5sum"]] = token
+    return new_json
+
 if __name__ == '__main__':
-    if len(sys.argv) < 5:
+    if len(sys.argv) < 5 or len(sys.argv) > 6:
         print("usage: python make_matrix.py {list_path} {chrom_size} {corr_path} {output_path}")
         exit()
-    LIST_PATH = sys.argv[1]
-    CHROM_SIZES = sys.argv[2]
-    CORR_PATH = sys.argv[3]
-    OUTPUT_PATH = sys.argv[4]
+
+    elif len(sys.argv) == 5:
+        LIST_PATH = sys.argv[1]
+        CHROM_SIZES = sys.argv[2]
+        CORR_PATH = sys.argv[3]
+        OUTPUT_PATH = sys.argv[4]
+        META = {}
+
+    elif len(sys.argv) == 6:
+        LIST_PATH = sys.argv[1]
+        CHROM_SIZES = sys.argv[2]
+        CORR_PATH = sys.argv[3]
+        OUTPUT_PATH = sys.argv[4]
+        META = listjson2dictjson(json.load(open(sys.argv[5])))
+
     main()

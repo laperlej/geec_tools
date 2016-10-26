@@ -48,14 +48,13 @@ void write_entry(std::ofstream& output_file,
 }
 
 int main(int argc, const char * argv[]) {
-  std::string hdf5_path, chrom_path, output_path, list_path;
+  std::string chrom_path, output_path, list_path;
   // TODO(jl): remove requirement for bin_size
   int bin;
 
-  if (argc < 6) {
+  if (argc < 5) {
     printf("Usage: correlation {input_list} "
                          "{chrom_sizes} "
-                         "{input.hdf5} "
                          "{output.results} "
                          "{bin_size}\n");
     return 1;
@@ -63,11 +62,9 @@ int main(int argc, const char * argv[]) {
 
   list_path = argv[1];
   chrom_path = argv[2];
-  hdf5_path = argv[3];
-  output_path = argv[4];
-  bin = std::stoi(argv[5], NULL, 10);
+  output_path = argv[3];
+  bin = std::stoi(argv[4], NULL, 10);
 
-  Hdf5Reader hdf5_reader(hdf5_path);
   InputList input_list(list_path);
   ChromSize chrom_size = ChromSize(chrom_path);
 
@@ -78,6 +75,7 @@ int main(int argc, const char * argv[]) {
   // read hdf5
   std::map<std::string, GenomicDataset> data;
   for (uint64_t i = 0; i < input_list.size(); ++i) {
+    Hdf5Reader hdf5_reader = Hdf5Reader(input_list[i].first);
     data.emplace(input_list[i].second, GenomicDataset(input_list[i].second));
     for (const std::string& chrom : chroms) {
       std::string name = input_list[i].second + "/" + chrom;
@@ -108,8 +106,7 @@ int main(int argc, const char * argv[]) {
   for (uint64_t i = 0; i < pairs.size(); ++i) {
     first = pairs[i].first;
     second = pairs[i].second;
-    result = data[first].Correlate(data[second],
-                                                                  chroms);
+    result = data[first].Correlate(data[second], chroms);
     std::string name = first + ":" + second;
     write_entry(output_file, name, result);
   }

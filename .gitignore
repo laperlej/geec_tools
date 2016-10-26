@@ -1,5 +1,5 @@
 .DS_Store
+.pyc
 build
-bin
-libs
 geff.sublime-workspace
+.swp

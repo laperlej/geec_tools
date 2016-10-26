@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Jonathan Laperle. All rights reserved.
 //
 
+#include <iostream>
 #include <string>
 #include "utils/bedgraph_reader.h"
 
@@ -16,14 +17,13 @@ BedGraphReader::BedGraphReader(const std::string& file_path,
 };
 
 void BedGraphReader::SeekChr(const std::string& chromosome) {
-  std::streampos cursor;
   chr_ = chromosome;
   GenomicDataLine genomic_data_line;
   do {
-    cursor = genomic_file_stream_.tellg();
+    cursor_ = genomic_file_stream_.tellg();
     NextToken(genomic_data_line);
   } while (genomic_data_line.chromosome() != chromosome);
-  genomic_file_stream_.seekg(cursor);
+  genomic_file_stream_.seekg(cursor_);
 }
 
 bool BedGraphReader::NextToken(GenomicDataLine& genomic_data_line) {
@@ -33,6 +33,7 @@ bool BedGraphReader::NextToken(GenomicDataLine& genomic_data_line) {
   float score;
   genomic_file_stream_>> chr>> start>> end>> score;
   genomic_data_line = GenomicDataLine(chr, start, end, score);
+  std::cout<< genomic_data_line.display()<< std::endl;
   return genomic_file_stream_.fail() || chr != chr_;
 }
 

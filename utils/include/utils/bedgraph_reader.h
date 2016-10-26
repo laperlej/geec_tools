@@ -21,6 +21,7 @@ class BedGraphReader: public GenomicFileReader {
  private:
   void OpenStream();
   std::string chr_;
+  std::streampos cursor_;
 };
 
 #endif  // UTILS_INCLUDE_UTILS_BEDGRAPH_READER_H_

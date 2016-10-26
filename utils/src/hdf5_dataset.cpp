@@ -8,6 +8,7 @@
 
 #include <string>
 #include <cmath>
+#include <utility>
 #include <numeric>
 #include <iostream>
 #include <vector>
@@ -32,6 +33,19 @@ Hdf5Dataset::Hdf5Dataset(const std::string& name,
   bin_ = bin;
 }
 
+Hdf5Dataset::Hdf5Dataset(const std::string& name,
+                         const std::vector<float>& content,
+                         int bin,
+                         float sumX,
+                         float sumXX) {
+  name_ = name;
+  content_ = content;
+  size_ = content.size();
+  bin_ = bin;
+  sumX_ = sumX;
+  sumXX_ = sumXX;
+}
+
 void Hdf5Dataset::FeedDataLine(const GenomicDataLine& token) {
   int start_bin, end_bin;
   start_bin = token.start_position() / bin_;
@@ -50,27 +64,21 @@ void Hdf5Dataset::FeedDataLine(const GenomicDataLine& token) {
 }
 
 void Hdf5Dataset::NormaliseContent() {
-  content_[content_.size()-1] /= (size_ % bin_);
-  for (int i = 0; i < content_.size()-1; ++i) {
+  sumX_ = 0;
+  sumXX_ = 0;
+  int last_index = content_.size()-1;
+  for (int i = 0; i < last_index; ++i) {
     content_[i] /= bin_;
+    sumX_ += content_[i];
+    sumXX_ += content_[i] * content_[i];
   }
+  content_[last_index] /= (size_ % bin_);
+  sumX_ += content_[last_index];
+  sumXX_ += content_[last_index] * content_[last_index];
 }
 
 void Hdf5Dataset::ToZScore() {
   content_ = zscore(content_);
-}
-
-void Hdf5Dataset::filter(Hdf5Dataset& include, Hdf5Dataset& exclude) {
-  std::vector<float> filtered_array;
-  std::vector<float>& include_array = include.GetContent();
-  std::vector<float>& exclude_array = exclude.GetContent();
-  for (int i = 0; i < content_.size(); ++i) {
-    if (include_array[i] && !exclude_array[i]) {
-      filtered_array.push_back(content_[i]);
-    }
-  }
-  content_ = filtered_array;
-  size_ = filtered_array.size();
 }
 
 std::vector<float>& Hdf5Dataset::GetContent() {
@@ -92,34 +100,57 @@ std::vector<float>& zscore(std::vector<float> &v) {
     size_t n = v.size();
     mean = std::accumulate(v.begin(), v.end(), mean);
     mean = mean / n;
-    for (int i = 0; i < n ; ++i) {
+    for (unsigned int i = 0; i < n ; ++i) {
         v[i] -= mean;
         stdev += pow(v[i], 2.0);
     }
     stdev /= n;
     stdev = pow(stdev, 0.5);
     if (stdev == 0) {
-      for (int i = 0; i < n ; ++i) {
+      for (unsigned int i = 0; i < n ; ++i) {
         v[i] = 0;
       }
     } else {
-      for (int i = 0; i < n ; ++i) {
+      for (unsigned int i = 0; i < n ; ++i) {
         v[i] /= stdev;
       }
     }
     return v;
 }
 
-float Hdf5Dataset::GetPearson(const Hdf5Dataset& hdf5_dataset) const {
-  return pearson(content_, hdf5_dataset.content_);
-}
-
-float pearson(const std::vector<float>& v1, const std::vector<float>& v2) {
-  float total = 0;
-  for (int i = 0; i < v1.size(); ++i) {
-    total += v1[i] * v2[i];
+float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
+  //TODO: find out why the sumXX and sumYY in the hdf5 are sometimes wrong
+  //assert(size_ == hdf5_dataset.size());
+  if (!(size_ == hdf5_dataset.size())) {
+    throw std::runtime_error("Attemping to correlate vectors of different lenghts");
   }
-  return total / v1.size();
+  std::vector<float>& v1 = content_;
+  std::vector<float>& v2 = hdf5_dataset.GetContent();
+
+  float sumXY = 0;
+
+  //float sumX = sumX_;
+  float sumX = 0;
+  float sumXX = 0;
+
+  //float sumY = hdf5_dataset.sumX();
+  float sumY = 0;
+  float sumYY = 0;
+
+  float r;
+
+  for (unsigned int i = 0; i < size_; ++i) {
+    sumXY += v1[i] * v2[i];
+    sumXX += v1[i] * v1[i];
+    sumYY += v2[i] * v2[i];
+    sumX += v1[i];
+    sumY += v2[i];
+  }
+
+  float num = sumXY - (sumX * sumY / size_);
+  float denum = (sumXX - pow(sumX, 2) / size_) * (sumYY - pow(sumY, 2) / size_);
+  r = num / pow(denum, 0.5);
+  return r;
 }
 
 void Hdf5Dataset::print() const {

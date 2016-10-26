@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
 #include "utils/hdf5_writer.h"
 #include "hdf5_hl.h"
@@ -22,13 +23,13 @@ Hdf5Writer::Hdf5Writer(const std::string& file_path){
   }
 }
 
-void Hdf5Writer::Append(const std::string& name,
+void Hdf5Writer::AddDataset(const std::string& name,
                         hsize_t size,
                         const std::vector<float>& data) {
   H5LTmake_dataset_float(file_id_, name.c_str(), 1, &size, &data[0]);
 }
 
-void Hdf5Writer::Append(Hdf5Dataset& hdf5_dataset) {
+void Hdf5Writer::AddDataset(Hdf5Dataset& hdf5_dataset) {
   std::string path;
   hsize_t size;
   std::vector<float> data;
@@ -46,12 +47,57 @@ void Hdf5Writer::Append(Hdf5Dataset& hdf5_dataset) {
     if (IsValid(path)) {
       std::cout << "WARNING: "<< path<< " already exists"<< std::endl;
     } else {
-      Append("/" + path, size, data);
+      AddDataset("/" + path, size, data);
+      SetSumX("/" + path, hdf5_dataset.sumX());
+      SetSumXX("/" + path, hdf5_dataset.sumXX());
     }
   } else {
     CreateGroup(file_name);
-    Append("/" + path, size, data);
+    AddDataset("/" + path, size, data);
+    SetSumX("/" + path, hdf5_dataset.sumX());
+    SetSumXX("/" + path, hdf5_dataset.sumXX());
   }
+}
+
+void Hdf5Writer::AddGenomicDataset(GenomicDataset& genomic_dataset) {
+  for (std::pair<const std::string, Hdf5Dataset> chrom: genomic_dataset.chromosomes()) {
+    AddDataset(chrom.second);
+  }
+}
+
+void Hdf5Writer::SetSumX(const std::string name, const float sumX) {
+  std::string attr_name = "sumX";
+  H5LTset_attribute_float(file_id_, name.c_str(), attr_name.c_str(), &sumX, 1);
+}
+
+void Hdf5Writer::SetSumXX(const std::string name, const float sumXX) {
+  std::string attr_name = "sumXX";
+  H5LTset_attribute_float(file_id_, name.c_str(), attr_name.c_str(), &sumXX, 1);
+}
+
+void Hdf5Writer::SetHash(const std::string name, const std::string hash) {
+  std::string attr_name = "hash";
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), hash.c_str());
+}
+
+void Hdf5Writer::SetChromSizesHash(const std::string name, const std::string chrom_sizes_hash) {
+  std::string attr_name = "chrom_sizes_hash";
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), chrom_sizes_hash.c_str());
+}
+
+void Hdf5Writer::SetBin(const std::string name, const int bin) {
+  std::string attr_name = "bin";
+  H5LTset_attribute_int(file_id_, name.c_str(), attr_name.c_str(), &bin, 1);
+}
+
+void Hdf5Writer::SetIncludeHash(const std::string name, const std::string include_hash) {
+  std::string attr_name = "include_hash";
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), include_hash.c_str());
+}
+
+void Hdf5Writer::SetExcludeHash(const std::string name, const std::string exclude_hash) {
+  std::string attr_name = "exclude_hash";
+  H5LTset_attribute_string(file_id_, name.c_str(), attr_name.c_str(), exclude_hash.c_str());
 }
 
 hid_t Hdf5Writer::Open() {

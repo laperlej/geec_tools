@@ -11,13 +11,18 @@
 
 #include "hdf5.h"
 #include "hdf5_dataset.h"
+#include "genomic_dataset.h"
 #include <string>
 
 class Hdf5Reader {
  public:
   explicit Hdf5Reader(const std::string& file_path);
   ~Hdf5Reader() {Close();}
-  Hdf5Dataset* GetDataset(const std::string& name, int bin);
+  Hdf5Dataset* GetDataset(std::string& name, int bin);
+  GenomicDataset GetGenomicDataset(std::string& name, std::vector<std::string> chroms, int bin);
+  float GetSumX(const std::string& name);
+  float GetSumXX(const std::string& name);
+  std::string GetHash();
   bool IsValid(const std::string& path);
  private:
   hid_t Open();

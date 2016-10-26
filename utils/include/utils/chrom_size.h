@@ -19,7 +19,7 @@ class ChromSize {
   explicit ChromSize(const std::string&);
   ~ChromSize() {}
   int operator[](const std::string&);
-  size_t Count(const std::string&) const;
+  size_t count(const std::string&) const;
   std::vector<std::string> get_chrom_list() const;
  private:
   std::map<std::string, int> chrom_sizes_;

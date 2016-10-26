@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Jonathan Laperle. All rights reserved.
 //
 
+#include <iostream>
 #include <limits>
 #include <map>
 #include <string>
@@ -26,15 +27,20 @@ std::string GenomicDataset::get_name() {
 }
 
 std::map<std::string, float>  GenomicDataset::Correlate(
-    const GenomicDataset& genomic_dataset,
-    const std::vector<std::string>& chromosomes) const {
+    GenomicDataset& genomic_dataset,
+    std::vector<std::string>& chromosomes) {
   std::map<std::string, float> results;
   for (const std::string& chr : chromosomes) {
     if (chromosomes_.find(chr) != chromosomes_.end() &&
         genomic_dataset.chromosomes_.find(chr) !=
         genomic_dataset.chromosomes_.end()) {
-      float r = chromosomes_.at(chr).GetPearson(
-        genomic_dataset.chromosomes_.at(chr));
+      float r;
+      try{
+        r = chromosomes_.at(chr).GetPearson(
+        genomic_dataset.chromosomes().at(chr));
+      } catch (...) {
+        r = 0;
+      }
       results.emplace(chr, r);
     } else {
       results.emplace(chr, std::numeric_limits<float>::quiet_NaN());

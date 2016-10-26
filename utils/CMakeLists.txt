@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
 
 SET( PROJ_NAME      "utils" )
 SET( PROJ_INCLUDES  "include" "../bwreader/include/bwreader" )
-SET( PROJ_LIBRARIES "hdf5" "hdf5_hl" "bwreader" )
+SET( PROJ_LIBRARIES "hdf5" "hdf5_hl" "bwreader" "ssl" "crypto" "boost_container")
 
 SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -O3 -Wall -std=c++11 -g" )
 
