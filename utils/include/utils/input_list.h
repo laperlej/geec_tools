@@ -9,6 +9,7 @@
 #ifndef UTILS_INCLUDE_UTILS_INPUT_LIST_H_
 #define UTILS_INCLUDE_UTILS_INPUT_LIST_H_
 
+#include <map>
 #include <utility>
 #include <string>
 #include <vector>
@@ -21,8 +22,8 @@ class InputList {
   std::pair<std::string, std::string> operator[](const int index);
   size_t size();
  private:
-  std::vector<std::string> files_;
-  std::vector<std::string> names_;
+  std::vector<std::pair<std::string, std::string>> files_;
+  std::map<std::string, int> index_map_;
 };
 
 #endif  // UTILS_INCLUDE_UTILS_INPUT_LIST_H_

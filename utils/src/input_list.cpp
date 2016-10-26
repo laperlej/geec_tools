@@ -14,16 +14,21 @@
 InputList::InputList(const std::string& file_path) {
   std::ifstream flot(file_path);
   std::string path, name;
+  int count = 0;
+  bool success = 0;
   while (flot>> path>> name) {
-    files_.push_back(path);
-    names_.push_back(name);
+    success = this->index_map_.emplace(name, count).second; // ensures no duplicates
+    if (success) {
+      this->files_.push_back(std::make_pair(path, name));
+      ++count;
+    }
   }
 }
 
 std::pair<std::string, std::string> InputList::operator[](const int index) {
-  return std::make_pair(files_[index], names_[index]);
+  return this->files_[index];
 }
 
 size_t InputList::size() {
-  return files_.size();
+  return this->files_.size();
 }

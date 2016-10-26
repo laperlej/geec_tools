@@ -29,9 +29,9 @@ class ChromSizes(object):
             self.weights[chrom] = chrom_size/float(self.genome_size)
 
 
-
 class InputFile(object):
     def __init__(self, file_path):
+        self.nameset = set()
         self.files = []
         self.names = []
         self.parse_file(file_path)
@@ -40,8 +40,10 @@ class InputFile(object):
         with open(file_path) as list_file:
             for line in list_file:
                 path, name = line.split()
-                self.files.append(path)
-                self.names.append(name)
+                if name not in nameset:
+                    self.nameset.add(name)
+                    self.files.append(path)
+                    self.names.append(name)
 
     def __getitem__(self, index):
         return self.files[index], self.names[index]

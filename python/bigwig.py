@@ -33,13 +33,18 @@ class BigWig(object):
     def isValid(self):
         return bool(self._info)
 
+    def get_data_size(self):
+        index_size = self._info.get("primaryDataSize", "-1")
+        index_size = utils.string_to_num(index_size)
+        return index_size
+
     def get_index_size(self):
         index_size = self._info.get("primaryIndexSize", "-1")
         index_size = utils.string_to_num(index_size)
         return index_size
 
     def has_large_index(self, max_size=10**7):
-        return self.get_index_size() > max_size
+        return (self.get_index_size() > max_size) and (self.get_data_size() < 1000000000)
 
     def bwbgbw(self):
         bg_path = utils.change_path(self.path, config.TMP_DIR, '.bedGraph')

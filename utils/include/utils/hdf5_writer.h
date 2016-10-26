@@ -21,12 +21,12 @@ class Hdf5Writer {
               hsize_t size,
               const std::vector<float>& data);
   void Append(Hdf5Dataset& hdf5_dataset);
+  htri_t IsValid(const std::string& path);
  private:
   hid_t Open();
   hid_t Create();
   void Close();
   void CreateGroup(const std::string& file_name);
-  htri_t IsValid(const std::string& path);
   std::string file_path_;
   hid_t file_id_;
 };

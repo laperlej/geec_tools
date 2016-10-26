@@ -19,12 +19,13 @@ Params:
   bin_size: basepair resolution of the hdf5
 
 Output:
-  a file where every line is "name1vsname2 chrX,0.12313 chrY,0.12313"
+  a file where every line is "name1:name2 chrX,0.12313 chrY,0.12313"
 */
 
 #if defined(_OPENMP)
   #include <omp.h>
 #endif
+#include <iostream>
 #include <vector>
 #include <string>
 #include "utils/genomic_file_reader_factory.h"
@@ -36,7 +37,6 @@ Output:
 int main(int argc, const char * argv[]) {
   std::string output_path, chrom_path, list_path, input_path, input_name;
   int bin;
-
   if (argc < 5) {
     printf("Usage: to_hdf5 {input_list.txt} "
                           "{chrom_sizes} "
@@ -54,38 +54,44 @@ int main(int argc, const char * argv[]) {
   Hdf5Writer hdf5_writer(output_path);
   GenomicFileReader* genomic_file_reader = NULL;
   Hdf5Dataset* hdf5_dataset = NULL;
-
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
+  bool is_valid;
 
-  #pragma omp parallel for private(hdf5_dataset, genomic_file_reader, input_path, input_name)
+  #pragma omp parallel for private(hdf5_dataset, genomic_file_reader, input_path, input_name, is_valid)
   for (int i = 0; i < input_list.size(); ++i) {
     input_path = input_list[i].first;
     input_name = input_list[i].second;
-    try {
-      genomic_file_reader = GenomicFileReaderFactory::createGenomicFileReader(
-        input_path, "bw", chrom_size);
-      for (std::string chrom : chroms) {
-          genomic_file_reader->SeekChr(chrom);
-          hdf5_dataset = Hdf5DatasetFactory::createHdf5Dataset(
-            input_name, genomic_file_reader, chrom, chrom_size[chrom], bin);
-          hdf5_dataset -> NormaliseContent();
-          #pragma omp critical (write_hdf5)
-          {
-            hdf5_writer.Append(*hdf5_dataset);
-          }
-          delete hdf5_dataset;
-          hdf5_dataset = NULL;
-      }
-      delete genomic_file_reader;
-      genomic_file_reader = NULL;
-    } catch (std::exception& e) {
-      #pragma omp critical (stdout) 
-      {
-        printf("Error while reading: %s\n", input_path.c_str());
-        delete hdf5_dataset;
-        hdf5_dataset = NULL;
+    #pragma omp critical (write_hdf5)
+    {
+      is_valid = hdf5_writer.IsValid("/" + input_name);
+    }
+    if (!is_valid) {
+      try {
+        genomic_file_reader = GenomicFileReaderFactory::createGenomicFileReader(
+          input_path, "bw", chrom_size);
+        for (std::string chrom : chroms) {
+            genomic_file_reader->SeekChr(chrom);
+            hdf5_dataset = Hdf5DatasetFactory::createHdf5Dataset(
+              input_name, genomic_file_reader, chrom, chrom_size[chrom], bin);
+            hdf5_dataset -> NormaliseContent();
+            #pragma omp critical (write_hdf5)
+            {
+              hdf5_writer.Append(*hdf5_dataset);
+            }
+            delete hdf5_dataset;
+            hdf5_dataset = NULL;
+        }
         delete genomic_file_reader;
         genomic_file_reader = NULL;
+      } catch (std::exception& e) {
+        #pragma omp critical (stdout) 
+        {
+          printf("Error while reading: %s\n", input_path.c_str());
+          delete hdf5_dataset;
+          hdf5_dataset = NULL;
+          delete genomic_file_reader;
+          genomic_file_reader = NULL;
+        }
       }
     }
   }
