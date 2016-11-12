@@ -72,7 +72,7 @@ class IhecJson(object):
             assay_category = ihecdata.get("assay_category", "N/A")
             cell_type = ihecdata.get("cell_type", "N/A")
             cell_type_category = ihecdata.get("cell_type_category", "N/A")
-            for signal_type, signal_data in data.get(browser, {}):
+            for signal_type, signal_data in data.get("browser", {}):
                 if signal_type in ["signal", "signal_merged", "signal_unstranded", "methylation_profile"]:
                     file_name = signal_data["big_data_url"].split("/")[-1]
                     md5sum = signal_data["md5sum"]
