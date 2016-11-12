@@ -10,6 +10,7 @@
 #define UTILS_INCLUDE_UTILS_BEDGRAPH_READER_H_
 
 #include <string>
+#include <map>
 #include "utils/genomic_file_reader.h"
 
 class BedGraphReader: public GenomicFileReader {
@@ -22,6 +23,7 @@ class BedGraphReader: public GenomicFileReader {
   void OpenStream();
   std::string chr_;
   std::streampos cursor_;
+  std::map<std::string, std::streampos> chrom_pos_;
 };
 
 #endif  // UTILS_INCLUDE_UTILS_BEDGRAPH_READER_H_

@@ -19,7 +19,7 @@ class GeecJson(object):
     def input_file(self):
         """
         """
-        root = "/mnt/parallel_scratch_mp2_wipe_on_august_2016"\
+        root = "/mnt/parallel_scratch_mp2_wipe_on_august_2017"\
                "/jacques/laperlej/test/"
         hdf5_dsc = "10kb_all_none"
         filtered_dsc = "10kb_all_blklst"
@@ -31,13 +31,13 @@ class GeecJson(object):
                 root, 
                 dataset["assembly"],
                 hdf5_dsc,
-                dataset["releasing_group"],
+                dataset["releasing_group"].lower(),
                 "{0}_{1}".format(label, hdf5_dsc))
             filtered_path = os.path.join(
                 root,
                 dataset["assembly"],
                 filtered_dsc,
-                dataset["releasing_group"],
+                dataset["releasing_group"].lower(),
                 "{0}_{1}".format(label, filtered_dsc))
             print "{0}\t{1}\t{2}\t{3}".format(raw_path,
                                               label,
