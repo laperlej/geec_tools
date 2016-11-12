@@ -74,25 +74,23 @@ class IhecJson(object):
             cell_type_category = ihecdata.get("cell_type_category", "N/A")
             for signal_type, signal_data in data.get(browser, {}):
                 if signal_type in ["signal", "signal_merged", "signal_unstranded", "methylation_profile"]:
-                #file_name = ihecdata["local_files"]["signal"]["file_name"]
-                file_name = signal_data["big_data_url"].split("/")[-1]
-                #md5sum = ihecdata["local_files"]["signal"]["md5sum"]
-                md5sum = signal_data["md5sum"]
-                unique_id = count
-                count += 1
-                parsed_dataset = {
-                    "assembly": assembly,
-                    "publishing_group": publishing_group,
-                    "releasing_group": releasing_group,
-                    "assay": assay,
-                    "assay_category": assay_category,
-                    "cell_type": cell_type,
-                    "cell_type_category": cell_type_category,
-                    "file_name": file_name,
-                    "md5sum": md5sum,
-                    "id": unique_id,
-                }
-                parsed_datasets.append(parsed_dataset)
+                    file_name = signal_data["big_data_url"].split("/")[-1]
+                    md5sum = signal_data["md5sum"]
+                    unique_id = count
+                    count += 1
+                    parsed_dataset = {
+                        "assembly": assembly,
+                        "publishing_group": publishing_group,
+                        "releasing_group": releasing_group,
+                        "assay": assay,
+                        "assay_category": assay_category,
+                        "cell_type": cell_type,
+                        "cell_type_category": cell_type_category,
+                        "file_name": file_name,
+                        "md5sum": md5sum,
+                        "id": unique_id,
+                    }
+                    parsed_datasets.append(parsed_dataset)
         return parsed_datasets
 
     def __str__(self):
