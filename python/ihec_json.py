@@ -83,7 +83,7 @@ class IhecJson(object):
             if file_name != "N/A":
                 file_name = file_name.split("/")[-1]
 
-            md5sum = signal_data["md5sum"]
+            md5sum = signal_data.get("md5sum")
             if md5sum is None:
                 continue
             md5sum = md5sum.replace(".merge", "")
