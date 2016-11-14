@@ -67,7 +67,6 @@ class IhecJson(object):
         assembly = hub_description["assembly"]
         count = 0
         for name, data in datasets.iteritems():
-            print name
             ihecdata = data.get("ihec_data_portal", {})
             assay = ihecdata.get("assay", "N/A")
             assay_category = ihecdata.get("assay_category", "N/A")
@@ -84,7 +83,10 @@ class IhecJson(object):
             if file_name != "N/A":
                 file_name = file_name.split("/")[-1]
 
-            md5sum = signal_data["md5sum"].replace(".merge", "")
+            md5sum = signal_data["md5sum"]
+            if md5sum is None:
+                continue
+            md5sum = md5sum.replace(".merge", "")
             unique_id = count
             count += 1
             parsed_dataset = {
