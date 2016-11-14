@@ -21,7 +21,7 @@ def process_unit(args):
 
 def make_args(list_file, assembly, resolution):
     include = config.REGION[assembly]["all"]
-    exclude = config.REGION[assembly]["exclude"]
+    exclude = config.REGION[assembly]["blacklisted"]
     chrom_sizes = config.CHROM_SIZE[assembly]
 
     args_list=[]
