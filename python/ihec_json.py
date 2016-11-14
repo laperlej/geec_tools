@@ -66,7 +66,8 @@ class IhecJson(object):
         releasing_group = hub_description.get("releasing_group", publishing_group)
         assembly = hub_description["assembly"]
         count = 0
-        for data in datasets.itervalues():
+        for name, data in datasets.iteritems():
+            print name
             ihecdata = data.get("ihec_data_portal", {})
             assay = ihecdata.get("assay", "N/A")
             assay_category = ihecdata.get("assay_category", "N/A")
