@@ -20,12 +20,20 @@ class GeecJson(object):
         """
         """
         root = "/mnt/parallel_scratch_mp2_wipe_on_august_2017"\
-               "/jacques/laperlej/test/"
+               "/jacques/laperlej/public/"
+        release = "2016-11"
+        ihec_root = "/nfs3_ib/10.4.217.32/home/genomicdata/ihec_datasets/"
         hdf5_dsc = "10kb_all_none"
         filtered_dsc = "10kb_all_blklst"
 
         for dataset in self.datasets:
-            raw_path = dataset["file_path"]
+            raw_path = os.path.join(
+                ihec_root,
+                dataset["releasing_group"].lower(),
+                dataset["assembly"],
+                dataset["md5sum"])
+            if datasets["virtual"]:
+                raw_path += ".merge"
             label = dataset["md5sum"]
             hdf5_path = os.path.join(
                 root, 

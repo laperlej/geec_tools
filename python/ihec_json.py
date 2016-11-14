@@ -78,7 +78,7 @@ class IhecJson(object):
                 signal_data = data.get("browser", {}).get(signal_type, [{}])[0]
                 if signal_data:
                     break
-                    
+
             file_name = signal_data["big_data_url"].split("/")[-1]
             md5sum = signal_data["md5sum"]
             unique_id = count
@@ -95,6 +95,7 @@ class IhecJson(object):
                 "md5sum": md5sum,
                 "id": unique_id,
             }
+            parsed_dataset["virtual"] = bool(signal_type == "signal_merged")
             parsed_datasets.append(parsed_dataset)
         return parsed_datasets
 
