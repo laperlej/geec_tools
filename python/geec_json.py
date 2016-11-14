@@ -29,6 +29,7 @@ class GeecJson(object):
         for dataset in self.datasets:
             raw_path = os.path.join(
                 ihec_root,
+                release,
                 dataset["releasing_group"].lower(),
                 dataset["assembly"],
                 dataset["md5sum"])
