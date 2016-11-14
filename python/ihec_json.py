@@ -72,25 +72,30 @@ class IhecJson(object):
             assay_category = ihecdata.get("assay_category", "N/A")
             cell_type = ihecdata.get("cell_type", "N/A")
             cell_type_category = ihecdata.get("cell_type_category", "N/A")
-            for signal_type, signal_data in data.get("browser", {}).iteritems():
-                if signal_type in ["signal", "signal_merged", "signal_unstranded", "methylation_profile"]:
-                    file_name = signal_data["big_data_url"].split("/")[-1]
-                    md5sum = signal_data["md5sum"]
-                    unique_id = count
-                    count += 1
-                    parsed_dataset = {
-                        "assembly": assembly,
-                        "publishing_group": publishing_group,
-                        "releasing_group": releasing_group,
-                        "assay": assay,
-                        "assay_category": assay_category,
-                        "cell_type": cell_type,
-                        "cell_type_category": cell_type_category,
-                        "file_name": file_name,
-                        "md5sum": md5sum,
-                        "id": unique_id,
-                    }
-                    parsed_datasets.append(parsed_dataset)
+
+            #signal type priority
+            for signal_type in ["methylation_profile", "signal_merged", "signal_unstranded", "signal"]:
+                signal_data = data.get("browser", {}).get(signal_type, "")
+                if signal_data:
+                    break
+
+            file_name = signal_data["big_data_url"].split("/")[-1]
+            md5sum = signal_data["md5sum"]
+            unique_id = count
+            count += 1
+            parsed_dataset = {
+                "assembly": assembly,
+                "publishing_group": publishing_group,
+                "releasing_group": releasing_group,
+                "assay": assay,
+                "assay_category": assay_category,
+                "cell_type": cell_type,
+                "cell_type_category": cell_type_category,
+                "file_name": file_name,
+                "md5sum": md5sum,
+                "id": unique_id,
+            }
+            parsed_datasets.append(parsed_dataset)
         return parsed_datasets
 
     def __str__(self):
