@@ -75,11 +75,11 @@ class IhecJson(object):
 
             #signal type priority
             for signal_type in ["methylation_profile", "signal_merged", "signal_unstranded", "signal"]:
-                signal_data = data.get("browser", {}).get(signal_type, {})
+                signal_data = data.get("browser", {}).get(signal_type, [{}])[0]
                 if signal_data:
                     break
-            print signal_data
-            file_name = signal_data[0]["big_data_url"].split("/")[-1]
+                    
+            file_name = signal_data["big_data_url"].split("/")[-1]
             md5sum = signal_data["md5sum"]
             unique_id = count
             count += 1
