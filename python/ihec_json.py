@@ -82,7 +82,8 @@ class IhecJson(object):
             file_name = signal_data.get("big_data_url", "N/A")
             if file_name != "N/A":
                 file_name = file_name.split("/")[-1]
-            md5sum = signal_data["md5sum"]
+
+            md5sum = signal_data["md5sum"].replace(".merge", "")
             unique_id = count
             count += 1
             parsed_dataset = {
