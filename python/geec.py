@@ -20,9 +20,9 @@ def process_unit(args):
 
 
 def make_args(list_file, assembly, resolution):
-    include = config.REGION["assembly"]["all"]
-    exclude = config.REGION["assembly"]["exclude"]
-    chrom_sizes = config.CHROM_SIZE["assembly"]
+    include = config.REGION[assembly]["all"]
+    exclude = config.REGION[assembly]["exclude"]
+    chrom_sizes = config.CHROM_SIZE[assembly]
 
     args_list=[]
     for line in list_file:
