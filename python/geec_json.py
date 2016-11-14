@@ -32,7 +32,7 @@ class GeecJson(object):
                 dataset["releasing_group"].lower(),
                 dataset["assembly"],
                 dataset["md5sum"])
-            if datasets["virtual"]:
+            if dataset["virtual"]:
                 raw_path += ".merge"
             label = dataset["md5sum"]
             hdf5_path = os.path.join(
