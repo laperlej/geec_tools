@@ -44,16 +44,13 @@ def main():
     input_manager = InputManager(open(input_file))
     print "\t".join(["filename","md5", "min", "max", "mean", "stdev", "pct 0", "25th pct", "median", "75th pct"])
     for input_token in input_manager:
-        try:
-            md5 = input_token[1]
-            hdf5_file = input_token[3]
-            file_name = os.path.basename(hdf5_file)
-            hdf5 = Hdf5(hdf5_file)
-            stats = hdf5.get_stats()
-            data = "\t".join(str(stat) for stat in stats)
-            print "%s\t%s\t%s" % (file_name, md5, data)
-        except:
-            pass
+        md5 = input_token[1]
+        hdf5_file = input_token[3]
+        file_name = os.path.basename(hdf5_file)
+        hdf5 = Hdf5(hdf5_file)
+        stats = hdf5.get_stats()
+        data = "\t".join(str(stat) for stat in stats)
+        print "%s\t%s\t%s" % (file_name, md5, data)
 
 if __name__ == '__main__':
     main()
