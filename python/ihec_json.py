@@ -79,7 +79,7 @@ class IhecJson(object):
                 if signal_data:
                     break
 
-            file_name = signal_data.get("big_data_url", "N/A")
+            file_name = data.get("sample_id", "N/A")
             if file_name != "N/A":
                 file_name = file_name.split("/")[-1]
 
