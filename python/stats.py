@@ -9,7 +9,7 @@ class InputManager(object):
     def __init__(self, input_file):
         self.input_tokens = []
         self.load(input_file)
-        print input_tokens
+        print self.input_tokens
 
     def load(self, input_file):
         for line in input_file:
