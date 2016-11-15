@@ -82,7 +82,7 @@ class IhecJson(object):
             md5sum = signal_data.get("md5sum")
             if md5sum is None:
                 continue
-            unique_id = count
+            unique_id = str(count)
             count += 1
             parsed_dataset = {
                 "assembly": assembly,
