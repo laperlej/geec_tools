@@ -8,7 +8,7 @@ test_file = "/Users/Jon/Desktop/hg19/10kb_all_blklst/blueprint/ERS164475.H3K27me
 class InputManager(object):
     def __init__(self, input_file):
         self.input_tokens = []
-        load(input_file)
+        self.load(input_file)
 
     def load(self, input_file):
         for line in file:
@@ -48,14 +48,17 @@ def main():
     input_manager = InputManager(input_file)
     print "\t".join(["filename","md5", "min", "max", "mean", "stdev", "pct 0", "25th pct", "median", "75th pct"])
     for input_token in input_manager:
-        md5 = input_token[1]
-        hdf5_file = input_token[3]
-        file_name = os.path.basename(hdf5_file)
-        hdf5 = Hdf5(hdf5_file)
-        stats = hdf5.get_stats()
-        data = "\t".join(str(stat) for stat in stats)
-        print "%s\t%s\t%s" % (file_name, md5, data)
-    print hdf5.get_stats()
+        try:
+            md5 = input_token[1]
+            hdf5_file = input_token[3]
+            file_name = os.path.basename(hdf5_file)
+            hdf5 = Hdf5(hdf5_file)
+            stats = hdf5.get_stats()
+            data = "\t".join(str(stat) for stat in stats)
+            print "%s\t%s\t%s" % (file_name, md5, data)
+        except:
+            pass
+    #print hdf5.get_stats()
 
 if __name__ == '__main__':
     main()
