@@ -9,7 +9,6 @@ class InputManager(object):
     def __init__(self, input_file):
         self.input_tokens = []
         self.load(input_file)
-        print self.input_tokens
 
     def load(self, input_file):
         for line in input_file:
@@ -46,7 +45,7 @@ class Hdf5(object):
 
 def main():
     input_file = sys.argv[1]
-    input_manager = InputManager(input_file)
+    input_manager = InputManager(open(input_file))
     print "\t".join(["filename","md5", "min", "max", "mean", "stdev", "pct 0", "25th pct", "median", "75th pct"])
     for input_token in input_manager:
         md5 = input_token[1]
