@@ -20,11 +20,7 @@ class InputManager(object):
 
 class Hdf5(object):
     def __init__(self, path):
-        if h5py.is_hdf5(path):
-            self.h5 = h5py.File(path,'r')
-        else:
-            print "not a valid hdf5 file"
-            exit(1)
+        self.h5 = h5py.File(path,'r')
 
     def get_stats(self):
         c = self.get_content()
