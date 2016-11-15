@@ -24,15 +24,16 @@ def tmp_name():
 
 
 def main():
-    resolution = "10000"
-    assembly = "hg19"
-    include = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.all.bed"
-    exclude = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/region/hg19.exclude.bed"
-    chrom_sizes = "/mnt/parallel_scratch_mp2_wipe_on_august_2016/jacques/laperlej/geec_tools/resource/chrom_sizes/hg19noY.chrom.sizes"
 
     list_path = sys.argv[1]
     corr_path = sys.argv[2]
     mat_path = sys.argv[3]
+    assembly = sys.argv[4]
+    resolution = sys.argv[5]
+
+    include = config.REGION[assembly]["all"]
+    exclude = config.REGION[assembly]["blacklisted"]
+    chrom_sizes = config.CHROM_SIZE[assembly]
 
     input_list = []
     with open(list_path, 'r') as list_file:
