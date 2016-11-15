@@ -11,7 +11,7 @@ class InputManager(object):
         self.load(input_file)
 
     def load(self, input_file):
-        for line in file:
+        for line in input_file:
             line = line.split("\t")
             if line: self.input_tokens.append(line)
 
