@@ -74,19 +74,16 @@ class IhecJson(object):
             cell_type_category = ihecdata.get("cell_type_category", "N/A")
 
             #signal type priority
-            for signal_type in ["methylation_profile", "signal_merged", "signal_unstranded", "signal"]:
+            for signal_type in ["methylation_profile", "signal_forward", "signal_unstranded", "signal"]:
                 signal_data = data.get("browser", {}).get(signal_type, [{}])[0]
                 if signal_data:
                     break
 
             file_name = data.get("sample_id", "N/A")
-            if file_name != "N/A":
-                file_name = file_name.split("/")[-1]
 
             md5sum = signal_data.get("md5sum")
             if md5sum is None:
                 continue
-            md5sum = md5sum.replace(".merge", "")
             unique_id = count
             count += 1
             parsed_dataset = {
@@ -101,7 +98,7 @@ class IhecJson(object):
                 "md5sum": md5sum,
                 "id": unique_id,
             }
-            parsed_dataset["virtual"] = (signal_type == "signal_merged")
+            parsed_dataset["virtual"] = (signal_type == "signal_forward")
             parsed_datasets.append(parsed_dataset)
         return parsed_datasets
 
