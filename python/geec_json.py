@@ -41,13 +41,13 @@ class GeecJson(object):
                 dataset["assembly"],
                 hdf5_dsc,
                 dataset["releasing_group"].lower(),
-                "{0}_{1}".format(label, hdf5_dsc))
+                "{0}_{1}.hdf5".format(label, hdf5_dsc))
             filtered_path = os.path.join(
                 root,
                 dataset["assembly"],
                 filtered_dsc,
                 dataset["releasing_group"].lower(),
-                "{0}_{1}".format(label, filtered_dsc))
+                "{0}_{1}.hdf5".format(label, filtered_dsc))
             print "{0}\t{1}\t{2}\t{3}".format(raw_path,
                                               label,
                                               hdf5_path,

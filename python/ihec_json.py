@@ -50,8 +50,8 @@ import sys
 class IhecJson(object):
     """
     """
-    def __init__(self, ihec_json_file):
-        self.content = self.load(ihec_json_file)
+    def __init__(self):
+        self.content = []
 
     def load(self, ihec_json_file):
         """
@@ -59,8 +59,6 @@ class IhecJson(object):
         ihec_json = json.load(ihec_json_file)
         hub_description = ihec_json['hub_description']
         datasets = ihec_json['datasets']
-
-        parsed_datasets = []
 
         publishing_group = hub_description["publishing_group"]
         releasing_group = hub_description.get("releasing_group", publishing_group)
@@ -99,8 +97,7 @@ class IhecJson(object):
                 "id": unique_id,
             }
             parsed_dataset["virtual"] = (signal_type == "signal_forward")
-            parsed_datasets.append(parsed_dataset)
-        return parsed_datasets
+            self.content.append(parsed_dataset)
 
     def __str__(self):
         """
@@ -111,8 +108,11 @@ class IhecJson(object):
 def main():
     """
     """
-    ihec_json_path = sys.argv[1]
-    print IhecJson(open(ihec_json_path))
+    ihec_json_paths = sys.argv[1:]
+    ihec_json = IhecJson()
+    for ihec_json_path in ihec_json_paths:
+      ihec_json.load(open(ihec_json_path))
+    print ihec_json
 
 if __name__ == "__main__":
     main()
