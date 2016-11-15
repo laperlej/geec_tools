@@ -58,7 +58,6 @@ def main():
             print "%s\t%s\t%s" % (file_name, md5, data)
         except:
             pass
-    print hdf5.get_stats()
 
 if __name__ == '__main__':
     main()
