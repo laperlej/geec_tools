@@ -52,6 +52,7 @@ class IhecJson(object):
     """
     def __init__(self):
         self.content = []
+        self.count = 0
 
     def load(self, ihec_json_file):
         """
@@ -63,7 +64,6 @@ class IhecJson(object):
         publishing_group = hub_description["publishing_group"]
         releasing_group = hub_description.get("releasing_group", publishing_group)
         assembly = hub_description["assembly"]
-        count = 0
         for name, data in datasets.iteritems():
             ihecdata = data.get("ihec_data_portal", {})
             assay = ihecdata.get("assay", "N/A")
@@ -82,8 +82,8 @@ class IhecJson(object):
             md5sum = signal_data.get("md5sum")
             if md5sum is None:
                 continue
-            unique_id = str(count)
-            count += 1
+            unique_id = str(self.count)
+            self.count += 1
             parsed_dataset = {
                 "assembly": assembly,
                 "publishing_group": publishing_group,
