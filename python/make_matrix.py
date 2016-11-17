@@ -74,6 +74,7 @@ class Matrix():
         x = self.index.get(x_label)
         y = self.index.get(y_label)
         self.matrix[x, y] = value
+        self.matrix[y, x] = value
 
     def convert_labels(self, meta):
         for i in xrange(len(self.labels)):
@@ -88,8 +89,7 @@ class Matrix():
         for i in xrange(self.size):
             s += self.labels[i] + '\t' + '\t'.join(["{0:.4f}".format(v) for v in self.matrix[i]]) + '\n'
         return s
-
-
+        
 class corr_file_parser():
     def __init__(self, corr_file_path):
         self.path = corr_file_path
@@ -103,7 +103,6 @@ class corr_file_parser():
                     file1, file2 = line[0].split(':')
                     average = weighted_average(line[1:], weights)
                     matrix[file1, file2] = average
-                    matrix[file2, file1] = average
         except IOError:
             pass
         return matrix
