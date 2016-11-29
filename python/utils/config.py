@@ -6,121 +6,46 @@ TMP_DIR = '/home/laperlej/mntHome/tmp/'
 IHEC_DIR = '/nfs3_ib/10.4.217.32'
 
 #executables
-TO_HDF5 = os.path.join(os.path.dirname(MODULE_DIR),
-                   'bin',
-                   'to_hdf5')
-FILTER = os.path.join(os.path.dirname(MODULE_DIR),
-                   'bin',
-                   'filter')
-CORRELATION = os.path.join(os.path.dirname(MODULE_DIR),
-                   'bin',
-                   'correlation')
-MAKE_MATRIX = os.path.join(MODULE_DIR,
-                   'make_matrix.py')
-BWI = os.path.join(os.path.dirname(MODULE_DIR),
-                   'bin',
-                   'bigWigInfo')
-BG_TO_BW = os.path.join(os.path.dirname(MODULE_DIR),
-                        'bin',
-                        'bedGraphToBigWig')
-BW_TO_BG = os.path.join(os.path.dirname(MODULE_DIR),
-                        'bin',
-                        'bigWigToBedGraph')
+def exec_path(exec_name):
+    return os.path.join(os.path.dirname(MODULE_DIR), 'bin', exec_name)
+
+TO_HDF5 = exec_path('to_hdf5')
+FILTER = exec_path('filter')
+CORRELATION = exec_path('correlation')
+BWI = exec_path('bigWigInfo')
+BG_TO_BW = exec_path('bedGraphToBigWig')
+BW_TO_BG = exec_path('bigWigToBedGraph')
+
+MAKE_MATRIX = os.path.join(MODULE_DIR, 'make_matrix.py')
 
 #chrom sizes
-CHROM_SIZE = {
-    'hg19': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'chrom_sizes',
-                         'hg19noY.chrom.sizes'),
-    'mm10': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'chrom_sizes',
-                         'mm10noY.chrom.sizes'),
-    'hg38': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'chrom_sizes',
-                         'hg38noY.chrom.sizes'),
-    'sacCer3': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'chrom_sizes',
-                         'sacCer3.chrom.sizes'),
-}
+def chrom_sizes_path_maker(filename):
+    os.path.join(os.path.dirname(MODULE_DIR),'resource','chrom_sizes',filename)
+
+def get_chrom_sizes(assembly):
+    if assembly != 'saccer3':
+        assembly = assembly + '.noy'
+    filename = '{0}.chrom.sizes'.format(assembly)
+    return chrom_sizes_path_maker(filename)
 
 #regions
-REGION={'hg19': {'all': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'hg19.all.bed'),
-                 'blacklisted': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'hg19.exclude.bed'),
-                 'none': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'none.bed')},
-        'mm10': {'all': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'mm10.all.bed'),
-                 'blacklisted': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'mm10.exclude.bed'),
-                 'none': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'none.bed')},
-        'hg38': {'all': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'hg38.all.bed'),
-                 'blacklisted': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'hg38.exclude.bed'),
-                 'none': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'none.bed')},
-        'sacCer3': {'all': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'sacCer3.all.bed'),
-                 'none': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'region',
-                         'none.bed')},
-}
+def region_path_maker(filename):
+    return os.path.join(os.path.dirname(MODULE_DIR), 'resource', 'region', filename)
+
+def get_region(assembly, content):
+    if content = 'none':
+        return region_path_maker('none.bed')
+    filename = "{0}.{1}.bed".format(assembly.lower(), content.lower())
+    return region_path_maker(filename)
 
 #precalculated
-HDF5 = {'hg19': {'10000': {'all' :{'blacklisted' : os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'public',
-                         'hg19_10kb_all_blklst.list'),
-                                   'none': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'public',
-                         'hg19_10kb_all_none.list')}}},
-        'hg38': {'10000': {'all' :{'blacklisted' : os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'public',
-                         'hg38_10kb_all_blklst.list'),
-                                   'none': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'public',
-                         'hg38_10kb_all_none.list')}}},
-        'mm10': {'10000': {'all' :{'blacklisted' : os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'public',
-                         'mm10_10kb_all_blklst.list'),
-                                   'none': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'public',
-                         'mm10_10kb_all_none.list')}}},
-        'sacCer3': {'1000': {'all' :{'none': os.path.join(os.path.dirname(MODULE_DIR),
-                         'resource',
-                         'public',
-                         'sacCer3_1kb_all_none.list')}}},
-}
+def hdf5_list_path_maker(filename):
+    os.path.join(os.path.dirname(MODULE_DIR),'resource','public',filename)
+
+def get_hdf5_list(assembly, bin, include, exclude):
+    to_human = {'100':'100b',
+                '1000':'1kb',
+                '10000':'10kb',
+                '100000':'100kb'}
+    filename = "{0}_{1}_{}_{}.list".format(assembly, to_human[resolution], include, exclude)
+    return region_path_maker(filename)
