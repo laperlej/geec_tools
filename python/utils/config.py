@@ -42,7 +42,7 @@ def get_region(assembly, content):
 def hdf5_list_path_maker(filename):
     os.path.join(os.path.dirname(MODULE_DIR),'resource','public',filename)
 
-def get_hdf5_list(assembly, bin, include, exclude):
+def get_hdf5_list(assembly, resolution, include, exclude):
     to_human = {'100':'100b',
                 '1000':'1kb',
                 '10000':'10kb',
