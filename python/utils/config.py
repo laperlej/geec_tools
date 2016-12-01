@@ -47,5 +47,5 @@ def get_hdf5_list(assembly, resolution, include, exclude):
                 '1000':'1kb',
                 '10000':'10kb',
                 '100000':'100kb'}
-    filename = "{0}_{1}_{}_{}.list".format(assembly, to_human[resolution], include, exclude)
+    filename = "{0}_{1}_{2}_{3}.list".format(assembly, to_human[resolution], include, exclude)
     return region_path_maker(filename)
