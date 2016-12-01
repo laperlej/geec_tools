@@ -33,7 +33,7 @@ def region_path_maker(filename):
     return os.path.join(os.path.dirname(MODULE_DIR), 'resource', 'region', filename)
 
 def get_region(assembly, content):
-    if content = 'none':
+    if content == 'none':
         return region_path_maker('none.bed')
     filename = "{0}.{1}.bed".format(assembly.lower(), content.lower())
     return region_path_maker(filename)
