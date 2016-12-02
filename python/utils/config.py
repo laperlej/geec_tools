@@ -20,7 +20,7 @@ MAKE_MATRIX = os.path.join(MODULE_DIR, 'make_matrix.py')
 
 #chrom sizes
 def chrom_sizes_path_maker(filename):
-    os.path.join(os.path.dirname(MODULE_DIR),'resource','chrom_sizes',filename)
+    return os.path.join(os.path.dirname(MODULE_DIR),'resource','chrom_sizes',filename)
 
 def get_chrom_sizes(assembly):
     if assembly != 'saccer3':
