@@ -4,6 +4,7 @@ import os.path
 MODULE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 TMP_DIR = '/home/laperlej/mntHome/tmp/'
 IHEC_DIR = '/nfs3_ib/10.4.217.32'
+PUBLIC_DATA_ROOT = "/home/laperlej/geec/public"
 
 #executables
 def exec_path(exec_name):
@@ -39,13 +40,13 @@ def get_region(assembly, content):
     return region_path_maker(filename)
 
 #precalculated
-def hdf5_list_path_maker(filename):
-    return os.path.join(os.path.dirname(MODULE_DIR),'resource','public',filename)
+def hdf5_path_maker(path):
+    return os.path.join(os.path.dirname(MODULE_DIR),'resource','public',*path)
 
-def get_hdf5_list(assembly, resolution, include, exclude):
+def get_hdf5(md5, assembly, resolution, include, exclude):
     to_human = {'100':'100b',
                 '1000':'1kb',
                 '10000':'10kb',
                 '100000':'100kb'}
-    filename = "{0}_{1}_{2}_{3}.list".format(assembly, to_human[resolution], include, exclude)
-    return hdf5_list_path_maker(filename)
+    path = "{0}/{1}_{2}_{3}/{4}_{1}_{2}_{3}.hdf5".format(assembly, to_human[resolution], include, exclude, md5)
+    return hdf5_path_maker(path)
