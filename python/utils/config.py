@@ -48,5 +48,6 @@ def get_hdf5(md5, assembly, resolution, include, exclude):
                 '1000':'1kb',
                 '10000':'10kb',
                 '100000':'100kb'}
-    path = "{0}/{1}_{2}_{3}/{4}_{1}_{2}_{3}.hdf5".format(assembly, to_human[resolution], include, exclude, md5)
+    folder = "{1}_{2}_{3}".format(assembly, to_human[resolution], include, exclude)
+    path = [assembly, folder, "{0}_{1}.hdf5".format(md5, folder)]
     return hdf5_path_maker(path)
