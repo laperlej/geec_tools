@@ -31,9 +31,9 @@ def main():
     assembly = sys.argv[4]
     resolution = sys.argv[5]
 
-    include = config.REGION[assembly]["all"]
-    exclude = config.REGION[assembly]["blacklisted"]
-    chrom_sizes = config.CHROM_SIZE[assembly]
+    include = config.get_region(assembly,"all")
+    exclude = config.get_region(assembly,"blklst")
+    chrom_sizes = config.get_chrom_sizes(assembly)
 
     input_list = []
     with open(list_path, 'r') as list_file:
