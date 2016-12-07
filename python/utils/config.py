@@ -43,11 +43,13 @@ def get_region(assembly, content):
 def hdf5_path_maker(path):
     return os.path.join(PUBLIC_DATA_ROOT,path[0], path[1], path[2])
 
-def get_hdf5(md5, assembly, resolution, include, exclude):
+def get_hdf5(md5, assembly, resolution, include, exclude, metric="pearson"):
     to_human = {'100':'100b',
                 '1000':'1kb',
                 '10000':'10kb',
                 '100000':'100kb'}
+    ext = {"pearson":"hdf5",
+           "spearman":"rank"}
     folder = "{1}_{2}_{3}".format(assembly, to_human[resolution], include, exclude)
-    path = [assembly, folder, "{0}_{1}.hdf5".format(md5, folder)]
+    path = [assembly, folder, "{0}_{1}.{2}".format(md5, folder,ext[metric])]
     return hdf5_path_maker(path)
