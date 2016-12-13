@@ -16,14 +16,28 @@ BedGraphReader::BedGraphReader(const std::string& file_path,
     OpenStream();
 };
 
+void BedGraphReader::NextChr() {
+  GenomicDataLine token;
+  while (!genomic_file_reader->NextToken(token)) {}
+  if (!genomic_file_stream_.fail()) {
+    chr_ = token.chromosome();
+    chrom_pos_.emplace(chr_, cursor_);
+  }
+}
+
 void BedGraphReader::SeekChr(const std::string& chromosome) {
-  chr_ = chromosome;
-  GenomicDataLine genomic_data_line;
-  do {
-    cursor_ = genomic_file_stream_.tellg();
-    NextToken(genomic_data_line);
-  } while (genomic_data_line.chromosome() != chromosome);
-  genomic_file_stream_.seekg(cursor_);
+  if (cursor > last_pos_) {
+    last_pos_ == cursor_;
+  }
+  if (chrom_pos_.find(chromosome) == chrom_pos_.end()) {
+    genomic_file_stream_.seekg(last_pos_);
+    while (chr_ != chromosome && !genomic_file_stream_.fail()) {
+      NextChr();
+    }
+  } else {
+    cursor_ = chrom_pos_.find(chromosome)->second;
+    genomic_file_stream_.seekg(cursor_);
+  }
 }
 
 bool BedGraphReader::NextToken(GenomicDataLine& genomic_data_line) {
@@ -31,12 +45,15 @@ bool BedGraphReader::NextToken(GenomicDataLine& genomic_data_line) {
   int start;
   int end;
   float score;
+  cursor_ = genomic_file_stream_.tellg();
   genomic_file_stream_>> chr>> start>> end>> score;
   genomic_data_line = GenomicDataLine(chr, start, end, score);
-  std::cout<< genomic_data_line.display()<< std::endl;
+  //std::cout<< genomic_data_line.display()<< std::endl;
   return genomic_file_stream_.fail() || chr != chr_;
 }
 
 void BedGraphReader::OpenStream() {
   genomic_file_stream_.open(file_path_.c_str(), std::ios::in);
+  cursor_ = genomic_file_stream_.tellg();
+  last_pos_ = cursor_;
 }
