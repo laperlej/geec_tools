@@ -10,12 +10,14 @@ PUBLIC_DATA_ROOT = "/home/laperlej/geec/public"
 def exec_path(exec_name):
     return os.path.join(os.path.dirname(MODULE_DIR), 'bin', exec_name)
 
-TO_HDF5 = exec_path('to_hdf5')
+BW_TO_HDF5 = exec_path('bw_to_hdf5')
+BG_TO_HDF5 = exec_path('bg_to_hdf5')
 FILTER = exec_path('filter')
 CORRELATION = exec_path('correlation')
 BWI = exec_path('bigWigInfo')
 BG_TO_BW = exec_path('bedGraphToBigWig')
 BW_TO_BG = exec_path('bigWigToBedGraph')
+WIG_TO_BW = exec_path('wigToBigWig')
 
 MAKE_MATRIX = os.path.join(MODULE_DIR, 'make_matrix.py')
 
