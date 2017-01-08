@@ -94,10 +94,11 @@ class corr_file_parser():
     def __init__(self, corr_file_path):
         self.path = corr_file_path
 
-    def make_matrix(self, labels, weights):
+    def make_matrix(self, labels):
         matrix = Matrix(labels)
         try:
             with open(self.path) as corr_file:
+                weights = get_weight(corr_file.readline())
                 for line in corr_file:
                     line = line.split()
                     file1, file2 = line[0].split(':')
@@ -106,6 +107,14 @@ class corr_file_parser():
         except IOError:
             pass
         return matrix
+
+    def get_weights(self, line):
+        weights = {}
+        line = line.strip().split()
+        for element in line:
+            chrom, value = element.split(',')
+            weights[chrom] = value
+        return weights
 
 def weighted_average(line, weights):
     total = 0.0

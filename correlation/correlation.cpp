@@ -34,6 +34,14 @@ they are not nessessarily actual files
 #include "utils/hdf5_reader.h"
 #include "utils/input_list.h"
 
+std::string chrom_size_line(GenomicDataset& genomic_dataset, ChromSize& chrom_size, int bin) {
+  std::string output_line = "";
+  for (const auto& chrom : chrom_size.get_chrom_list()) {
+    output_line += chrom + "," + std::to_string(hdf5_reader.GetDataset(chrom, bin).size()) + "\t";
+  }
+  return output_line.substr(0, output_line.size()-1) + "\n";
+}
+
 void write_entry(std::ofstream& output_file,
                  std::string& name,
                  std::map<std::string, float>& result) {
@@ -100,6 +108,7 @@ int main(int argc, const char * argv[]) {
   // compute correlation for every pair
   std::ofstream output_file;
   output_file.open(output_path);
+  output_file.write(chrom_size_line(pairs[0].first, chroms), bin);
 
   std::string first, second;
   std::map<std::string, float> result;
