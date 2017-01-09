@@ -26,6 +26,14 @@ std::string GenomicDataset::get_name() {
   return file_name_;
 }
 
+std::string GenomicDataset::get_sizes() {
+  std::string sizes = "";
+  for (const std::string& chr : chromosomes) {
+    sizes += chr + ":" + chromosomes_[chr].size;
+  }
+  return sizes;
+}
+
 std::map<std::string, float>  GenomicDataset::Correlate(
     GenomicDataset& genomic_dataset,
     std::vector<std::string>& chromosomes) {
