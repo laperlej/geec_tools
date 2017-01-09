@@ -7,31 +7,6 @@ import sys
 import numpy as np
 import json
 
-class ChromSizes(object):
-    def  __init__(self, path):
-        self.weights = {}
-        self.chroms = {}
-        try:
-            with open(path) as chrom_sizes:
-                for line in chrom_sizes:
-                    if line:
-                        chrom, chrom_size = line.split()
-                        self.chroms[chrom] = int(chrom_size)
-        except IOError:
-            pass
-        self.genome_size = 0
-        self._size()
-        self.weights = {}
-        self._weights()
-
-    def _size(self):
-        for chrom_size in self.chroms.itervalues():
-            self.genome_size += chrom_size
-
-    def _weights(self):
-        for chrom, chrom_size in self.chroms.iteritems():
-            self.weights[chrom] = chrom_size/float(self.genome_size)
-
 
 class InputFile(object):
     def __init__(self, file_path):
@@ -56,7 +31,7 @@ class InputFile(object):
         return self.files[index], self.names[index]
 
 
-class Matrix():
+class Matrix(object):
     def __init__(self, labels):
         self.index = dict(itertools.izip(labels, xrange(len(labels))))
         self.labels = labels
@@ -89,8 +64,9 @@ class Matrix():
         for i in xrange(self.size):
             s += self.labels[i] + '\t' + '\t'.join(["{0:.4f}".format(v) for v in self.matrix[i]]) + '\n'
         return s
-        
-class corr_file_parser():
+
+     
+class CorrFileParser(object):
     def __init__(self, corr_file_path):
         self.path = corr_file_path
 
@@ -98,7 +74,12 @@ class corr_file_parser():
         matrix = Matrix(labels)
         try:
             with open(self.path) as corr_file:
-                weights = get_weight(corr_file.readline())
+                header = corr_file.readline()
+                header = header.strip().split()
+                weights = {}
+                for chrom in header:
+                    chrom = chrom.split(":")
+                    weights[chrom[0]] = chrom[1]
                 for line in corr_file:
                     line = line.split()
                     file1, file2 = line[0].split(':')
@@ -107,14 +88,6 @@ class corr_file_parser():
         except IOError:
             pass
         return matrix
-
-    def get_weights(self, line):
-        weights = {}
-        line = line.strip().split()
-        for element in line:
-            chrom, value = element.split(',')
-            weights[chrom] = value
-        return weights
 
 def weighted_average(line, weights):
     total = 0.0
@@ -125,8 +98,7 @@ def weighted_average(line, weights):
 
 def main():
     input_file = InputFile(LIST_PATH)
-    chrom_sizes = ChromSizes(CHROM_SIZES)
-    matrix = corr_file_parser(CORR_PATH).make_matrix(input_file.names, chrom_sizes.weights)
+    matrix = CorrFileParser(CORR_PATH).make_matrix(input_file.names)
     matrix.convert_labels(META)
     with open(OUTPUT_PATH, 'w') as output_file:
         output_file.write(str(matrix))
@@ -138,22 +110,14 @@ def listjson2dictjson(old_json):
     return new_json
 
 if __name__ == '__main__':
-    if len(sys.argv) < 5 or len(sys.argv) > 6:
+    if len(sys.argv) < 4 or len(sys.argv) > 5:
         print("usage: python make_matrix.py {list_path} {chrom_size} {corr_path} {output_path}")
         exit()
-
-    elif len(sys.argv) == 5:
-        LIST_PATH = sys.argv[1]
-        CHROM_SIZES = sys.argv[2]
-        CORR_PATH = sys.argv[3]
-        OUTPUT_PATH = sys.argv[4]
+    LIST_PATH = sys.argv[1]
+    CORR_PATH = sys.argv[2]
+    OUTPUT_PATH = sys.argv[3]
+    if len(sys.argv) == 4:
         META = {}
-
-    elif len(sys.argv) == 6:
-        LIST_PATH = sys.argv[1]
-        CHROM_SIZES = sys.argv[2]
-        CORR_PATH = sys.argv[3]
-        OUTPUT_PATH = sys.argv[4]
+    elif len(sys.argv) == 5:
         META = listjson2dictjson(json.load(open(sys.argv[5])))
-
     main()
