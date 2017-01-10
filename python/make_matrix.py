@@ -111,7 +111,7 @@ def listjson2dictjson(old_json):
 
 if __name__ == '__main__':
     if len(sys.argv) < 4 or len(sys.argv) > 5:
-        print("usage: python make_matrix.py {list_path} {chrom_size} {corr_path} {output_path}")
+        print("usage: python make_matrix.py {list_path} {corr_path} {output_path}")
         exit()
     LIST_PATH = sys.argv[1]
     CORR_PATH = sys.argv[2]
