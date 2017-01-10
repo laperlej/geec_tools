@@ -26,7 +26,7 @@ void BedGraphReader::NextChr() {
 }
 
 void BedGraphReader::SeekChr(const std::string& chromosome) {
-  if (cursor > last_pos_) {
+  if (cursor_ > last_pos_) {
     last_pos_ == cursor_;
   }
   if (chrom_pos_.find(chromosome) == chrom_pos_.end()) {
