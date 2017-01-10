@@ -101,7 +101,7 @@ int main(int argc, const char * argv[]) {
   std::ofstream output_file;
   output_file.open(output_path);
   #include <iostream>
-  std::out << "a"<< std::endl;
+  std::cout << "a"<< std::endl;
   output_file << data[0].get_sizes() << std::endl;
   std::cout << "b"<< std::endl;
   std::string first, second;
