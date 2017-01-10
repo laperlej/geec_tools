@@ -27,13 +27,10 @@ std::string GenomicDataset::get_name() {
 }
 
 std::string GenomicDataset::get_sizes() {
-  std::cout << "x"<< std::endl;
   std::string sizes = "";
-  std::cout << "y"<< std::endl;
   for (auto chr : chromosomes_) {
-    sizes += chr.first + ":" + std::to_string(chr.second.size());
+    sizes += "\t" + chr.first + ":" + std::to_string(chr.second.size());
   }
-  std::cout << "z"<< std::endl;
   return sizes;
 }
 
