@@ -102,7 +102,7 @@ int main(int argc, const char * argv[]) {
   std::ofstream output_file;
   output_file.open(output_path);
   std::cout << "b"<< std::endl;
-  std::string sizes = "test";//data[0].get_sizes();
+  std::string sizes = data[pairs[0].first].get_sizes();//data[0].get_sizes();
   std::cout << "c"<< std::endl;
   output_file << sizes << std::endl;
   std::cout << "d"<< std::endl;
