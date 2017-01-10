@@ -17,7 +17,8 @@ class BedGraphReader: public GenomicFileReader {
  public:
   BedGraphReader(const std::string& file_path, const ChromSize& chrom_size);
   ~BedGraphReader() {}
-  int SeekChr(const std::string& chromosome);
+  void SeekChr(const std::string& chromosome);
+  void NextChr();
   bool NextToken(GenomicDataLine&);
  private:
   int NextChr();
