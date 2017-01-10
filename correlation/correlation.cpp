@@ -102,8 +102,10 @@ int main(int argc, const char * argv[]) {
   std::ofstream output_file;
   output_file.open(output_path);
   std::cout << "b"<< std::endl;
-  output_file << data[0].get_sizes() << std::endl;
+  std::string sizes = data[0].get_sizes();
   std::cout << "c"<< std::endl;
+  output_file << sizes << std::endl;
+  std::cout << "d"<< std::endl;
 
   std::string first, second;
   std::map<std::string, float> result;
