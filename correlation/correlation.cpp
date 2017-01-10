@@ -103,7 +103,7 @@ int main(int argc, const char * argv[]) {
   #include <iostream>
   std::out << "a"<< std::endl;
   output_file << data[0].get_sizes() << std::endl;
-  std::out << "b"<< std::endl;
+  std::cout << "b"<< std::endl;
   std::string first, second;
   std::map<std::string, float> result;
 
