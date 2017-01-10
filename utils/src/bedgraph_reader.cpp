@@ -18,7 +18,7 @@ BedGraphReader::BedGraphReader(const std::string& file_path,
 
 void BedGraphReader::NextChr() {
   GenomicDataLine token;
-  while (!genomic_file_reader->NextToken(token)) {}
+  while (!NextToken(token)) {}
   if (!genomic_file_stream_.fail()) {
     chr_ = token.chromosome();
     chrom_pos_.emplace(chr_, cursor_);
