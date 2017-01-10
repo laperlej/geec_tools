@@ -100,10 +100,7 @@ int main(int argc, const char * argv[]) {
   // compute correlation for every pair
   std::ofstream output_file;
   output_file.open(output_path);
-  #include <iostream>
-  std::cout << "a"<< std::endl;
   output_file << data[0].get_sizes() << std::endl;
-  std::cout << "b"<< std::endl;
   std::string first, second;
   std::map<std::string, float> result;
 
