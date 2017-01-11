@@ -48,14 +48,13 @@ def correlate(input_list, chrom_sizes, correlation_file, resolution):
                      ])
 
 
-def make_matrix(input_list, chrom_sizes, correlation_file, output_matrix):
+def make_matrix(input_list, correlation_file, output_matrix):
     """
     python make_matrix.py {list_path} {chrom_size} {corr_path} {output_path}
     """
     subprocess.call(['python', 
                      config.MAKE_MATRIX,
                      input_list,
-                     chrom_sizes,
                      correlation_file,
                      output_matrix
                      ])
