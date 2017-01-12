@@ -1,57 +1,21 @@
 """
 """
-
 import sys
-import subprocess
-import tempfile
-import itertools
-import os
-from utils.geec_tools import *
-from utils import config
-import multiprocessing
+import to_hdf5
+import filter_hdf5
+import geec_corr
 
-
-def process_unit(args):
-    """
-    """
-    raw_file, name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude = args
-    to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution)
-    filter_hdf5(name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude)
-
-
-def make_args(list_file, assembly, resolution):
-    include = config.get_region(assembly,"all")
-    exclude = config.get_region(assembly,"blklst")
-    chrom_sizes = config.get_chrom_sizes(assembly)
-
-    args_list=[]
-    for line in list_file:
-        line = line.split()
-        raw_file = line[0]
-        name = line[1]
-        user_hdf5 = line[2]
-        filtered_hdf5 = line[3]
-        args = (raw_file, name, chrom_sizes,
-                user_hdf5, filtered_hdf5, resolution,
-                include, exclude)
-        args_list.append(args)
-    return args_list
+def run_geec():
+    to_hdf5.to_hdf5(list_file)
+    filter_hdf5.filter_hdf5(list_file)
+    geec_corr.correlation(list_file, corr_path, mat_path)
 
 def main():
-    """
-    """
-    list_path = sys.argv[1]
-    assembly = sys.argv[2]
-    resolution = sys.argv[3]
-
-    args_list = make_args(open(list_path), assembly, resolution)
-    pool = multiprocessing.Pool(multiprocessing.cpu_count())
-    try:
-        pool.map(process_unit, args_list)
-    except KeyboardInterrupt:
-        pool.terminate()
-        exit(1)
+    input_list = sys.argv[1]
+    corr_path = sys.argv[2]
+    mat_path = sys.argv[3]
 
 
 if __name__ == '__main__':
     main()
+
