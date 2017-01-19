@@ -46,17 +46,18 @@ def hdf5_path_maker(path):
     return os.path.join(PUBLIC_DATA_ROOT,path[0], path[1], path[2])
 
 def get_resolution(num):
-     to_human = {'100':'100b',
-                '1000':'1kb',
-                '10000':'10kb',
-                '100000':'100kb'}
-    return to_human[num]
+    to_human = {1:"1bp",
+                10:"10bp",
+                100: "100bp",
+                1000: "1kb",
+                10000: "10kb",
+                100000: "100kb",
+                1000000: "1mb",
+                10000000: "10mb",
+                100000000: "100mb"}
+    return to_human[int(num)]
 
 def get_hdf5(md5, assembly, resolution, include, exclude, metric="pearson"):
-    to_human = {'100':'100b',
-                '1000':'1kb',
-                '10000':'10kb',
-                '100000':'100kb'}
     ext = {"pearson":"hdf5",
            "spearman":"rank"}
     folder = "{1}_{2}_{3}".format(assembly, get_resolution(resolution), include, exclude)

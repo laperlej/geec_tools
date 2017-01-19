@@ -1,8 +1,8 @@
-BW_FOLDER = "/home/laperlej/mntHome/geec/hg19_raw"
-HDF5_FOLDER = "/home/laperlej/mntHome/geec/hg19/10kb_all_none"
-FILTER_FOLDER = "/home/laperlej/mntHome/geec/hg19/10kb_all_blklst"
+BW_FOLDER = "/home/laperlej/mntHome/geec_ihec/2016-11/hg19/raw"
+HDF5_FOLDER = "/home/laperlej/mntHome/geec_ihec/2016-11/hg19/100kb"
+FILTERED_FOLDER = "/home/laperlej/mntHome/geec_ihec/2016-11/hg19/100kb_all_blklst"
 ASSEMBLY = "hg19"
 INCLUDE = "all"
 EXCLUDE = "blklst"
-RESOLUTION = 10000
+RESOLUTION = "100000"
 

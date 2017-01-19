@@ -25,8 +25,7 @@ def make_args(list_file, assembly, resolution):
 
     args_list=[]
     for line in list_file:
-        line = line.strip()
-        name = line[0]
+        name = line.strip()
         hdf5_name = "{0}_{1}_{2}_{3}.hdf5".format(name, config.get_resolution(resolution) , "all", "none")
         filtered_name = "{0}_{1}_{2}_{3}.hdf5".format(name, config.get_resolution(resolution) , geec_config.INCLUDE, geec_config.EXCLUDE)
         user_hdf5 = os.path.join(geec_config.HDF5_FOLDER, hdf5_name)
@@ -41,7 +40,7 @@ def hdf5_filter(list_path):
     assembly = geec_config.ASSEMBLY
     resolution = geec_config.RESOLUTION
     args_list = make_args(open(list_path), assembly, resolution)
-    pool = multiprocessing.Pool(multiprocessing.cpu_count()
+    pool = multiprocessing.Pool(multiprocessing.cpu_count())
     try:
         pool.map(process_unit, args_list)
     except KeyboardInterrupt:
