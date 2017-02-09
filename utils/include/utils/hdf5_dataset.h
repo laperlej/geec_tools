@@ -10,7 +10,7 @@
 #define UTILS_INCLUDE_UTILS_HDF5_DATASET_H_
 
 #include <iostream>
-#include <assert.h>
+#include <sstream>
 #include <vector>
 #include <string>
 #include <utility>
@@ -35,7 +35,11 @@ class Hdf5Dataset {
   void NormaliseContent();
   void ToZScore();
   void filter(const boost::dynamic_bitset<>& filter) {
-    assert(filter.size() == size_);
+    if (filter.size() != size_) {
+         std::stringstream error_msg; 
+         error_msg << "Filter size not same as dataset, filter_size = " << filter.size() << ", dataset_size = " << size_;
+         throw std::runtime_error(error_msg.str());
+    }
     std::vector<float> new_content;
     float new_sumX = 0;
     float new_sumXX = 0;

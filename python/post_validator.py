@@ -13,13 +13,16 @@ class Validator(object):
         return results
 
     def validate_input(self, input):
-        code = self.validate_bw(input[0])
+        code = self.validate_hdf5(input[0])
         if code: return code
-        code = self.validate_hdf5(input[2])
-        if code: return code+1
-        code = self.validate_hdf5(input[3])
-        if code: return code+3
         return 0
+        #code = self.validate_bw(input[0])
+        #if code: return code
+        #code = self.validate_hdf5(input[2])
+        #if code: return code+1
+        #code = self.validate_hdf5(input[3])
+        #if code: return code+3
+        #return 0
 
     def validate_bw(self, bw_path):
         if not self.exists(bw_path):
