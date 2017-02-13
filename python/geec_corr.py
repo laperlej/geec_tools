@@ -32,7 +32,7 @@ def correlation(input_file, corr_path, mat_path):
     corr_input_file.close()
     
     correlate(input_path, chrom_sizes, corr_path, resolution)
-    make_matrix(input_path, chrom_sizes, corr_path, mat_path)
+    make_matrix(input_path, corr_path, mat_path)
     
 def main():
     list_path = sys.argv[1]

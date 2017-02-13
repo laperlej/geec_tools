@@ -79,7 +79,7 @@ class CorrFileParser(object):
                 weights = {}
                 for chrom in header:
                     chrom = chrom.split(":")
-                    weights[chrom[0]] = chrom[1]
+                    weights[chrom[0]] = float(chrom[1])
                 for line in corr_file:
                     line = line.split()
                     file1, file2 = line[0].split(':')
