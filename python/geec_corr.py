@@ -23,7 +23,7 @@ def correlation(input_file, corr_path, mat_path):
     chrom_sizes = config.get_chrom_sizes(assembly)
 
     input_path = tmp_name()
-    corr_input_file = open(input_path)
+    corr_input_file = open(input_path, 'w')
     for line in input_file:
         name = line.strip()
         filtered_name = "{0}_{1}_{2}_{3}.hdf5".format(name, config.get_resolution(resolution), geec_config.INCLUDE, geec_config.EXCLUDE)
