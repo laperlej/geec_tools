@@ -1,6 +1,14 @@
 import subprocess
 import config
 
+def load_config(stream):
+    config = {}
+    for line in open(stream):
+        line = line.strip()
+        if line:
+            line = line.split('=')
+            config[line[0].strip()] = line[1].strip()
+    return config
 
 def to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution):
     """Usage: to_hdf5 {dataset.bw}

@@ -100,7 +100,12 @@ int main(int argc, const char * argv[]) {
   // compute correlation for every pair
   std::ofstream output_file;
   output_file.open(output_path);
-  std::string sizes = data[pairs[0].first].get_sizes();//data[0].get_sizes();
+  int pair_count = 0;
+  std::string sizes = "";
+  while(sizes == ""){
+      sizes = data[pairs[pair_count].first].get_sizes();
+      ++pair_count;
+  }
   output_file << sizes << std::endl;
 
   std::string first, second;

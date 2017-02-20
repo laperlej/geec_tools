@@ -90,11 +90,13 @@ class CorrFileParser(object):
         return matrix
 
 def weighted_average(line, weights):
+    w_sum = 0.0
     total = 0.0
     for element in line:
         chrom, value = element.split(',')
-        total += float(value) * weights[chrom]
-    return total
+        total += weights[chrom]
+        w_sum += float(value) * weights[chrom]
+    return w_sum / total
 
 def main():
     input_file = InputFile(LIST_PATH)
