@@ -44,10 +44,10 @@ def to_hdf5(list_path):
 def main():
     """
     """
-    list_path =  geec_config["list_path"]
+    list_path = sys.argv[1]
     to_hdf5(list_path)
 
 if __name__ == '__main__':
-    geec_config = geec.load_config(sys.argv[1])
+    geec_config = geec.load_config(sys.argv[2])
     main()
 
