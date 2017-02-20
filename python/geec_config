@@ -1,0 +1,10 @@
+list_path = /home/laperlej/share/public_dsets/hg19/test.list
+bw_folder = /home/laperlej/share/public_dsets/hg19/raw
+hdf5_folder = /home/laperlej/share/public_dsets/hg19/test_hdf5
+filtered_folder = /home/laperlej/share/public_dsets/hg19/test_filter
+assembly = hg19
+include = gene
+exclude = blklst
+resolution = 10000000
+corr_path = /home/laperlej/share/public_dsets/hg19/test.corr
+mat_path = /home/laperlej/share/public_dsets/hg19/test.mat
