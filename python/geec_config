@@ -1,4 +1,3 @@
-list_path = /home/laperlej/share/public_dsets/100bp_to_redo
 bw_folder = /home/laperlej/share/public_dsets/hg19/raw
 hdf5_folder = /mnt/parallel_scratch_mp2_wipe_on_december_2017/jacques/jacques_group/geec_share/public_dsets/hg19/100bp_all_none
 filtered_folder = /home/laperlej/share/public_dsets/hg19/test_filter

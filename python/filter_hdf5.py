@@ -50,8 +50,9 @@ def hdf5_filter(list_path):
 def main():
     """
     """
-    hdf5_filter(geec_config["list_path"])
+    list_path = sys.argv[1]
+    hdf5_filter(list_path)
 
 if __name__ == '__main__':
-    geec_config = load_config(sys.argv[1])
+    geec_config = load_config(sys.argv[2])
     main()

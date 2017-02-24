@@ -35,12 +35,12 @@ def correlation(input_file, corr_path, mat_path):
     make_matrix(input_path, corr_path, mat_path)
     
 def main():
-    list_path = geec_config["list_path"]
+    list_path = sys.argv[1]
     corr_path = geec_config["corr_path"]
     mat_path = geec_config["mat_path"]
     correlation(open(list_path), corr_path, mat_path)
 
 if __name__ == '__main__':
-    geec_config = load_config(sys.argv[1])
+    geec_config = load_config(sys.argv[2])
     main()
 
