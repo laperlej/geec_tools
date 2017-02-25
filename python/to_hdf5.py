@@ -6,6 +6,7 @@ import subprocess
 import tempfile
 import itertools
 import os
+from . import utils
 import utils.geec_tools as geec
 from utils import config
 import multiprocessing

@@ -1,6 +1,7 @@
 import sys
 import os
 import h5py
+from . import utils
 from utils.utils import InputManager
 
 
