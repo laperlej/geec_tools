@@ -3,7 +3,7 @@ import subprocess
 import tempfile
 import itertools
 import os
-from . import utils
+import utils
 from utils import config
 from utils.geec_tools import *
 import multiprocessing
