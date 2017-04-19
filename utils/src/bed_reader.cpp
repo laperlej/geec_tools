@@ -10,7 +10,7 @@
 #include <string>
 #include "utils/bed_reader.h"
 
-BedGraphReader::BedGraphReader(const std::string& file_path,
+BedReader::BedReader(const std::string& file_path,
                                const ChromSize& chrom_size):
                                GenomicFileReader(file_path, chrom_size) {
     OpenStream();
