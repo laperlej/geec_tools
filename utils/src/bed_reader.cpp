@@ -10,51 +10,50 @@
 #include <string>
 #include "utils/bed_reader.h"
 
-BedReader::BedReader(const std::string& file_path,
-                     const ChromSize& chrom_size):
-                     GenomicFileReader(file_path, chrom_size) {
+BedGraphReader::BedGraphReader(const std::string& file_path,
+                               const ChromSize& chrom_size):
+                               GenomicFileReader(file_path, chrom_size) {
     OpenStream();
 };
 
-void BedReader::SeekChr(const std::string& chromosome) {
-  /*positions the cursor at a given chromosome
-
-  params:
-      chromosome: a string corresponding to a chromosome name 
-        as they appear in the file ex:"chr1"
-
-  IMPORTANT: the bed file MUST be ordered to use SeekChr
-  */
-  std::streampos cursor;
-  chr_ = chromosome;
-  GenomicDataLine genomic_data_line;
-  genomic_file_stream_.seekg(0);
-  do {
-    cursor = genomic_file_stream_.tellg();
-    NextToken(genomic_data_line);
-  } while (genomic_data_line.chromosome() != chromosome &&
-           !genomic_file_stream_.fail());
-  genomic_file_stream_.seekg(cursor);
+void BedGraphReader::NextChr() {
+  GenomicDataLine token;
+  while (!NextToken(token)) {}
+  if (!genomic_file_stream_.fail()) {
+    chr_ = token.chromosome();
+    chrom_pos_.emplace(chr_, cursor_);
+  }
 }
 
-bool BedReader::NextToken(GenomicDataLine& genomic_data_line) {
-  /*change genomic_data_line to the next token
+void BedGraphReader::SeekChr(const std::string& chromosome) {
+  if (cursor_ > last_pos_) {
+    last_pos_ == cursor_;
+  }
+  if (chrom_pos_.find(chromosome) == chrom_pos_.end()) {
+    genomic_file_stream_.seekg(last_pos_);
+    while (chr_ != chromosome && !genomic_file_stream_.fail()) {
+      NextChr();
+    }
+  } else {
+    cursor_ = chrom_pos_.find(chromosome)->second;
+    genomic_file_stream_.seekg(cursor_);
+  }
+}
 
-  params:
-    genomic_data_line: a GenomicDataLine object to be overwriten
-  output: bool which indicated if there is more to read
-  */
+bool BedGraphReader::NextToken(GenomicDataLine& genomic_data_line) {
   std::string chr;
   int start;
   int end;
   float score = 1;
+  cursor_ = genomic_file_stream_.tellg();
   genomic_file_stream_>> chr>> start>> end;
   genomic_data_line = GenomicDataLine(chr, start, end, score);
+  //std::cout<< genomic_data_line.display()<< std::endl;
   return genomic_file_stream_.fail() || chr != chr_;
 }
 
-void BedReader::OpenStream() {
-  /*opens a stream on the input file, called from constructor
-  */
+void BedGraphReader::OpenStream() {
   genomic_file_stream_.open(file_path_.c_str(), std::ios::in);
+  cursor_ = genomic_file_stream_.tellg();
+  last_pos_ = cursor_;
 }
