@@ -27,15 +27,18 @@ void BedReader::NextChr() {
 
 void BedReader::SeekChr(const std::string& chromosome) {
   if (cursor_ > last_pos_) {
-    last_pos_ == cursor_;
+    last_pos_ = cursor_;
   }
   if (chrom_pos_.find(chromosome) == chrom_pos_.end()) {
     genomic_file_stream_.seekg(last_pos_);
     while (chr_ != chromosome && !genomic_file_stream_.fail()) {
       NextChr();
     }
+    //genomic_file_stream_.seekg(cursor_)
   } else {
     cursor_ = chrom_pos_.find(chromosome)->second;
+    chr_ = chromosome;
+    genomic_file_stream_.clear();
     genomic_file_stream_.seekg(cursor_);
   }
 }
