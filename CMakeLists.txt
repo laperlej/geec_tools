@@ -9,6 +9,7 @@ PROJECT( ${PROJ_NAME} )
 
 ADD_SUBDIRECTORY( "bwreader" "bwreader" )
 ADD_SUBDIRECTORY( "utils" "utils" )
-ADD_SUBDIRECTORY( "to_hdf5" "to_hdf5" )
+ADD_SUBDIRECTORY( "bw_to_hdf5" "bw_to_hdf5" )
+ADD_SUBDIRECTORY( "bg_to_hdf5" "bg_to_hdf5" )
 ADD_SUBDIRECTORY( "filter" "filter" )
 ADD_SUBDIRECTORY( "correlation" "correlation" )

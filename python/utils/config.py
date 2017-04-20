@@ -10,12 +10,14 @@ PUBLIC_DATA_ROOT = "/home/laperlej/geec/public"
 def exec_path(exec_name):
     return os.path.join(os.path.dirname(MODULE_DIR), 'bin', exec_name)
 
-TO_HDF5 = exec_path('to_hdf5')
+BW_TO_HDF5 = exec_path('bw_to_hdf5')
+BG_TO_HDF5 = exec_path('bg_to_hdf5')
 FILTER = exec_path('filter')
 CORRELATION = exec_path('correlation')
 BWI = exec_path('bigWigInfo')
 BG_TO_BW = exec_path('bedGraphToBigWig')
 BW_TO_BG = exec_path('bigWigToBedGraph')
+WIG_TO_BW = exec_path('wigToBigWig')
 
 MAKE_MATRIX = os.path.join(MODULE_DIR, 'make_matrix.py')
 
@@ -43,11 +45,21 @@ def get_region(assembly, content):
 def hdf5_path_maker(path):
     return os.path.join(PUBLIC_DATA_ROOT,path[0], path[1], path[2])
 
-def get_hdf5(md5, assembly, resolution, include, exclude):
-    to_human = {'100':'100b',
-                '1000':'1kb',
-                '10000':'10kb',
-                '100000':'100kb'}
-    folder = "{1}_{2}_{3}".format(assembly, to_human[resolution], include, exclude)
-    path = [assembly, folder, "{0}_{1}.hdf5".format(md5, folder)]
+def get_resolution(num):
+    to_human = {1:"1bp",
+                10:"10bp",
+                100: "100bp",
+                1000: "1kb",
+                10000: "10kb",
+                100000: "100kb",
+                1000000: "1mb",
+                10000000: "10mb",
+                100000000: "100mb"}
+    return to_human[int(num)]
+
+def get_hdf5(md5, assembly, resolution, include, exclude, metric="pearson"):
+    ext = {"pearson":"hdf5",
+           "spearman":"rank"}
+    folder = "{1}_{2}_{3}".format(assembly, get_resolution(resolution), include, exclude)
+    path = [assembly, folder, "{0}_{1}.{2}".format(md5, folder,ext[metric])]
     return hdf5_path_maker(path)

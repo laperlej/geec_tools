@@ -1,0 +1,9 @@
+bw_folder = /home/laperlej/share/public_dsets/hg19/raw
+hdf5_folder = /mnt/parallel_scratch_mp2_wipe_on_august_2017/jacques/jacques_group/geec_share/public_dsets/hg19/100bp_all_none
+filtered_folder = /home/laperlej/share/public_dsets/hg19/test_filter
+assembly = hg19
+include = all
+exclude = none
+resolution = 100
+corr_path = /home/laperlej/share/public_dsets/hg19/test.corr
+mat_path = /home/laperlej/share/public_dsets/hg19/test.mat

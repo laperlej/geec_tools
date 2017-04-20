@@ -1,6 +1,14 @@
 import subprocess
 import config
 
+def load_config(stream):
+    config = {}
+    for line in open(stream):
+        line = line.strip()
+        if line:
+            line = line.split('=')
+            config[line[0].strip()] = line[1].strip()
+    return config
 
 def to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution):
     """Usage: to_hdf5 {dataset.bw}
@@ -8,7 +16,7 @@ def to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution):
                       {chrom_sizes}
                       {output.hdf5}
                       {bin_size}\n"""
-    subprocess.call([config.TO_HDF5,
+    subprocess.call([config.BW_TO_HDF5,
                      raw_file,
                      name,
                      chrom_sizes,
@@ -48,14 +56,13 @@ def correlate(input_list, chrom_sizes, correlation_file, resolution):
                      ])
 
 
-def make_matrix(input_list, chrom_sizes, correlation_file, output_matrix):
+def make_matrix(input_list, correlation_file, output_matrix):
     """
     python make_matrix.py {list_path} {chrom_size} {corr_path} {output_path}
     """
     subprocess.call(['python', 
                      config.MAKE_MATRIX,
                      input_list,
-                     chrom_sizes,
                      correlation_file,
                      output_matrix
                      ])

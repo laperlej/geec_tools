@@ -3,17 +3,10 @@ import subprocess
 import tempfile
 import itertools
 import os
+import utils
 from utils import config
 from utils.geec_tools import *
 import multiprocessing
-
-
-def create_input_list(input_list):
-    file_path = tmp_name()
-    with open(file_path, 'w') as input_file:
-        for path, label in input_list:
-            input_file.write('{0}\t{1}\n'.format(path.strip(),label.strip()))
-    return file_path
 
 
 def tmp_name():
@@ -22,29 +15,32 @@ def tmp_name():
     os.remove(temp_path)
     return temp_path
 
-
-def main():
-
-    list_path = sys.argv[1]
-    corr_path = sys.argv[2]
-    mat_path = sys.argv[3]
-    assembly = sys.argv[4]
-    resolution = sys.argv[5]
-
-    include = config.get_region(assembly,"all")
-    exclude = config.get_region(assembly,"blklst")
+def correlation(input_file, corr_path, mat_path):
+    assembly = geec_config["assembly"]
+    include = config.get_region(assembly, geec_config["include"])
+    exclude = config.get_region(assembly, geec_config["exclude"])
+    resolution = geec_config["resolution"]
     chrom_sizes = config.get_chrom_sizes(assembly)
 
-    input_list = []
-    with open(list_path, 'r') as list_file:
-        for line in list_file:
-            line = line.split()
-            input_list.append((line[3], line[1]))
-
-    input_path = create_input_list(input_list)
-
+    input_path = tmp_name()
+    corr_input_file = open(input_path, 'w')
+    for line in input_file:
+        name = line.strip()
+        filtered_name = "{0}_{1}_{2}_{3}.hdf5".format(name, config.get_resolution(resolution), geec_config["include"], geec_config["exclude"])
+        filtered_hdf5 = os.path.join(geec_config["filtered_folder"], filtered_name)
+        corr_input_file.write("{0}\t{1}\n".format(filtered_hdf5, name))
+    corr_input_file.close()
+    
     correlate(input_path, chrom_sizes, corr_path, resolution)
-    make_matrix(input_path, chrom_sizes, corr_path, mat_path)
+    make_matrix(input_path, corr_path, mat_path)
+    
+def main():
+    list_path = sys.argv[1]
+    corr_path = geec_config["corr_path"]
+    mat_path = geec_config["mat_path"]
+    correlation(open(list_path), corr_path, mat_path)
 
 if __name__ == '__main__':
+    geec_config = load_config(sys.argv[2])
     main()
+

@@ -36,10 +36,13 @@ IMPORTANT: the bed file MUST be ordered to use SeekChr
   ~BedReader() {}
   void SeekChr(const std::string& chromosome);
   bool NextToken(GenomicDataLine&);
-
  private:
+  void NextChr();
   void OpenStream();
   std::string chr_;
+  std::streampos cursor_;
+  std::streampos last_pos_;
+  std::map<std::string, std::streampos> chrom_pos_;
 };
 
 #endif  // UTILS_INCLUDE_UTILS_BED_READER_H_
