@@ -28,6 +28,8 @@ def chrom_sizes_path_maker(filename):
 def get_chrom_sizes(assembly):
     if assembly != 'saccer3':
         assembly = assembly + '.noy'
+    else:
+        assembly = assembly + '.can'
     filename = '{0}.chrom.sizes'.format(assembly)
     return chrom_sizes_path_maker(filename)
 
