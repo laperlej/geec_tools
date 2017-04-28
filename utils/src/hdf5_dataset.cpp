@@ -72,7 +72,7 @@ void Hdf5Dataset::NormaliseContent() {
     sumX_ += content_[i];
     sumXX_ += content_[i] * content_[i];
   }
-  content_[last_index] /= (size_ % bin_);
+  content_[last_index] /= bin_;
   sumX_ += content_[last_index];
   sumXX_ += content_[last_index] * content_[last_index];
 }

@@ -26,6 +26,7 @@ def chrom_sizes_path_maker(filename):
     return os.path.join(os.path.dirname(MODULE_DIR),'resource','chrom_sizes',filename)
 
 def get_chrom_sizes(assembly):
+    assembly = assembly.lower()
     if assembly != 'saccer3':
         assembly = assembly + '.noy'
     else:

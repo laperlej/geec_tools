@@ -16,6 +16,7 @@ def to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution):
                       {chrom_sizes}
                       {output.hdf5}
                       {bin_size}\n"""
+    #print [config.BW_TO_HDF5, raw_file, name, chrom_sizes, user_hdf5, resolution]
     subprocess.call([config.BW_TO_HDF5,
                      raw_file,
                      name,
