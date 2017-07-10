@@ -1,0 +1,4 @@
+[submodule "geec_analysis"]
+	path = geec_analysis
+	url = https://laperlj@bitbucket.org/labjacquespe/geec_analysis.git
+	branch = master
