@@ -21,6 +21,14 @@ WIG_TO_BW = exec_path('wigToBigWig')
 
 MAKE_MATRIX = os.path.join(MODULE_DIR, 'make_matrix.py')
 
+def analysis_path(script_name):
+    return os.path.join(os.path.dirname(MODULE_DIR), 'geec_analysis', script_name)
+
+GEEC_ANNOTATE = analysis_path('geec_annotate.py')
+GEEC_ARI = analysis_path('geec_ari.py')
+GEEC_SLICE = analysis_path('geec_slice.py')
+GEEC_SLICE_MD5SUM = analysis_path('geec_slice_md5sum.py')
+
 #chrom sizes
 def chrom_sizes_path_maker(filename):
     return os.path.join(os.path.dirname(MODULE_DIR),'resource','chrom_sizes',filename)
