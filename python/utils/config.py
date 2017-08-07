@@ -74,3 +74,8 @@ def get_hdf5(md5, assembly, resolution, include, exclude, metric="pearson"):
     folder = "{1}_{2}_{3}".format(assembly, get_resolution(resolution), include, exclude)
     path = [assembly, folder, "{0}_{1}.{2}".format(md5, folder,ext[metric])]
     return hdf5_path_maker(path)
+
+#Matrix
+def get_matrix(assembly, resolution, include, exclude):
+    filename = "{0}_{1}_{2}.mat".format(get_resolution(resolution), include, exclude)
+    return os.path.join(PUBLIC_DATA_ROOT, assembly, filename)
