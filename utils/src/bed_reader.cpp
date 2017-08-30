@@ -34,7 +34,7 @@ void BedReader::SeekChr(const std::string& chromosome) {
     while (chr_ != chromosome && !genomic_file_stream_.fail()) {
       NextChr();
     }
-    //genomic_file_stream_.seekg(cursor_)
+    genomic_file_stream_.seekg(cursor_);
   } else {
     cursor_ = chrom_pos_.find(chromosome)->second;
     chr_ = chromosome;
