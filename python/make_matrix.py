@@ -107,7 +107,7 @@ def main():
 
 def listjson2dictjson(old_json):
     new_json = {"datasets":{}}
-    for token in old_json["datasets"]:
+    for token in old_json.get("datasets", []):
         new_json["datasets"][token["md5sum"]] = token
     return new_json
 
@@ -121,5 +121,5 @@ if __name__ == '__main__':
     if len(sys.argv) == 4:
         META = {}
     elif len(sys.argv) == 5:
-        META = listjson2dictjson(json.load(open(sys.argv[5])))
+        META = listjson2dictjson(json.load(open(sys.argv[4])))
     main()
