@@ -68,6 +68,11 @@ def get_resolution(num):
                 100000000: "100mb"}
     return to_human[int(num)]
 
+def get_matrix(assembly, resolution, include, exclude, metric="pearson"):
+    filename = "{0}_{1}_{2}_{3}.mat".format(get_resolution(resolution), include, exclude, metric)
+    path = [PUBLIC_DATA_ROOT, assembly, filename]
+    return os.path.join(*path)
+
 def get_hdf5(md5, assembly, resolution, include, exclude, metric="pearson"):
     ext = {"pearson":"hdf5",
            "spearman":"rank"}
