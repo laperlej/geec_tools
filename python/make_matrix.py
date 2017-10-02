@@ -55,7 +55,7 @@ class Matrix(object):
         for i in xrange(len(self.labels)):
             token = meta.get("datasets", {}).get(self.labels[i], {})
             if token:
-                self.labels[i] = "{0}_{1}".format(token.get("file_name", ""), self.labels[i])
+                self.labels[i] = "{0}".format(token.get("file_name", ""))
 
 
     def __str__(self):

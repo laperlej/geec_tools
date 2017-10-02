@@ -27,7 +27,7 @@ def analysis_path(script_name):
 GEEC_ANNOTATE = analysis_path('geec_annotate.py')
 GEEC_ARI = analysis_path('geec_ari.py')
 GEEC_SLICE = analysis_path('geec_slice.py')
-GEEC_SLICE_MD5SUM = analysis_path('geec_slice_md5sum.py')
+GEEC_SLICE_FILE_NAME = analysis_path('geec_slice_file_name.py')
 
 #chrom sizes
 def chrom_sizes_path_maker(filename):
