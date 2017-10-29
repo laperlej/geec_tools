@@ -48,7 +48,7 @@ void write_entry(std::ofstream& output_file,
 }
 
 int main(int argc, const char * argv[]) {
-  std::string chrom_path, output_path, list_path;
+  std::string chrom_path, output_path, list_path, list_path2;
   // TODO(jl): remove requirement for bin_size
   int bin;
 
@@ -92,15 +92,14 @@ int main(int argc, const char * argv[]) {
   }
 
   // read hdf5 2
-  std::map<std::string, GenomicDataset> data;
   for (uint64_t i = 0; i < input_list2.size(); ++i) {
     try {
       Hdf5Reader hdf5_reader = Hdf5Reader(input_list2[i].first);
       data.emplace(input_list2[i].second, GenomicDataset(input_list2[i].second));
       for (const std::string& chrom : chroms) {
         std::string name = input_list2[i].second + "/" + chrom;
-        if (hdf5_reader2.IsValid(name)) {
-          hdf5_dataset = hdf5_reader2.GetDataset(name, bin);
+        if (hdf5_reader.IsValid(name)) {
+          hdf5_dataset = hdf5_reader.GetDataset(name, bin);
           data[input_list2[i].second].add_chromosome(chrom, *hdf5_dataset);
         }
       }
