@@ -56,6 +56,19 @@ def correlate(input_list, chrom_sizes, correlation_file, resolution):
                      resolution
                      ])
 
+def correlate_nm(input_list, chrom_sizes, correlation_file, resolution):
+    """Usage: correlation_nm {input_list1}
+                             {input_list2}
+                             {chrom_sizes}
+                             {output.results}
+                             {bin_size}\n");"""
+    subprocess.call([config.CORRELATION_NM,
+                     input_list1,
+                     input_list2,
+                     chrom_sizes,
+                     correlation_file,
+                     resolution
+                     ])
 
 def make_matrix(input_list, correlation_file, output_matrix):
     """
