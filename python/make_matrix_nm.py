@@ -40,7 +40,7 @@ class Matrix(object):
             self.size = len(labels)
             self.matrix = np.zeros((self.size, self.size))
         else:
-            self.labels = matrix_file.readline().strip().split()
+            #self.labels = matrix_file.readline().strip().split()
             self.matrix = pd.read_csv(matrix_file, delimiter='\t', index_col=0)
             print self.matrix
             exit()
