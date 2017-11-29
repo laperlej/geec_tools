@@ -41,7 +41,7 @@ class Matrix(object):
             self.matrix = np.zeros((self.size, self.size))
         else:
             #self.labels = matrix_file.readline().strip().split()
-            self.matrix = pd.read_csv(matrix_file, delimiter='\t', index_col=0, header=0).as_matrix()
+            self.matrix = pd.read_csv(matrix_file, delimiter='\t', index_col=0).as_matrix()
             print self.matrix
             exit()
             #self.matrix = self.sub_matrix(self.labels)
