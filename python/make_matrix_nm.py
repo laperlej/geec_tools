@@ -44,7 +44,7 @@ class Matrix(object):
             self.labels = self.matrix.columns.values.tolist()
             self.index = dict(itertools.izip(labels, xrange(len(labels))))
             self.matrix = self.matrix.as_matrix()
-            self.matrix = self.sub_matrix(self.labels)
+            self.sub_matrix(self.labels)
             print self.matrix
             print self.matrix.shape
             exit()
