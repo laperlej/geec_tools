@@ -43,13 +43,15 @@ class Matrix(object):
             self.matrix = pd.read_csv(matrix_file, delimiter='\t', index_col=0, header=0)
             self.labels = self.matrix.columns.values.tolist()
             self.matrix = self.matrix.as_matrix()
-            print self.labels
+            self.matrix = self.sub_matrix(self.labels)
             print self.matrix
+            print self.matrix.shape
             exit()
-            #self.matrix = self.sub_matrix(self.labels)
 
     def sub_matrix(self, labels):
+        indexes = [index[x] for x in labels if x in self.index]
         self.labels = labels
+        self.matrix = self.matrix[[indexes]][:, indexes]
 
     def extend(self, labels):
         pass
