@@ -43,6 +43,10 @@ class Matrix(object):
             self.labels = matrix_file.readline().strip().split()
             self.matrix = pd.read_csv(matrix_file, delimiter='\t', index_col=0).as_matrix()
             print self.matrix
+            print self.matrix[0,0]
+            print self.matrix[1,1]
+            print self.labels[0]
+            print self.matrix.shape
             exit()
             #self.matrix = self.sub_matrix(self.labels)
 
