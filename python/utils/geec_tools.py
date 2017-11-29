@@ -80,3 +80,16 @@ def make_matrix(input_list, correlation_file, output_matrix):
                      correlation_file,
                      output_matrix
                      ])
+
+def make_matrix_nm(input_list1, input_list2, correlation_file, precalc_matrix, output_matrix):
+    """
+    python make_matrix.py {list_path} {chrom_size} {corr_path} {output_path}
+    """
+    subprocess.call(['python',
+                     config.MAKE_MATRIX_NM,
+                     input_list1,
+                     input_list2,
+                     correlation_file,
+                     precalc_matrix,
+                     output_matrix
+                     ])

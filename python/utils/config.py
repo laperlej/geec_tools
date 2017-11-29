@@ -21,6 +21,7 @@ BW_TO_BG = exec_path('bigWigToBedGraph')
 WIG_TO_BW = exec_path('wigToBigWig')
 
 MAKE_MATRIX = os.path.join(MODULE_DIR, 'make_matrix.py')
+MAKE_MATRIX = os.path.join(MODULE_DIR, 'make_matrix_nm.py')
 
 def analysis_path(script_name):
     return os.path.join(os.path.dirname(MODULE_DIR), 'geec_analysis', script_name)

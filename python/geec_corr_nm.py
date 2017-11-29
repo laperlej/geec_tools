@@ -21,6 +21,7 @@ def correlation(input_file1, input_file2, corr_path, mat_path):
     exclude = config.get_region(assembly, geec_config["exclude"])
     resolution = geec_config["resolution"]
     chrom_sizes = config.get_chrom_sizes(assembly)
+    precalc = get_matrix(assembly, resolution, include, exclude, metric="pearson")
     
     input_paths = []
     for input_file in [input_file1, input_file2]:
@@ -35,7 +36,8 @@ def correlation(input_file1, input_file2, corr_path, mat_path):
         corr_input_file.close()
     
     correlate_nm(input_paths[1], input_paths[2], chrom_sizes, corr_path, resolution)
-    
+    """
+    #concat input path files
     input_path_cat = tmp_name()
     with open(input_path_cat, 'w') as input_file_cat:
         for input_path in input_paths:
@@ -44,6 +46,8 @@ def correlation(input_file1, input_file2, corr_path, mat_path):
                     input_file_cat.write(line + '\t')
     
     make_matrix(input_path_cat, corr_path, mat_path)
+    """
+    make_matrix_nm(input_path[1], input_path[2], corr_path, precalc, mat_path)
     
 def main():
     list_path = sys.argv[1]
