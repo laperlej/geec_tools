@@ -42,7 +42,7 @@ class Matrix(object):
         else:
             self.matrix = pd.read_csv(matrix_file, delimiter='\t', index_col=0, header=0)
             self.labels = self.matrix.columns.values.tolist()
-            self.index = create_index(self.labels)
+            self.index = self.create_index(self.labels)
             self.matrix = self.matrix.as_matrix()
             self.sub_matrix(self.labels)
 
@@ -59,7 +59,7 @@ class Matrix(object):
         left_extension = np.zeros((old_lenght + extra_lenght, extra_lenght))
         self.matrix = np.concatenate((top_extension, self.matrix), axis=0)
         self.matrix = np.concatenate((left_extension, self.matrix), axis=1)
-        self.index = create_index(self.labels)
+        self.index = self.create_index(self.labels)
 
     def create_index(self, labels):
         return dict(itertools.izip(labels, xrange(len(labels))))
