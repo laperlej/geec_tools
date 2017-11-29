@@ -42,6 +42,7 @@ class Matrix(object):
         else:
             self.matrix = pd.read_csv(matrix_file, delimiter='\t', index_col=0, header=0)
             self.labels = self.matrix.columns.values.tolist()
+            self.index = dict(itertools.izip(labels, xrange(len(labels))))
             self.matrix = self.matrix.as_matrix()
             self.matrix = self.sub_matrix(self.labels)
             print self.matrix
@@ -49,7 +50,7 @@ class Matrix(object):
             exit()
 
     def sub_matrix(self, labels):
-        indexes = [index[x] for x in labels if x in self.index]
+        indexes = [self.index[x] for x in labels if x in self.index]
         self.labels = labels
         self.matrix = self.matrix[[indexes]][:, indexes]
 
