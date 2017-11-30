@@ -34,8 +34,8 @@ def correlation_nm(input_file1, input_file2, corr_path, mat_path):
             filtered_hdf5 = os.path.join(geec_config["filtered_folder"], filtered_name)
             corr_input_file.write("{0}\t{1}\n".format(filtered_hdf5, name))
         corr_input_file.close()
-    
-    correlate_nm(input_paths[1], input_paths[2], chrom_sizes, corr_path, resolution)
+
+    correlate_nm(input_paths[0], input_paths[1], chrom_sizes, corr_path, resolution)
     """
     #concat input path files
     input_path_cat = tmp_name()
@@ -47,7 +47,7 @@ def correlation_nm(input_file1, input_file2, corr_path, mat_path):
     
     make_matrix(input_path_cat, corr_path, mat_path)
     """
-    make_matrix_nm(input_path[1], input_path[2], corr_path, precalc, mat_path)
+    make_matrix_nm(input_paths[0], input_paths[1], corr_path, precalc, mat_path)
     
 def main():
     list_path = sys.argv[1]
