@@ -15,13 +15,13 @@ def tmp_name():
     os.remove(temp_path)
     return temp_path
 
-def correlation(input_file1, input_file2, corr_path, mat_path):
+def correlation_nm(input_file1, input_file2, corr_path, mat_path):
     assembly = geec_config["assembly"]
     include = config.get_region(assembly, geec_config["include"])
     exclude = config.get_region(assembly, geec_config["exclude"])
     resolution = geec_config["resolution"]
     chrom_sizes = config.get_chrom_sizes(assembly)
-    precalc = get_matrix(assembly, resolution, include, exclude, metric="pearson")
+    precalc = config.get_matrix(assembly, resolution, include, exclude, metric="pearson")
     
     input_paths = []
     for input_file in [input_file1, input_file2]:
