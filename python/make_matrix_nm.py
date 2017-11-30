@@ -131,20 +131,13 @@ def weighted_average(line, weights):
 
 def main():
     input_file1 = InputFile(LIST_PATH1)
-    print "input_file1 loaded"
     input_file2 = InputFile(LIST_PATH2)
-    print "input_file2 loaded"
     matrix = Matrix(input_file2.names, open(PRECALC_PATH))
-    print "matrix loaded"
     matrix.extend(input_file1.names)
-    print "matrix extended"
     CorrFileParser(CORR_PATH).fill_matrix(input_file1.names, matrix)
-    print "corr file parsed"
     matrix.convert_labels(META)
-    print "labels converted"
     with open(OUTPUT_PATH, 'w') as output_file:
         output_file.write(str(matrix))
-    print "file written"
 
 def listjson2dictjson(old_json):
     new_json = {"datasets":{}}
