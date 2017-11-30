@@ -21,7 +21,7 @@ def correlation_nm(input_file1, input_file2, corr_path, mat_path):
     exclude = config.get_region(assembly, geec_config["exclude"])
     resolution = geec_config["resolution"]
     chrom_sizes = config.get_chrom_sizes(assembly)
-    precalc = config.get_matrix(assembly, resolution, include, exclude, metric="pearson")
+    precalc = config.get_matrix(assembly, resolution, geec_config["include"], geec_config["exclude"], metric="pearson")
     
     input_paths = []
     for input_file in [input_file1, input_file2]:
