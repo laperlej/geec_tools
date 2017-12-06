@@ -157,5 +157,5 @@ if __name__ == '__main__':
     if len(sys.argv) == 6:
         META = {}
     elif len(sys.argv) == 7:
-        META = listjson2dictjson(json.load(open(sys.argv[4])))
+        META = listjson2dictjson(json.load(open(sys.argv[6])))
     main()
