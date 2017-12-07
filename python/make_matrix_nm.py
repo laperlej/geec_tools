@@ -63,6 +63,8 @@ class Matrix(object):
         self.matrix = np.concatenate((top_extension, self.matrix), axis=0)
         self.matrix = np.concatenate((left_extension, self.matrix), axis=1)
         self.index = self.create_index(self.labels)
+        print self.matrix.shape
+        print self.matrix
 
     def create_index(self, labels):
         return dict(itertools.izip(labels, xrange(len(labels))))
