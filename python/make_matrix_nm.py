@@ -117,8 +117,6 @@ class CorrFileParser(object):
                     file1, file2 = line[0].split(':')
                     average = weighted_average(line[1:], weights)
                     matrix[file1, file2] = average
-            print matrix.matrix.shape
-            print matrix.matrix
         except IOError:
             pass
 
