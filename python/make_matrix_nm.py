@@ -63,8 +63,6 @@ class Matrix(object):
         self.matrix = np.concatenate((top_extension, self.matrix), axis=0)
         self.matrix = np.concatenate((left_extension, self.matrix), axis=1)
         self.index = self.create_index(self.labels)
-        print self.matrix.shape
-        print self.matrix
 
     def create_index(self, labels):
         return dict(itertools.izip(labels, xrange(len(labels))))
@@ -119,6 +117,8 @@ class CorrFileParser(object):
                     file1, file2 = line[0].split(':')
                     average = weighted_average(line[1:], weights)
                     matrix[file1, file2] = average
+            print matrix.matrix.shape
+            print matrix.matrix
         except IOError:
             pass
 
