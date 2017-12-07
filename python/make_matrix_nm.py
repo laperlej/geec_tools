@@ -57,7 +57,7 @@ class Matrix(object):
         old_lenght = len(self.labels)
         extra_lenght = len(labels)
         self.labels = labels + self.labels
-        self.size = len(labels)
+        self.size = len(self.labels)
         top_extension = np.zeros((extra_lenght, old_lenght))
         left_extension = np.zeros((old_lenght + extra_lenght, extra_lenght))
         self.matrix = np.concatenate((top_extension, self.matrix), axis=0)
