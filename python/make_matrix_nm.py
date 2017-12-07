@@ -45,7 +45,7 @@ class Matrix(object):
             self.size = len(labels)
             self.index = self.create_index(self.labels)
             self.matrix = self.matrix.as_matrix()
-            self.sub_matrix(self.labels)
+            self.sub_matrix(labels)
 
     def sub_matrix(self, labels):
         indexes = [self.index[x] for x in labels if x in self.index]
@@ -100,7 +100,7 @@ class CorrFileParser(object):
 
     def make_matrix(self, labels):
         matrix = Matrix(labels)
-        fill_matrix(labels, matrix)
+        self.fill_matrix(labels, matrix)
         return matrix
 
     def fill_matrix(self, labels, matrix):
