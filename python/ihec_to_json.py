@@ -61,15 +61,17 @@ class IhecJson(object):
         hub_description = ihec_json['hub_description']
         datasets = ihec_json['datasets']
 
-        publishing_group = hub_description["publishing_group"]
-        releasing_group = hub_description.get("releasing_group", publishing_group)
         assembly = hub_description["assembly"]
+        file_names = {}
+        md5sums = {}
         for name, data in datasets.iteritems():
             ihecdata = data.get("ihec_data_portal", {})
             assay = ihecdata.get("assay", "N/A")
             assay_category = ihecdata.get("assay_category", "N/A")
             cell_type = ihecdata.get("cell_type", "N/A")
             cell_type_category = ihecdata.get("cell_type_category", "N/A")
+            publishing_group = ihecdata.get("publishing_group", "N/A")
+            releasing_group = ihecdata.get("releasing_group", "N/A")
 
             #signal type priority
             for signal_type in ["methylation_profile", "signal_forward", "signal_unstranded", "signal"]:
@@ -77,9 +79,22 @@ class IhecJson(object):
                 if signal_data:
                     break
 
-            file_name = data.get("sample_id", "N/A")
-
             md5sum = signal_data.get("md5sum")
+            if md5sums.get(md5sum, 0):
+                continue
+            md5sums[md5sum] = 1
+
+            file_name = data.get("sample_id", "N/A")
+            while file_name in file_names:
+                #if filename ends with "_\d+$"
+                f = file_name.split("_")
+                if len(f) > 1 and f[-1].isdigit():
+                    f[-1] = str(int(f[-1]) + 1)
+                else:
+                    f.append("1")
+                file_name = "_".join(f)
+            file_names[file_name] = 1
+
             if md5sum is None:
                 continue
             unique_id = str(self.count)
