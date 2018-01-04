@@ -14,8 +14,11 @@ import multiprocessing
 def process_unit(args):
     """
     """
-    name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude = args
-    filter_hdf5(name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude)
+    try:
+        name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude = args
+        filter_hdf5(name, chrom_sizes, user_hdf5, filtered_hdf5, resolution, include, exclude)
+    except:
+        pass
 
 
 def make_args(list_file, assembly, resolution):
