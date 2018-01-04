@@ -57,12 +57,10 @@ class Validator(object):
 
 def main():
     parser = argparse.ArgumentParser()
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument('-l', '--list', default=None)
-    group.add_argument('hdf5', nargs='+')
+    parser.add_argument('-l', '--list')
+    parser.add_argument('hdf5', nargs='+')
     args = parser.parse_args()
-    print args.hdf5
-    print args.list
+
     if args.list():
         input_path = args.list
         hdf5s = InputManager(open(input_path, 'r'))
