@@ -61,7 +61,7 @@ def main():
     parser.add_argument('hdf5', nargs='+')
     args = parser.parse_args()
 
-    if args.list():
+    if args.list:
         input_path = args.list
         hdf5s = InputManager(open(input_path, 'r'))
     else:
