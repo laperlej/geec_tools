@@ -1,9 +1,21 @@
 import sys
 import os
 import h5py
-from . import utils
-from utils.utils import InputManager
 import argparse
+
+class InputManager(object):
+    def __init__(self, input_file):
+        self.input_tokens = []
+        self.load(input_file)
+
+    def load(self, input_file):
+        for line in input_file:
+            line = line.strip().split("\t")
+            if line: self.input_tokens.append(line)
+
+    def __iter__(self):
+        return iter(self.input_tokens)
+
 
 class Validator(object):
     def validate_list(self, input_manager):
@@ -54,7 +66,7 @@ def main():
         hdf5s = InputManager(open(input_path, 'r'))
     else:
         hdf5s = args.hdf5
-        
+
     results = Validator().validate_list(hdf5s)
     for result in results:
         print "{0}\t{1}".format(result[0], result[1])
