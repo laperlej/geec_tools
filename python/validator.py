@@ -3,7 +3,7 @@ import os
 import h5py
 from . import utils
 from utils.utils import InputManager
-
+import argparse
 
 class Validator(object):
     def validate_list(self, input_manager):
@@ -44,9 +44,18 @@ class Validator(object):
         return h5py.is_hdf5(hdf5_path)
 
 def main():
-    input_path = sys.argv[1]
-    input_manager = InputManager(open(input_path, 'r'))
-    results = Validator().validate_list(input_manager)
+    parser = argparse.ArgumentParser()
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('-l', '--list')
+    group.add_argument('hdf5', nargs='*')
+    args = parser.parse_args()
+    if args.list():
+        input_path = args.list
+        hdf5s = InputManager(open(input_path, 'r'))
+    else:
+        hdf5s = args.hdf5
+        
+    results = Validator().validate_list(hdf5s)
     for result in results:
         print "{0}\t{1}".format(result[0], result[1])
 
