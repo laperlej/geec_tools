@@ -62,10 +62,13 @@ def main():
     args = parser.parse_args()
 
     if args.list:
+        print "a"
         input_path = args.list
         hdf5s = InputManager(open(input_path, 'r'))
     else:
+        print "b"
         hdf5s = args.hdf5
+        print hdf5s
 
     results = Validator().validate_list(hdf5s)
     for result in results:
