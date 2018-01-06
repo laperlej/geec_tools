@@ -14,8 +14,11 @@ import multiprocessing
 def process_unit(args):
     """
     """
-    raw_file, name, chrom_sizes, user_hdf5, resolution = args
-    geec.to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution)
+    try:
+        raw_file, name, chrom_sizes, user_hdf5, resolution = args
+        geec.to_hdf5(raw_file, name, chrom_sizes, user_hdf5, resolution)
+    except:
+        pass
 
 def make_args(list_file, assembly, resolution):
     chrom_sizes = config.get_chrom_sizes(assembly)
