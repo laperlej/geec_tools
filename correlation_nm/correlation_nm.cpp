@@ -95,12 +95,12 @@ int main(int argc, const char * argv[]) {
   for (uint64_t i = 0; i < input_list2.size(); ++i) {
     try {
       Hdf5Reader hdf5_reader = Hdf5Reader(input_list2[i].first);
-      data.emplace(input_list2[i].second, GenomicDataset(input_list2[i].second));
+      data.emplace(input_list2[i].second, new GenomicDataset(input_list2[i].second));
       for (const std::string& chrom : chroms) {
         std::string name = input_list2[i].second + "/" + chrom;
         if (hdf5_reader.IsValid(name)) {
           hdf5_dataset = hdf5_reader.GetDataset(name, bin);
-          data[input_list2[i].second].add_chromosome(chrom, *hdf5_dataset);
+          data[input_list2[i].second]->add_chromosome(chrom, *hdf5_dataset);
         }
       }
     } catch (...) { std::cout<< "Could not open file: "<< input_list2[i].first<< std::endl; }
@@ -129,7 +129,7 @@ int main(int argc, const char * argv[]) {
   int pair_count = 0;
   std::string sizes = "";
   while(sizes == ""){
-      sizes = data[pairs[pair_count].first].get_sizes();
+      sizes = data[pairs[pair_count].first]->get_sizes();
       ++pair_count;
   }
   output_file << sizes << std::endl;
@@ -141,7 +141,7 @@ int main(int argc, const char * argv[]) {
   for (uint64_t i = 0; i < pairs.size(); ++i) {
     first = pairs[i].first;
     second = pairs[i].second;
-    result = data[first].Correlate(data[second], chroms);
+    result = data[first]->Correlate(*(data[second]), chroms);
     std::string name = first + ":" + second;
     write_entry(output_file, name, result);
   }
