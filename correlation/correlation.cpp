@@ -73,11 +73,11 @@ int main(int argc, const char * argv[]) {
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
 
   // read hdf5
-  std::map<std::string, GenomicDataset> data;
+  std::map<std::string, *GenomicDataset> data;
   for (uint64_t i = 0; i < input_list.size(); ++i) {
     try {
       Hdf5Reader hdf5_reader = Hdf5Reader(input_list[i].first);
-      data.emplace(input_list[i].second, GenomicDataset(input_list[i].second));
+      data.emplace(input_list[i].second, &GenomicDataset(input_list[i].second));
       for (const std::string& chrom : chroms) {
         std::string name = input_list[i].second + "/" + chrom;
         if (hdf5_reader.IsValid(name)) {
