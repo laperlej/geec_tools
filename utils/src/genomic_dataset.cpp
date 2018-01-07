@@ -45,7 +45,7 @@ std::map<std::string, float>  GenomicDataset::Correlate(
       float r;
       try{
         r = chromosomes_.at(chr)->GetPearson(
-        genomic_dataset.chromosomes().at(chr));
+        *(genomic_dataset.chromosomes().at(chr)));
       } catch (...) {
         r = 0;
       }
