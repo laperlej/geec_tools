@@ -76,16 +76,16 @@ int main(int argc, const char * argv[]) {
   std::vector<std::string> chroms = chrom_size.get_chrom_list();
 
   // read hdf5
-  std::map<std::string, GenomicDataset> data;
+  std::map<std::string, GenomicDataset*> data;
   for (uint64_t i = 0; i < input_list.size(); ++i) {
     try {
       Hdf5Reader hdf5_reader = Hdf5Reader(input_list[i].first);
-      data.emplace(input_list[i].second, GenomicDataset(input_list[i].second));
+      data.emplace(input_list[i].second, new GenomicDataset(input_list[i].second));
       for (const std::string& chrom : chroms) {
         std::string name = input_list[i].second + "/" + chrom;
         if (hdf5_reader.IsValid(name)) {
           hdf5_dataset = hdf5_reader.GetDataset(name, bin);
-          data[input_list[i].second].add_chromosome(chrom, *hdf5_dataset);
+          data[input_list[i].second]->add_chromosome(chrom, *hdf5_dataset);
         }
       }
     } catch (...) { std::cout<< "Could not open file: "<< input_list[i].first<< std::endl; }

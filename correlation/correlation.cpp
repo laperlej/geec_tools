@@ -115,7 +115,7 @@ int main(int argc, const char * argv[]) {
   for (uint64_t i = 0; i < pairs.size(); ++i) {
     first = pairs[i].first;
     second = pairs[i].second;
-    result = data[first]->Correlate(*(data[second]), chroms);
+    result = data[first]->Correlate(data[second], chroms);
     std::string name = first + ":" + second;
     write_entry(output_file, name, result);
   }
