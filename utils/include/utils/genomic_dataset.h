@@ -24,19 +24,19 @@ class GenomicDataset {
     ~GenomicDataset() {}
     void add_chromosome(const std::string& name,
                         const Hdf5Dataset& hdf5_dataset);
-    std::map<std::string, Hdf5Dataset>& chromosomes() {return chromosomes_;}
+    std::map<std::string, Hdf5Dataset*>& chromosomes() {return chromosomes_;}
     std::map<std::string, float> Correlate(
         GenomicDataset& genomic_dataset,
         std::vector<std::string>& chromosomes);
     std::string get_name();
     std::string get_sizes();
     void filter(FilterBitset& filter) {
-      for (std::pair<const std::string, Hdf5Dataset>& chrom : chromosomes_) {
+      for (std::pair<const std::string, Hdf5Dataset*>& chrom : chromosomes_) {
         chrom.second.filter(filter[chrom.first]);
       }
     }
  private:
-     std::map<std::string, Hdf5Dataset> chromosomes_;
+     std::map<std::string, Hdf5Dataset*> chromosomes_;
      std::string file_name_;
 };
 
