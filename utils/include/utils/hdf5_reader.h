@@ -19,7 +19,7 @@ class Hdf5Reader {
   explicit Hdf5Reader(const std::string& file_path);
   ~Hdf5Reader() {Close();}
   Hdf5Dataset* GetDataset(std::string& name, int bin);
-  GenomicDataset GetGenomicDataset(std::string& name, std::vector<std::string> chroms, int bin);
+  GenomicDataset* GetGenomicDataset(std::string& name, std::vector<std::string> chroms, int bin);
   float GetSumX(const std::string& name);
   float GetSumXX(const std::string& name);
   std::string GetHash();
