@@ -18,7 +18,7 @@ GenomicDataset::GenomicDataset(const std::string& file_name) {
 }
 
 void GenomicDataset::add_chromosome(const std::string& name,
-                                    const Hdf5Dataset& hdf5_dataset) {
+                                    const Hdf5Dataset* hdf5_dataset) {
   chromosomes_.emplace(name, hdf5_dataset);
 }
 
@@ -29,7 +29,7 @@ std::string GenomicDataset::get_name() {
 std::string GenomicDataset::get_sizes() {
   std::string sizes = "";
   for (auto chr : chromosomes_) {
-    sizes += "\t" + chr.first + ":" + std::to_string(chr.second.size());
+    sizes += "\t" + chr.first + ":" + std::to_string(chr.second->size());
   }
   return sizes;
 }
