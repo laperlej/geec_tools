@@ -27,6 +27,7 @@ Hdf5Dataset* Hdf5Reader::GetDataset(std::string& name, int bin) {
   // get data
   std::vector<float> data;
   data.resize(dims);
+  std::cout<< data.capacity() << "_" << sizeof(float) <<std::endl;
   H5LTread_dataset_float(file_id_, name.c_str(), &data[0]);
   Hdf5Dataset* hdf5_dataset = new Hdf5Dataset(name, data, bin, GetSumX(name), GetSumXX(name));
   return hdf5_dataset;
