@@ -114,10 +114,8 @@ int main(int argc, const char * argv[]) {
     first = pairs[i].first;
     second = pairs[i].second;
     result = data[first].CorrelateAll(data[second], chroms);
-    first_index = input_list.get_index(first);
-    second_index = input_list.get_index(second);
-    matrix[first_index][second_index] = result;
-    matrix[second_index][first_index] = result;
+    matrix[input_list.get_index(first)][input_list.get_index(second)] = result;
+    matrix[input_list.get_index(second)][input_list.get_index(first)] = result;
   }
   std::ofstream output_file;
   write_matrix(output_file, input_list, matrix);
