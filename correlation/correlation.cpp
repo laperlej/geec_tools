@@ -42,7 +42,7 @@ void write_matrix(std::ofstream& output_file,
   for (uint64_t i = 0; i < input_list.size(); ++i) {
     first_line += "\t" + input_list[i].second;
   }
-  output_file << output_line + "\n";
+  output_file << first_line + "\n";
   //write matrix
   for (uint64_t i = 0; i < input_list.size(); ++i) {
     std::string output_line = input_list[i].second;
