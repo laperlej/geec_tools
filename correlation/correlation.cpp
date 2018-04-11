@@ -46,10 +46,11 @@ void write_matrix(std::ofstream& output_file,
   //write matrix
   for (uint64_t i = 0; i < input_list.size(); ++i) {
     std::string output_line = input_list[i].second;
-    for (uint64_t j = 0; j < input_list.size(); ++j)
+    for (uint64_t j = 0; j < input_list.size(); ++j) {
       output_line += "\t" +  std::to_string(matrix[i][j]);
+    }
+    output_file << output_line + "\n";
   }
-  output_file << output_line + "\n";
 }
 
 int main(int argc, const char * argv[]) {
