@@ -69,6 +69,7 @@ float GenomicDataset::CorrelateAll(
         genomic_dataset.chromosomes_.find(chr) !=
         genomic_dataset.chromosomes_.end()) {
     results += chromosomes_.find(chr).GetPartialPearson(genomic_dataset.chromosomes().at(chr))
+    }
   }
   if (results.size == 0) {
     r = std::numeric_limits<float>::quiet_NaN();
