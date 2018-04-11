@@ -153,7 +153,7 @@ float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   return r;
 }
 
-partial_results GetPartialPearson(Hdf5Dataset& hdf5_dataset) {
+PartialResults GetPartialPearson(Hdf5Dataset& hdf5_dataset) {
   if (!(size_ == hdf5_dataset.size())) {
     throw std::runtime_error("Attemping to correlate vectors of different lenghts");
   }
