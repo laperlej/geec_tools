@@ -68,7 +68,7 @@ float GenomicDataset::CorrelateAll(
     if (chromosomes_.find(chr) != chromosomes_.end() &&
         genomic_dataset.chromosomes_.find(chr) !=
         genomic_dataset.chromosomes_.end()) {
-    results += chromosomes_.find(chr).GetPartialPearson(genomic_dataset.chromosomes().at(chr))
+    results += chromosomes_.at(chr).GetPartialPearson(genomic_dataset.chromosomes().at(chr))
     }
   }
   if (results.size == 0) {
