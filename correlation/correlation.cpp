@@ -105,6 +105,7 @@ int main(int argc, const char * argv[]) {
   
   // compute correlation for every pair
   std::string first, second;
+  float result;
   std::vector<std::vector<float>> matrix;
   matrix.resize(input_list.size(), std::vector<float>(input_list.size()));
 
