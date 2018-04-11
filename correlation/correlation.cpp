@@ -36,7 +36,7 @@ they are not nessessarily actual files
 
 void write_matrix(std::ofstream& output_file,
                  InputList& input_list,
-                 vector<vector<float>>& matrix) {
+                 std::vector<std::vector<float>>& matrix) {
   //write header
   first_line = ""
   for (uint64_t i = 0; i < input_list.size(); ++i) {
@@ -104,7 +104,7 @@ int main(int argc, const char * argv[]) {
   
   // compute correlation for every pair
   std::string first, second;
-  vector<vector<float>> matrix;
+  std::vector<std::vector<float>> matrix;
   matrix.resize(input_list.size(), vector<char>(input_list.size()));
 
   #pragma omp parallel for private(first, second, result)
