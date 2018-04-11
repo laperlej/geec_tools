@@ -110,12 +110,21 @@ int main(int argc, const char * argv[]) {
 
   std::string first, second;
   std::map<std::string, float> result;
-
-  #pragma omp parallel for private(first, second, result)
-  for (uint64_t i = 0; i < pairs.size(); ++i) {
+  uint64_t i;
+  std::cout<< pairs.size()<< std::endl;
+  #pragma omp parallel for private(i, first, second, result)
+  for (i=0; i < pairs.size(); ++i) {
+    #pragma omp critical (output) 
+    {
+      std::cout<< omp_get_thread_num()<< " : "<< i<< std::endl;
+    }
     first = pairs[i].first;
     second = pairs[i].second;
     result = data[first]->Correlate(*(data[second]), chroms);
+    #pragma omp critical (output)
+    {
+      std::cout<< omp_get_thread_num()<< " : "<< i<< std::endl;
+    }
     std::string name = first + ":" + second;
     write_entry(output_file, name, result);
   }
