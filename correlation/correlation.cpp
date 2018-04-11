@@ -106,7 +106,7 @@ int main(int argc, const char * argv[]) {
   // compute correlation for every pair
   std::string first, second;
   std::vector<std::vector<float>> matrix;
-  matrix.resize(input_list.size(), vector<char>(input_list.size()));
+  matrix.resize(input_list.size(), std::vector<char>(input_list.size()));
 
   #pragma omp parallel for private(first, second, result)
   for (uint64_t i = 0; i < pairs.size(); ++i) {
