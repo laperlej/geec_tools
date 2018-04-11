@@ -40,9 +40,9 @@ void write_matrix(std::ofstream& output_file,
   //write header
   first_line = "\t"
   for (uint64_t i = 0; i < input_list.size(); ++i) {
-    first_line += input_list[i].second
+    first_line += input_list[i].second;
   }
-  output_file << output_line + "\n"
+  output_file << output_line + "\n";
   //write matrix
   for (uint64_t i = 0; i < input_list.size(); ++i) {
     std::string output_line = input_list[i].second;
@@ -112,13 +112,13 @@ int main(int argc, const char * argv[]) {
     first = pairs[i].first;
     second = pairs[i].second;
     result = data[first].CorrelateAll(data[second], chroms);
-    first_index = input_list.get_index(first)
-    second_index = input_list.get_index(second)
-    matrix[first_index][second_index] = result
-    matrix[second_index][first_index] = result
+    first_index = input_list.get_index(first);
+    second_index = input_list.get_index(second);
+    matrix[first_index][second_index] = result;
+    matrix[second_index][first_index] = result;
   }
   std::ofstream output_file;
-  write_matrix(output_file, input_list, matrix)
+  write_matrix(output_file, input_list, matrix);
   output_file.close();
 
   return 0;

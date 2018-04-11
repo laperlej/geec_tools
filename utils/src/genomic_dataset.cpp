@@ -71,7 +71,7 @@ float GenomicDataset::CorrelateAll(
     results += chromosomes_.find(chr).GetPartialPearson(genomic_dataset.chromosomes().at(chr))
   }
   if (results.size == 0) {
-    r = std::numeric_limits<float>::quiet_NaN()
+    r = std::numeric_limits<float>::quiet_NaN();
   } else {
     num = results.sumXY - (results.sumX * results.sumY / results.size);
     denum = (results.sumXX - pow(results.sumX, 2) / results.size) * (results.sumYY - pow(results.sumY, 2) / results.size);
