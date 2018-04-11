@@ -32,7 +32,7 @@ struct PartialResult {
     sumXY += rhs.sumXY;
     size += rhs.size;
   }
-}
+};
 
 class Hdf5Dataset {
  public:

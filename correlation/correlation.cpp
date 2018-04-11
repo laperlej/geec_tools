@@ -38,9 +38,9 @@ void write_matrix(std::ofstream& output_file,
                  InputList& input_list,
                  vector<vector<float>>& matrix) {
   //write header
-  first_line = "\t"
+  first_line = ""
   for (uint64_t i = 0; i < input_list.size(); ++i) {
-    first_line += input_list[i].second;
+    first_line += "\t" + input_list[i].second;
   }
   output_file << output_line + "\n";
   //write matrix
