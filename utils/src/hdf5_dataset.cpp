@@ -153,6 +153,26 @@ float Hdf5Dataset::GetPearson(Hdf5Dataset& hdf5_dataset) {
   return r;
 }
 
+partial_results GetPartialPearson(Hdf5Dataset& hdf5_dataset) {
+  if (!(size_ == hdf5_dataset.size())) {
+    throw std::runtime_error("Attemping to correlate vectors of different lenghts");
+  }
+  PartialResult Results = PartialResult()
+
+  std::vector<float>& v1 = content_;
+  std::vector<float>& v2 = hdf5_dataset.GetContent();
+
+  for (unsigned int i = 0; i < size_; ++i) {
+    results.sumXY += v1[i] * v2[i];
+    results.sumXX += v1[i] * v1[i];
+    results.sumYY += v2[i] * v2[i];
+    results.sumX += v1[i];
+    results.sumY += v2[i];
+  }
+  results.size = size_
+  return results;
+}
+
 void Hdf5Dataset::print() const {
   for (float i : content_) {
     std::cout<< i<< ", ";

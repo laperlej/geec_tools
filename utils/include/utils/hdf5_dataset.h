@@ -17,6 +17,23 @@
 #include <boost/dynamic_bitset.hpp>
 #include "utils/genomic_data_line.h"
 
+struct PartialResult {
+  float sumX = 0;
+  float sumXX = 0;
+  float sumY = 0;
+  float sumYY = 0;
+  float sumXY = 0;
+  int size = 0;
+  struct PartialResult& operator+=(const PartialResult rhs){
+    sumX += rhs.sumX;
+    sumXX += rhs.sumXX;
+    sumY += rhs.sumY;
+    sumYY += rhs.sumYY;
+    sumXY += rhs.sumXY;
+    size += rhs.size;
+  }
+}
+
 class Hdf5Dataset {
  public:
   Hdf5Dataset(const std::string& name, int size, int bin);
@@ -57,6 +74,7 @@ class Hdf5Dataset {
   }
   std::vector<float>& GetContent();
   float GetPearson(Hdf5Dataset& hdf5_dataset);
+  PartialResult GetPartialPearson(Hdf5Dataset& hdf5_dataset);
   void print() const;
  private:
   std::string name_;

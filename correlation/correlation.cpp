@@ -34,17 +34,22 @@ they are not nessessarily actual files
 #include "utils/hdf5_reader.h"
 #include "utils/input_list.h"
 
-void write_entry(std::ofstream& output_file,
-                 std::string& name,
-                 std::map<std::string, float>& result) {
-  std::string output_line = name;
-  for (const auto& chrom : result) {
-    output_line += "\t" + chrom.first + "," +  std::to_string(chrom.second);
+void write_matrix(std::ofstream& output_file,
+                 InputList& input_list,
+                 vector<vector<float>>& matrix) {
+  //write header
+  first_line = "\t"
+  for (uint64_t i = 0; i < input_list.size(); ++i) {
+    first_line += input_list[i].second
   }
-  #pragma omp critical (output) 
-  {
-    output_file << output_line + "\n";
+  output_file << output_line + "\n"
+  //write matrix
+  for (uint64_t i = 0; i < input_list.size(); ++i) {
+    std::string output_line = input_list[i].second;
+    for (uint64_t j = 0; j < input_list.size(); ++j)
+      output_line += "\t" +  std::to_string(matrix[i][j]);
   }
+  output_file << output_line + "\n";
 }
 
 int main(int argc, const char * argv[]) {
@@ -98,28 +103,22 @@ int main(int argc, const char * argv[]) {
   }
   
   // compute correlation for every pair
-  std::ofstream output_file;
-  output_file.open(output_path);
-  int pair_count = 0;
-  std::string sizes = "";
-  while(sizes == ""){
-      sizes = data[pairs[pair_count].first].get_sizes();
-      ++pair_count;
-  }
-  output_file << sizes << std::endl;
-
   std::string first, second;
-  std::map<std::string, float> result;
+  vector<vector<float>> matrix;
+  matrix.resize(input_list.size(), vector<char>(input_list.size()));
 
   #pragma omp parallel for private(first, second, result)
   for (uint64_t i = 0; i < pairs.size(); ++i) {
     first = pairs[i].first;
     second = pairs[i].second;
-    result = data[first].Correlate(data[second], chroms);
-    std::string name = first + ":" + second;
-    write_entry(output_file, name, result);
+    result = data[first].CorrelateAll(data[second], chroms);
+    first_index = input_list.get_index(first)
+    second_index = input_list.get_index(second)
+    matrix[first_index][second_index] = result
+    matrix[second_index][first_index] = result
   }
-
+  std::ofstream output_file;
+  write_matrix(output_file, input_list, matrix)
   output_file.close();
 
   return 0;

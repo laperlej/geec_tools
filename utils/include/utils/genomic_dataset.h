@@ -28,6 +28,9 @@ class GenomicDataset {
     std::map<std::string, float> Correlate(
         GenomicDataset& genomic_dataset,
         std::vector<std::string>& chromosomes);
+    float  GenomicDataset::CorrelateAll(
+      GenomicDataset& genomic_dataset,
+        std::vector<std::string>& chromosomes);
     std::string get_name();
     std::string get_sizes();
     void filter(FilterBitset& filter) {
