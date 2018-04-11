@@ -28,7 +28,7 @@ class GenomicDataset {
     std::map<std::string, float> Correlate(
         GenomicDataset& genomic_dataset,
         std::vector<std::string>& chromosomes);
-    float  GenomicDataset::CorrelateAll(
+    float CorrelateAll(
       GenomicDataset& genomic_dataset,
         std::vector<std::string>& chromosomes);
     std::string get_name();
