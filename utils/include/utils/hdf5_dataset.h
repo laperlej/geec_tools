@@ -25,12 +25,13 @@ struct PartialResult {
   float sumXY = 0;
   int size = 0;
   struct PartialResult& operator+=(const PartialResult rhs){
-    sumX += rhs.sumX;
-    sumXX += rhs.sumXX;
-    sumY += rhs.sumY;
-    sumYY += rhs.sumYY;
-    sumXY += rhs.sumXY;
-    size += rhs.size;
+    this->sumX += rhs.sumX;
+    this->sumXX += rhs.sumXX;
+    this->sumY += rhs.sumY;
+    this->sumYY += rhs.sumYY;
+    this->sumXY += rhs.sumXY;
+    this->size += rhs.size;
+    return *this;
   }
 };
 
