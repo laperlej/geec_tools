@@ -67,8 +67,6 @@ class Matrix(object):
         #merge matrices
         tmp1 = pd.concat([nn_dframe, nm_dframe], axis=1)
         tmp2 = pd.concat([mm_dframe, nm_dframe])
-        tmp3 = pd.concat([tmp2.transpose(), tmp1], axis=0)
-
         self.matrix = np.nan_to_num(tmp3.sort_index(axis=0).sort_index(axis=1).as_matrix())
 
     def __getitem__(self, labels):
