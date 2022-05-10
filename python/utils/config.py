@@ -4,7 +4,7 @@ import os.path
 MODULE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 TMP_DIR = '/home/laperlej/mntHome/tmp/'
 IHEC_DIR = '/nfs3_ib/10.4.217.32'
-PUBLIC_DATA_ROOT = "/home/laperlej/geec/public"
+PUBLIC_DATA_ROOT = "/geec-data/public"
 
 #executables
 def exec_path(exec_name):
